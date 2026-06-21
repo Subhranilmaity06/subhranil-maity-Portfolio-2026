@@ -754,6 +754,34 @@ if (neoPlayer) {
   }, { passive: true });
 }
 
+// Dynamic positioning of turntable player (inline on mobile, floating on desktop)
+function adjustPlayerForMobile() {
+  var player = document.getElementById('winamp-player');
+  var widgetsContainer = document.getElementById('widgets-container');
+  var desktop = document.getElementById('desktop');
+  
+  if (!player || !widgetsContainer || !desktop) return;
+  
+  var isMobile = window.innerWidth <= 900;
+  var isCurrentlyMobilePlaced = player.parentElement === widgetsContainer;
+  
+  if (isMobile && !isCurrentlyMobilePlaced) {
+    // Move inside widgets container (prepend as first child so it appears at top)
+    widgetsContainer.insertBefore(player, widgetsContainer.firstChild);
+  } else if (!isMobile && isCurrentlyMobilePlaced) {
+    // Move back to desktop
+    desktop.appendChild(player);
+  }
+}
+
+// Run immediately and on resize/load
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', adjustPlayerForMobile);
+} else {
+  adjustPlayerForMobile();
+}
+window.addEventListener('resize', adjustPlayerForMobile);
+
 // Menu bar toggle action
 var menuTurntableBtn = document.getElementById('menu-turntable-btn');
 if (menuTurntableBtn && neoPlayer) {

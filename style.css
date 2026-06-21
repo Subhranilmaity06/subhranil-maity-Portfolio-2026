@@ -762,8 +762,32 @@ h2, h3, .quote-text, .window-title {
     font-size: 16px;
   }
 
-  .menu-left .menu-item:nth-child(n+4) {
-    display: none; /* Hide File/Edit/View/Help on mobile */
+  /* Hide File, Edit, View, Help on mobile but show logo, name, and Music */
+  .menu-left .menu-item:not(.menu-logo):not(.bold):not(#menu-turntable-btn) {
+    display: none;
+  }
+
+  /* Hide status icons on mobile clock */
+  .menu-right .menu-item:not(#clock) {
+    display: none;
+  }
+
+  /* Hide scrollbar on dock for clean swiping */
+  #dock::-webkit-scrollbar {
+    display: none;
+  }
+  #dock {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  /* Inline player styling for mobile flow */
+  #widgets-container > #winamp-player {
+    position: relative !important;
+    top: 0 !important;
+    left: 0 !important;
+    margin: 8px auto 16px auto !important;
+    z-index: 1 !important;
   }
 
   /* Windows */
