@@ -725,35 +725,37 @@ h2, h3, .quote-text, .window-title {
 
   #dock {
     width: 100%;
-    justify-content: center;
-    gap: 2px;
-    padding: 6px 8px;
+    justify-content: space-around;
+    gap: 8px;
+    padding: 8px;
     overflow-x: auto;
     flex-wrap: nowrap;
+    -webkit-overflow-scrolling: touch;
   }
 
   .dock-item {
-    padding: 2px;
+    padding: 4px;
   }
 
   .dock-item i {
-    width: 28px;
-    height: 28px;
-    padding: 3px;
+    width: 38px;
+    height: 38px;
+    padding: 6px;
     box-shadow: 2px 2px 0px var(--retro-black);
   }
 
   .dock-label {
-    font-size: 9px;
+    font-size: 11px;
+    margin-top: 4px;
   }
 
   .dock-item:hover {
-    transform: scale(1.1) translateY(-4px);
+    transform: scale(1.05) translateY(-2px);
   }
 
   .dock-separator {
-    height: 36px;
-    margin: 0 2px;
+    height: 42px;
+    margin: 0 4px;
   }
 
   /* Menu bar */
