@@ -6,8 +6,7 @@
   <title>Subhranil Maity — Retro OS</title>
   <meta name="description" content="Portfolio of Subhranil Maity — Product & Brand Designer. A fun retro OS experience.">
   <link rel="stylesheet" href="style.css">
-  <!-- YouTube IFrame API -->
-  <script src="https://www.youtube.com/iframe_api"></script>
+
 </head>
 <body>
 
@@ -162,15 +161,13 @@
           </div>
           
           <div class="winamp-controls">
-            <button class="flat-btn"><i data-lucide="skip-back"></i></button>
+            <button class="flat-btn" id="prev-btn"><i data-lucide="skip-back"></i></button>
             <button class="flat-btn" id="play-pause-btn"><i data-lucide="play"></i></button>
-            <button class="flat-btn"><i data-lucide="skip-forward"></i></button>
+            <button class="flat-btn" id="next-btn"><i data-lucide="skip-forward"></i></button>
           </div>
           
-          <!-- Hidden YouTube Player -->
-          <div id="yt-player-container" style="position:absolute; width:200px; height:200px; left:-9999px; top:-9999px;">
-            <div id="yt-player"></div>
-          </div>
+          <!-- HTML5 Audio Player (November Rain) -->
+          <audio id="audio-player" src="https://archive.org/download/gnr-november-rain/GNR%20-%20November%20Rain.mp3" preload="metadata"></audio>
         </div>
       </div>
 

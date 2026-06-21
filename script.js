@@ -727,56 +727,27 @@ if (pet) {
 }
 
 // ========================
-// RETRO TURNTABLE — YOUTUBE API
+// RETRO TURNTABLE — AUDIO PLAYER
 // ========================
 var neoPlayer = document.getElementById('winamp-player');
 if (neoPlayer) {
   makeDraggable(neoPlayer, neoPlayer.querySelector('.widget-header'));
 }
 
-var ytPlayer = null;
+var audioPlayer = document.getElementById('audio-player');
 var vinyl = document.getElementById('vinyl-record');
 var tonearm = document.getElementById('tonearm');
 var playPauseBtn = document.getElementById('play-pause-btn');
+var prevBtn = document.getElementById('prev-btn');
+var nextBtn = document.getElementById('next-btn');
 var progressFill = document.getElementById('progress-fill');
 var progressHandle = document.getElementById('progress-handle');
 var currentTimeEl = document.getElementById('current-time');
 var totalTimeEl = document.getElementById('total-time');
-var progressInterval;
 var isPlaying = false;
 
-// Track list — add more here!
-var tracks = [
-  { title: 'November Rain', artist: "Guns N' Roses", ytId: '8SbUC-UaAxE' }
-];
-var currentTrack = 0;
-
-// Called automatically by YouTube API when ready
-function onYouTubeIframeAPIReady() {
-  ytPlayer = new YT.Player('yt-player', {
-    height: '1',
-    width: '1',
-    videoId: tracks[currentTrack].ytId,
-    playerVars: { autoplay: 0, controls: 0, rel: 0, modestbranding: 1 },
-    events: {
-      onReady: function() {
-        var dur = ytPlayer.getDuration();
-        if (totalTimeEl && dur) {
-          var m = Math.floor(dur / 60);
-          var s = Math.floor(dur % 60);
-          totalTimeEl.innerText = m + ':' + (s < 10 ? '0' : '') + s;
-        }
-      },
-      onStateChange: function(e) {
-        if (e.data === YT.PlayerState.ENDED) {
-          setPlayState(false);
-        }
-      }
-    }
-  });
-}
-
 function formatTime(sec) {
+  if (isNaN(sec)) return "0:00";
   var m = Math.floor(sec / 60);
   var s = Math.floor(sec % 60);
   return m + ':' + (s < 10 ? '0' : '') + s;
@@ -791,15 +762,6 @@ function setPlayState(playing) {
       playPauseBtn.innerHTML = '<i data-lucide="pause"></i>';
       if (window.lucide) lucide.createIcons();
     }
-    progressInterval = setInterval(function() {
-      if (!ytPlayer) return;
-      var cur = ytPlayer.getCurrentTime ? ytPlayer.getCurrentTime() : 0;
-      var dur = ytPlayer.getDuration ? ytPlayer.getDuration() : 1;
-      var pct = dur > 0 ? (cur / dur) * 100 : 0;
-      if (progressFill) progressFill.style.width = pct + '%';
-      if (progressHandle) progressHandle.style.left = pct + '%';
-      if (currentTimeEl) currentTimeEl.innerText = formatTime(cur);
-    }, 500);
   } else {
     if (vinyl) vinyl.classList.remove('playing');
     if (tonearm) tonearm.classList.remove('playing');
@@ -807,22 +769,146 @@ function setPlayState(playing) {
       playPauseBtn.innerHTML = '<i data-lucide="play"></i>';
       if (window.lucide) lucide.createIcons();
     }
-    clearInterval(progressInterval);
   }
 }
 
-if (playPauseBtn) {
+if (audioPlayer) {
+  // Sync total time once metadata is loaded
+  audioPlayer.addEventListener('loadedmetadata', function() {
+    var dur = audioPlayer.duration;
+    if (totalTimeEl && dur) {
+      totalTimeEl.innerText = formatTime(dur);
+    }
+  });
+
+  // Track progress updates
+  audioPlayer.addEventListener('timeupdate', function() {
+    if (audioPlayer.seeking) return; // avoid jitter during scrubbing
+    var cur = audioPlayer.currentTime;
+    var dur = audioPlayer.duration || 1;
+    var pct = (cur / dur) * 100;
+    if (progressFill) progressFill.style.width = pct + '%';
+    if (progressHandle) progressHandle.style.left = pct + '%';
+    if (currentTimeEl) currentTimeEl.innerText = formatTime(cur);
+  });
+
+  // Handle song ending
+  audioPlayer.addEventListener('ended', function() {
+    setPlayState(false);
+  });
+
+  // Fallback: If metadata is already loaded before event listener is registered
+  if (audioPlayer.readyState >= 1) {
+    var dur = audioPlayer.duration;
+    if (totalTimeEl && dur) {
+      totalTimeEl.innerText = formatTime(dur);
+    }
+  }
+}
+
+// Click to play/pause
+if (playPauseBtn && audioPlayer) {
   playPauseBtn.addEventListener('click', function() {
     playSound('click');
     if (isPlaying) {
-      if (ytPlayer && ytPlayer.pauseVideo) ytPlayer.pauseVideo();
+      audioPlayer.pause();
       setPlayState(false);
     } else {
-      if (ytPlayer && ytPlayer.playVideo) {
-        ytPlayer.playVideo();
-        showToast('\ud83c\udfb5 Playing: ' + tracks[currentTrack].title);
-      }
-      setPlayState(true);
+      audioPlayer.play().then(function() {
+        showToast('🎵 Playing: Guns N\' Roses - November Rain');
+        setPlayState(true);
+      }).catch(function(err) {
+        console.error("Audio playback block:", err);
+        // Browsers block autoplay/code-initiated play without interaction
+        showToast('⚠️ Click again to allow audio playback!');
+      });
     }
+  });
+}
+
+// Interactive Scrubbing / seeking
+var progressBarContainer = document.getElementById('progress-bar-container');
+if (progressBarContainer && audioPlayer) {
+  progressBarContainer.style.cursor = 'pointer';
+
+  var isScrubbing = false;
+
+  function performSeek(e) {
+    var rect = progressBarContainer.getBoundingClientRect();
+    var clientX = e.clientX || (e.touches && e.touches[0].clientX);
+    if (clientX === undefined) return;
+    var clickX = clientX - rect.left;
+    var width = rect.width;
+    var pct = Math.max(0, Math.min(1, clickX / width));
+    
+    if (progressFill) progressFill.style.width = (pct * 100) + '%';
+    if (progressHandle) progressHandle.style.left = (pct * 100) + '%';
+    
+    if (audioPlayer.duration) {
+      audioPlayer.currentTime = pct * audioPlayer.duration;
+      if (currentTimeEl) currentTimeEl.innerText = formatTime(audioPlayer.currentTime);
+    }
+  }
+
+  // Mouse seek
+  progressBarContainer.addEventListener('mousedown', function(e) {
+    isScrubbing = true;
+    performSeek(e);
+
+    function onMouseMove(moveEvent) {
+      if (isScrubbing) performSeek(moveEvent);
+    }
+
+    function onMouseUp() {
+      isScrubbing = false;
+      document.removeEventListener('mousemove', onMouseMove);
+      document.removeEventListener('mouseup', onMouseUp);
+    }
+
+    document.addEventListener('mousemove', onMouseMove);
+    document.addEventListener('mouseup', onMouseUp);
+  });
+
+  // Touch seek
+  progressBarContainer.addEventListener('touchstart', function(e) {
+    isScrubbing = true;
+    performSeek(e);
+
+    function onTouchMove(moveEvent) {
+      if (isScrubbing) performSeek(moveEvent);
+    }
+
+    function onTouchEnd() {
+      isScrubbing = false;
+      document.removeEventListener('touchmove', onTouchMove);
+      document.removeEventListener('touchend', onTouchEnd);
+    }
+
+    document.addEventListener('touchmove', onTouchMove, { passive: true });
+    document.addEventListener('touchend', onTouchEnd);
+  }, { passive: true });
+}
+
+// Skip actions (funny retro toasts)
+var funnySkipResponses = [
+  "💿 Guns N' Roses 'November Rain' is the only masterpiece on this record!",
+  "🚫 Cannot skip. Do you really want to skip this guitar solo?",
+  "📼 Be kind, rewind! No other tracks loaded on this floppy disk.",
+  "🎹 November Rain is playing on repeat. It's too good to skip!"
+];
+
+if (prevBtn) {
+  prevBtn.addEventListener('click', function() {
+    playSound('click');
+    var randomMsg = funnySkipResponses[Math.floor(Math.random() * funnySkipResponses.length)];
+    showToast(randomMsg);
+  });
+}
+
+if (nextBtn) {
+  nextBtn.addEventListener('click', function() {
+    playSound('click');
+    var randomMsg = funnySkipResponses[Math.floor(Math.random() * funnySkipResponses.length)];
+    showToast(randomMsg);
   });
 }
