@@ -731,7 +731,7 @@ if (pet) {
 // ========================
 var neoPlayer = document.getElementById('winamp-player');
 if (neoPlayer) {
-  makeDraggable(neoPlayer, neoPlayer.querySelector('.neo-header'));
+  makeDraggable(neoPlayer, neoPlayer.querySelector('.widget-header'));
   
   var playBtn = document.getElementById('play-btn');
   var pauseBtn = document.getElementById('pause-btn');

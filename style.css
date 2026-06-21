@@ -907,36 +907,14 @@ h2, h3, .quote-text, .window-title {
 }
 
 /* ========================
-   NEO-BRUTALIST MUSIC PLAYER
+   RETRO VINYL PLAYER (VIBE)
    ======================== */
 .widget.neo-player {
   width: 300px;
   background: #f4eadc;
-  border: 4px solid #000;
-  border-radius: 16px;
-  box-shadow: 8px 8px 0px #000;
   color: #000;
   padding: 0;
-  overflow: hidden;
-  font-family: var(--font-system);
-}
-
-.neo-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 12px 16px;
-  border-bottom: 4px solid #000;
-  font-weight: 800;
-  font-size: 14px;
-}
-
-.neo-close {
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  color: #000;
-  display: flex;
+  font-family: var(--font-retro);
 }
 
 .neo-body {
@@ -951,13 +929,11 @@ h2, h3, .quote-text, .window-title {
   width: 140px;
   height: 140px;
   background: #a8d5e2;
-  border: 4px solid #000;
-  border-radius: 12px;
-  box-shadow: 4px 4px 0px #000;
+  border: 3px solid var(--retro-black);
+  box-shadow: 4px 4px 0px var(--retro-black);
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow: hidden;
   position: relative;
 }
 
@@ -1006,11 +982,11 @@ h2, h3, .quote-text, .window-title {
 }
 .neo-track-name {
   font-weight: 800;
-  font-size: 18px;
+  font-size: 20px;
   margin-bottom: 4px;
 }
 .neo-track-artist {
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 600;
   color: #555;
 }
@@ -1021,81 +997,55 @@ h2, h3, .quote-text, .window-title {
   gap: 8px;
   width: 100%;
   font-weight: 700;
-  font-size: 11px;
+  font-size: 14px;
 }
 .neo-progress-bar {
   flex: 1;
-  height: 4px;
+  height: 3px;
   background: #000;
   position: relative;
-  border-radius: 2px;
 }
 .neo-progress-fill {
   position: absolute;
   left: 0;
-  top: -1px;
-  bottom: -1px;
+  top: 0;
+  bottom: 0;
   width: 40%;
-  background: #ff6b6b;
-  border: 2px solid #000;
-  border-radius: 4px;
+  background: var(--retro-pink);
+  border: 1px solid #000;
 }
 .neo-progress-handle {
   position: absolute;
   left: 40%;
-  top: -6px;
-  width: 16px;
-  height: 16px;
-  background: #ffb84d;
-  border: 3px solid #000;
-  border-radius: 50%;
+  top: -4px;
+  width: 10px;
+  height: 10px;
+  background: #fff;
+  border: 2px solid #000;
   transform: translateX(-50%);
 }
 
-.neo-controls {
+.winamp-controls {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 16px;
+  justify-content: space-between;
+  gap: 8px;
   width: 100%;
-  margin-top: 8px;
 }
-
-.neo-btn {
-  background: transparent;
-  border: none;
+.winamp-controls .flat-btn {
+  flex: 1;
+  background: var(--retro-grey);
+  color: var(--retro-black);
+  border: 2px solid var(--retro-black);
+  border-top-color: #fff;
+  border-left-color: #fff;
+  padding: 8px;
   cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;
-  color: #000;
-  transition: transform 0.1s;
 }
-.neo-btn:active {
-  transform: scale(0.9);
-}
-
-.neo-play {
-  width: 48px;
-  height: 48px;
-  background: #4ade80;
-  border: 3px solid #000;
-  border-radius: 50%;
-  box-shadow: 2px 2px 0px #000;
-}
-.neo-play:active {
-  box-shadow: 0px 0px 0px #000;
-  transform: translate(2px, 2px);
-}
-.neo-pause {
-  width: 48px;
-  height: 48px;
-  background: #ffb84d;
-  border: 3px solid #000;
-  border-radius: 50%;
-  box-shadow: 2px 2px 0px #000;
-}
-.neo-pause:active {
-  box-shadow: 0px 0px 0px #000;
-  transform: translate(2px, 2px);
+.winamp-controls .flat-btn:active {
+  border: 2px solid var(--retro-black);
+  border-bottom-color: #fff;
+  border-right-color: #fff;
 }

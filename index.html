@@ -125,13 +125,16 @@
 
       </div> <!-- end right col -->
 
-      <!-- Neo-Brutalist Music Player -->
-      <div class="widget neo-player" id="winamp-player" style="top: 100px; left: 350px; display: block; z-index: 9999;">
-        <div class="neo-header">
-          <span class="neo-title">Music Player</span>
-          <button class="neo-close close-btn" aria-label="Close">
-            <i data-lucide="x"></i>
-          </button>
+      <!-- Retro Music Player (Vinyl Vibe) -->
+      <div class="widget retro-box neo-player" id="winamp-player" style="top: 100px; left: 350px; display: block; z-index: 9999;">
+        <div class="widget-header neo-header-override">
+          <div class="header-left">
+            <i data-lucide="disc"></i>
+            <span class="window-title">Player.exe</span>
+          </div>
+          <div class="header-right">
+            <button class="win-btn close-btn" aria-label="Close">X</button>
+          </div>
         </div>
         
         <div class="neo-body">
@@ -155,11 +158,11 @@
             <span class="time">3:15</span>
           </div>
           
-          <div class="neo-controls">
-            <button class="neo-btn"><i data-lucide="skip-back"></i></button>
-            <button class="neo-btn neo-play" id="play-btn"><i data-lucide="play"></i></button>
-            <button class="neo-btn neo-pause" id="pause-btn"><i data-lucide="pause"></i></button>
-            <button class="neo-btn"><i data-lucide="skip-forward"></i></button>
+          <div class="winamp-controls">
+            <button class="flat-btn"><i data-lucide="skip-back"></i></button>
+            <button class="flat-btn" id="play-btn"><i data-lucide="play"></i></button>
+            <button class="flat-btn" id="pause-btn"><i data-lucide="pause"></i></button>
+            <button class="flat-btn"><i data-lucide="skip-forward"></i></button>
           </div>
         </div>
       </div>
