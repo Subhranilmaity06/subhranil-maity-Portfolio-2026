@@ -727,7 +727,7 @@ if (pet) {
 }
 
 // ========================
-// NEO-BRUTALIST PLAYER LOGIC
+// RETRO TURNTABLE LOGIC
 // ========================
 var neoPlayer = document.getElementById('winamp-player');
 if (neoPlayer) {
@@ -736,16 +736,55 @@ if (neoPlayer) {
   var playBtn = document.getElementById('play-btn');
   var pauseBtn = document.getElementById('pause-btn');
   var vinyl = document.getElementById('vinyl-record');
+  var tonearm = document.getElementById('tonearm');
+  var audioPlayer = document.getElementById('audio-player');
+  var progressFill = document.getElementById('progress-fill');
+  var progressHandle = document.getElementById('progress-handle');
+  var currentTimeEl = document.getElementById('current-time');
+  
+  var duration = 537; // 8 minutes 57 seconds for November Rain
+  var currentTime = 0;
+  var interval;
+
+  function updateProgress() {
+    var percent = (currentTime / duration) * 100;
+    if (progressFill) progressFill.style.width = percent + '%';
+    if (progressHandle) progressHandle.style.left = percent + '%';
+    var m = Math.floor(currentTime / 60);
+    var s = Math.floor(currentTime % 60);
+    if (currentTimeEl) currentTimeEl.innerText = m + ':' + (s < 10 ? '0' : '') + s;
+  }
   
   playBtn.addEventListener('click', function() {
     playSound('click');
     if (vinyl) vinyl.classList.add('playing');
-    showToast("🎵 Playing: Subhranil Lofi Beats");
+    if (tonearm) tonearm.classList.add('playing');
+    
+    // Play real audio if available, else simulate progress
+    if (audioPlayer && audioPlayer.getAttribute('src')) {
+       audioPlayer.play().catch(function(e){ console.log(e); });
+    } else {
+       clearInterval(interval);
+       interval = setInterval(function() {
+         currentTime++;
+         if (currentTime >= duration) {
+            currentTime = 0;
+            pauseBtn.click();
+         }
+         updateProgress();
+       }, 1000);
+    }
+    showToast("🎵 Playing: November Rain");
   });
   
   pauseBtn.addEventListener('click', function() {
     playSound('click');
     if (vinyl) vinyl.classList.remove('playing');
+    if (tonearm) tonearm.classList.remove('playing');
+    if (audioPlayer && audioPlayer.getAttribute('src')) {
+       audioPlayer.pause();
+    }
+    clearInterval(interval);
   });
 }
 

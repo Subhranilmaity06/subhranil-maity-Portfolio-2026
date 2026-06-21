@@ -917,24 +917,64 @@ h2, h3, .quote-text, .window-title {
   font-family: var(--font-retro);
 }
 
-.neo-body {
-  padding: 20px;
+.turntable-body {
+  padding: 12px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 16px;
+  gap: 12px;
 }
 
-.neo-album-art {
-  width: 140px;
-  height: 140px;
-  background: #a8d5e2;
+.turntable-chassis {
+  width: 100%;
+  height: 160px;
+  background: #a3b1a8;
   border: 3px solid var(--retro-black);
-  box-shadow: 4px 4px 0px var(--retro-black);
+  box-shadow: inset 2px 2px 0 rgba(255,255,255,0.4), inset -2px -2px 0 rgba(0,0,0,0.2);
   display: flex;
   justify-content: center;
   align-items: center;
   position: relative;
+  overflow: hidden;
+}
+
+.tonearm {
+  position: absolute;
+  top: 15px;
+  right: 25px;
+  width: 8px;
+  height: 90px;
+  background: silver;
+  border: 2px solid var(--retro-black);
+  transform-origin: top center;
+  transform: rotate(-25deg);
+  transition: transform 0.5s ease-in-out;
+  border-radius: 4px;
+}
+.tonearm::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  width: 24px;
+  height: 24px;
+  background: #222;
+  border-radius: 50%;
+  border: 2px solid var(--retro-black);
+}
+.tonearm::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: -8px;
+  width: 20px;
+  height: 30px;
+  background: #333;
+  border: 2px solid var(--retro-black);
+  border-radius: 2px;
+}
+.tonearm.playing {
+  transform: rotate(18deg);
 }
 
 .neo-vinyl {
