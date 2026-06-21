@@ -375,6 +375,7 @@ document.addEventListener('DOMContentLoaded', function() {
   if (yesBtn) {
     yesBtn.addEventListener('click', function() {
       overlay.classList.remove('show');
+      playSound('death');
       if (confirmCallback) confirmCallback();
       confirmCallback = null;
     });
@@ -507,5 +508,24 @@ function playSound(type) {
     osc.start();
     osc.stop(audioCtx.currentTime + 0.03);
     if (navigator.vibrate) navigator.vibrate(5);
+  } else if (type === 'death') {
+    // Classic 8-bit arcade death (descending notes)
+    osc.type = 'square';
+    var now = audioCtx.currentTime;
+    
+    // Quick descending arpeggio
+    osc.frequency.setValueAtTime(400, now);
+    osc.frequency.setValueAtTime(300, now + 0.15);
+    osc.frequency.setValueAtTime(200, now + 0.3);
+    osc.frequency.setValueAtTime(150, now + 0.45);
+    osc.frequency.setValueAtTime(100, now + 0.6);
+    osc.frequency.setValueAtTime(50,  now + 0.75);
+
+    gain.gain.setValueAtTime(0.3, now);
+    gain.gain.exponentialRampToValueAtTime(0.01, now + 1.0);
+    
+    osc.start();
+    osc.stop(now + 1.0);
+    if (navigator.vibrate) navigator.vibrate([50, 50, 50, 50, 100]);
   }
 }
