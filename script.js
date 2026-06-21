@@ -527,5 +527,112 @@ function playSound(type) {
     osc.start();
     osc.stop(now + 1.0);
     if (navigator.vibrate) navigator.vibrate([50, 50, 50, 50, 100]);
+  } else if (type === 'epic') {
+    // Epic chord for perfect corner hit
+    osc.type = 'sawtooth';
+    osc.frequency.setValueAtTime(440, audioCtx.currentTime); // A4
+    
+    var osc2 = audioCtx.createOscillator();
+    osc2.type = 'square';
+    osc2.frequency.setValueAtTime(554.37, audioCtx.currentTime); // C#5
+    osc2.connect(gain);
+    osc2.start();
+    osc2.stop(audioCtx.currentTime + 1.5);
+    
+    var osc3 = audioCtx.createOscillator();
+    osc3.type = 'triangle';
+    osc3.frequency.setValueAtTime(659.25, audioCtx.currentTime); // E5
+    osc3.connect(gain);
+    osc3.start();
+    osc3.stop(audioCtx.currentTime + 1.5);
+
+    gain.gain.setValueAtTime(0.4, audioCtx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 1.5);
+    osc.start();
+    osc.stop(audioCtx.currentTime + 1.5);
   }
 }
+
+// ========================
+// BOUNCING SCREENSAVER
+// ========================
+var inactivityTimer;
+var INACTIVITY_LIMIT = 20000; // 20 seconds
+var isScreensaverActive = false;
+var ssX = 0, ssY = 0;
+var ssDx = 3, ssDy = 3;
+var ssReq;
+var ssColors = ['#ff00ff', '#00ffff', '#ffff00', '#ff0000', '#00ff00'];
+var ssColorIndex = 0;
+
+function resetInactivity() {
+  clearTimeout(inactivityTimer);
+  if (isScreensaverActive) {
+    hideScreensaver();
+  }
+  inactivityTimer = setTimeout(showScreensaver, INACTIVITY_LIMIT);
+}
+
+function showScreensaver() {
+  if (isScreensaverActive) return;
+  isScreensaverActive = true;
+  document.getElementById('screensaver').classList.add('show');
+  
+  var logo = document.getElementById('dvd-logo');
+  ssX = Math.random() * (window.innerWidth - 250);
+  ssY = Math.random() * (window.innerHeight - 80);
+  
+  bounceLogo();
+}
+
+function hideScreensaver() {
+  if (!isScreensaverActive) return;
+  isScreensaverActive = false;
+  document.getElementById('screensaver').classList.remove('show');
+  cancelAnimationFrame(ssReq);
+}
+
+function bounceLogo() {
+  if (!isScreensaverActive) return;
+  
+  var logo = document.getElementById('dvd-logo');
+  var w = logo.offsetWidth;
+  var h = logo.offsetHeight;
+  
+  ssX += ssDx;
+  ssY += ssDy;
+  
+  var hitEdge = false;
+  
+  if (ssX <= 0 || ssX + w >= window.innerWidth) {
+    ssDx *= -1;
+    hitEdge = true;
+  }
+  if (ssY <= 0 || ssY + h >= window.innerHeight) {
+    ssDy *= -1;
+    hitEdge = true;
+  }
+  
+  if (hitEdge) {
+    ssColorIndex = (ssColorIndex + 1) % ssColors.length;
+    logo.style.color = ssColors[ssColorIndex];
+    
+    // Check for perfect corner hit
+    var inCornerX = (ssX <= 2) || (ssX + w >= window.innerWidth - 2);
+    var inCornerY = (ssY <= 2) || (ssY + h >= window.innerHeight - 2);
+    if (inCornerX && inCornerY) {
+      playSound('epic');
+      setTimeout(function() { showToast("💿 PERFECT CORNER HIT! 💿"); }, 100);
+    }
+  }
+  
+  logo.style.transform = 'translate(' + ssX + 'px, ' + ssY + 'px)';
+  ssReq = requestAnimationFrame(bounceLogo);
+}
+
+// Listen to all activity to reset timer
+var activityEvents = ['mousemove', 'mousedown', 'keydown', 'touchstart', 'scroll'];
+activityEvents.forEach(function(evt) {
+  document.addEventListener(evt, resetInactivity, {passive: true});
+});
+resetInactivity();
