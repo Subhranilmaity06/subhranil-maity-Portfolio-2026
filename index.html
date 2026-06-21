@@ -125,33 +125,41 @@
 
       </div> <!-- end right col -->
 
-      <!-- Winamp Media Player -->
-      <div class="widget winamp" id="winamp-player" style="top: 100px; left: 350px; display: block; z-index: 9999;">
-        <div class="widget-header">
-          <div class="header-left">
-            <i data-lucide="music"></i>
-            <span>Amp.exe</span>
-          </div>
-          <div class="header-right">
-            <button class="win-btn close-btn" aria-label="Close">
-              <i data-lucide="x"></i>
-            </button>
-          </div>
+      <!-- Neo-Brutalist Music Player -->
+      <div class="widget neo-player" id="winamp-player" style="top: 100px; left: 350px; display: block; z-index: 9999;">
+        <div class="neo-header">
+          <span class="neo-title">Music Player</span>
+          <button class="neo-close close-btn" aria-label="Close">
+            <i data-lucide="x"></i>
+          </button>
         </div>
-        <div class="winamp-body">
-          <div class="winamp-screen">
-            <div class="winamp-info">Subhranil Lofi Beats.mp3</div>
-            <div class="winamp-visualizer" id="visualizer">
-              <div class="bar"></div><div class="bar"></div><div class="bar"></div>
-              <div class="bar"></div><div class="bar"></div><div class="bar"></div>
-              <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+        
+        <div class="neo-body">
+          <div class="neo-album-art">
+            <div class="neo-vinyl" id="vinyl-record">
+               <div class="neo-vinyl-center"></div>
             </div>
           </div>
-          <div class="winamp-controls">
-            <button class="flat-btn"><i data-lucide="skip-back"></i></button>
-            <button class="flat-btn" id="play-btn"><i data-lucide="play"></i></button>
-            <button class="flat-btn" id="pause-btn"><i data-lucide="pause"></i></button>
-            <button class="flat-btn"><i data-lucide="skip-forward"></i></button>
+          
+          <div class="neo-track-info">
+            <div class="neo-track-name">Subhranil Lofi Beats</div>
+            <div class="neo-track-artist">Retro Party EP</div>
+          </div>
+          
+          <div class="neo-progress">
+            <span class="time">0:29</span>
+            <div class="neo-progress-bar">
+               <div class="neo-progress-fill"></div>
+               <div class="neo-progress-handle"></div>
+            </div>
+            <span class="time">3:15</span>
+          </div>
+          
+          <div class="neo-controls">
+            <button class="neo-btn"><i data-lucide="skip-back"></i></button>
+            <button class="neo-btn neo-play" id="play-btn"><i data-lucide="play"></i></button>
+            <button class="neo-btn neo-pause" id="pause-btn"><i data-lucide="pause"></i></button>
+            <button class="neo-btn"><i data-lucide="skip-forward"></i></button>
           </div>
         </div>
       </div>

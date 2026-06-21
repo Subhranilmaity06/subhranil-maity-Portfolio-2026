@@ -907,68 +907,195 @@ h2, h3, .quote-text, .window-title {
 }
 
 /* ========================
-   WINAMP WIDGET
+   NEO-BRUTALIST MUSIC PLAYER
    ======================== */
-.widget.winamp {
-  width: 320px;
-  background: #2b2b40;
-  border-color: #555;
-  box-shadow: 4px 4px 0px rgba(0,0,0,0.8);
-}
-.widget.winamp .widget-header {
-  background: linear-gradient(90deg, #111, #333);
-  color: #0f0;
-  border-bottom: 2px solid #555;
-}
-.winamp-body {
-  padding: 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-.winamp-screen {
-  background: #000;
-  border: 3px inset #444;
-  padding: 12px;
-  border-radius: 4px;
-}
-.winamp-info {
-  color: #0f0;
-  font-family: 'Courier New', monospace;
-  font-size: 14px;
-  margin-bottom: 12px;
-  white-space: nowrap;
+.widget.neo-player {
+  width: 300px;
+  background: #f4eadc;
+  border: 4px solid #000;
+  border-radius: 16px;
+  box-shadow: 8px 8px 0px #000;
+  color: #000;
+  padding: 0;
   overflow: hidden;
+  font-family: var(--font-system);
 }
-.winamp-visualizer {
-  display: flex;
-  align-items: flex-end;
-  gap: 2px;
-  height: 30px;
-}
-.winamp-visualizer .bar {
-  flex: 1;
-  background: linear-gradient(to top, #0f0, #ff0);
-  height: 5px;
-  transition: height 0.1s;
-}
-.winamp-controls {
+
+.neo-header {
   display: flex;
   justify-content: space-between;
-  gap: 8px;
+  align-items: center;
+  padding: 12px 16px;
+  border-bottom: 4px solid #000;
+  font-weight: 800;
+  font-size: 14px;
 }
-.winamp-controls .flat-btn {
-  flex: 1;
-  background: #444;
-  color: #fff;
-  border: 2px solid #222;
-  border-top-color: #888;
-  border-left-color: #888;
-  padding: 8px;
+
+.neo-close {
+  background: transparent;
+  border: none;
   cursor: pointer;
+  color: #000;
+  display: flex;
 }
-.winamp-controls .flat-btn:active {
-  border: 2px solid #222;
-  border-bottom-color: #888;
-  border-right-color: #888;
+
+.neo-body {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.neo-album-art {
+  width: 140px;
+  height: 140px;
+  background: #a8d5e2;
+  border: 4px solid #000;
+  border-radius: 12px;
+  box-shadow: 4px 4px 0px #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  position: relative;
+}
+
+.neo-vinyl {
+  width: 120px;
+  height: 120px;
+  background: #222;
+  border-radius: 50%;
+  border: 2px solid #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: inset 0 0 0 10px #2a2a2a, inset 0 0 0 20px #222, inset 0 0 0 30px #2a2a2a;
+}
+
+.neo-vinyl-center {
+  width: 40px;
+  height: 40px;
+  background: #ff6b6b;
+  border-radius: 50%;
+  border: 2px solid #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.neo-vinyl-center::after {
+  content: '';
+  width: 8px;
+  height: 8px;
+  background: #000;
+  border-radius: 50%;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.neo-vinyl.playing {
+  animation: spin 3s linear infinite;
+}
+
+.neo-track-info {
+  text-align: center;
+  width: 100%;
+}
+.neo-track-name {
+  font-weight: 800;
+  font-size: 18px;
+  margin-bottom: 4px;
+}
+.neo-track-artist {
+  font-size: 12px;
+  font-weight: 600;
+  color: #555;
+}
+
+.neo-progress {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  font-weight: 700;
+  font-size: 11px;
+}
+.neo-progress-bar {
+  flex: 1;
+  height: 4px;
+  background: #000;
+  position: relative;
+  border-radius: 2px;
+}
+.neo-progress-fill {
+  position: absolute;
+  left: 0;
+  top: -1px;
+  bottom: -1px;
+  width: 40%;
+  background: #ff6b6b;
+  border: 2px solid #000;
+  border-radius: 4px;
+}
+.neo-progress-handle {
+  position: absolute;
+  left: 40%;
+  top: -6px;
+  width: 16px;
+  height: 16px;
+  background: #ffb84d;
+  border: 3px solid #000;
+  border-radius: 50%;
+  transform: translateX(-50%);
+}
+
+.neo-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  margin-top: 8px;
+}
+
+.neo-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #000;
+  transition: transform 0.1s;
+}
+.neo-btn:active {
+  transform: scale(0.9);
+}
+
+.neo-play {
+  width: 48px;
+  height: 48px;
+  background: #4ade80;
+  border: 3px solid #000;
+  border-radius: 50%;
+  box-shadow: 2px 2px 0px #000;
+}
+.neo-play:active {
+  box-shadow: 0px 0px 0px #000;
+  transform: translate(2px, 2px);
+}
+.neo-pause {
+  width: 48px;
+  height: 48px;
+  background: #ffb84d;
+  border: 3px solid #000;
+  border-radius: 50%;
+  box-shadow: 2px 2px 0px #000;
+}
+.neo-pause:active {
+  box-shadow: 0px 0px 0px #000;
+  transform: translate(2px, 2px);
 }
