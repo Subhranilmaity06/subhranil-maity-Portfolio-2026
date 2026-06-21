@@ -638,3 +638,65 @@ activityEvents.forEach(function(evt) {
   document.addEventListener(evt, resetInactivity, {passive: true});
 });
 resetInactivity();
+
+// ========================
+// DESKTOP PET (BYTE) AI
+// ========================
+var pet = document.getElementById('desktop-pet');
+var petBubble = document.getElementById('pet-bubble');
+var petX = window.innerWidth - 150;
+var petY = 80; // from bottom
+var petDx = -1;
+var petQuotes = [
+  "Need a designer?",
+  "CSS is my passion.",
+  "Beep boop.",
+  "I love retro!",
+  "Is it 1995?",
+  "Hire Subhranil!"
+];
+
+if (pet) {
+  pet.style.transform = 'translateX(' + petX + 'px)';
+  
+  // Pet wandering loop
+  setInterval(function() {
+    if (Math.random() < 0.05) {
+      // Randomly change direction or stop
+      petDx = (Math.random() > 0.5 ? 1 : -1) * (Math.random() < 0.3 ? 0 : 1);
+    }
+    
+    if (petDx !== 0) {
+      petX += petDx;
+      if (petX < 0) petDx = 1;
+      if (petX > window.innerWidth - 100) petDx = -1;
+      pet.style.transform = 'translateX(' + petX + 'px)';
+    }
+  }, 50);
+
+  // Random talking
+  setInterval(function() {
+    if (Math.random() < 0.3) {
+      petBubble.textContent = petQuotes[Math.floor(Math.random() * petQuotes.length)];
+      pet.classList.add('speaking');
+      playSound('hover');
+      setTimeout(function() { pet.classList.remove('speaking'); }, 3000);
+    }
+  }, 10000);
+
+  // Click interaction
+  pet.addEventListener('click', function() {
+    playSound('epic');
+    pet.style.transition = 'transform 0.2s cubic-bezier(0.25, 1, 0.5, 1)';
+    pet.style.transform = 'translate(' + petX + 'px, -50px) scale(1.2)';
+    petBubble.textContent = "Ouch! Watch the pixels!";
+    pet.classList.add('speaking');
+    
+    setTimeout(function() {
+      pet.style.transition = 'none';
+      pet.style.transform = 'translateX(' + petX + 'px)';
+      setTimeout(function() { pet.classList.remove('speaking'); }, 2000);
+    }, 500);
+  });
+}
+
