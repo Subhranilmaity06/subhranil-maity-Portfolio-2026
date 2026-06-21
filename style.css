@@ -992,12 +992,25 @@ h2, h3, .quote-text, .window-title {
 .neo-vinyl-center {
   width: 40px;
   height: 40px;
-  background: #ff6b6b;
+  background: linear-gradient(135deg, #ff6b6b 50%, #e84118 50%);
   border-radius: 50%;
   border: 2px solid #000;
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
+}
+.neo-vinyl-center::before {
+  content: '';
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  width: 6px;
+  height: 6px;
+  border-top: 2px solid #fff;
+  border-left: 2px solid #fff;
+  border-radius: 50%;
+  opacity: 0.6;
 }
 .neo-vinyl-center::after {
   content: '';
@@ -1005,6 +1018,8 @@ h2, h3, .quote-text, .window-title {
   height: 8px;
   background: #000;
   border-radius: 50%;
+  position: relative;
+  z-index: 2;
 }
 
 @keyframes spin {
