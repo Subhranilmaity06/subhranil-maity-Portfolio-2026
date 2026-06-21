@@ -764,8 +764,10 @@ if (menuTurntableBtn && neoPlayer) {
     } else {
       if (neoPlayer.style.display === 'none') {
         neoPlayer.style.display = 'block';
+        bringToFront(neoPlayer);
+      } else {
+        neoPlayer.style.display = 'none';
       }
-      bringToFront(neoPlayer);
     }
   });
 }
