@@ -700,3 +700,41 @@ if (pet) {
   });
 }
 
+// ========================
+// WINAMP PLAYER LOGIC
+// ========================
+var winamp = document.getElementById('winamp-player');
+if (winamp) {
+  makeDraggable(winamp);
+  
+  var playBtn = document.getElementById('play-btn');
+  var pauseBtn = document.getElementById('pause-btn');
+  var bars = document.querySelectorAll('.winamp-visualizer .bar');
+  var visualizerInterval;
+  
+  function startVisualizer() {
+    clearInterval(visualizerInterval);
+    visualizerInterval = setInterval(function() {
+      bars.forEach(function(bar) {
+        bar.style.height = (Math.random() * 25 + 5) + 'px';
+      });
+    }, 150);
+  }
+  
+  function stopVisualizer() {
+    clearInterval(visualizerInterval);
+    bars.forEach(function(bar) { bar.style.height = '5px'; });
+  }
+
+  playBtn.addEventListener('click', function() {
+    playSound('click');
+    startVisualizer();
+    showToast("🎵 Playing: Subhranil Lofi Beats");
+  });
+  
+  pauseBtn.addEventListener('click', function() {
+    playSound('click');
+    stopVisualizer();
+  });
+}
+

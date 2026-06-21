@@ -917,3 +917,70 @@ h2, h3, .quote-text, .window-title {
 #desktop-pet.speaking .pet-bubble {
   opacity: 1;
 }
+
+/* ========================
+   WINAMP WIDGET
+   ======================== */
+.widget.winamp {
+  width: 320px;
+  background: #2b2b40;
+  border-color: #555;
+  box-shadow: 4px 4px 0px rgba(0,0,0,0.8);
+}
+.widget.winamp .widget-header {
+  background: linear-gradient(90deg, #111, #333);
+  color: #0f0;
+  border-bottom: 2px solid #555;
+}
+.winamp-body {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.winamp-screen {
+  background: #000;
+  border: 3px inset #444;
+  padding: 12px;
+  border-radius: 4px;
+}
+.winamp-info {
+  color: #0f0;
+  font-family: 'Courier New', monospace;
+  font-size: 14px;
+  margin-bottom: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.winamp-visualizer {
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 30px;
+}
+.winamp-visualizer .bar {
+  flex: 1;
+  background: linear-gradient(to top, #0f0, #ff0);
+  height: 5px;
+  transition: height 0.1s;
+}
+.winamp-controls {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+}
+.winamp-controls .flat-btn {
+  flex: 1;
+  background: #444;
+  color: #fff;
+  border: 2px solid #222;
+  border-top-color: #888;
+  border-left-color: #888;
+  padding: 8px;
+  cursor: pointer;
+}
+.winamp-controls .flat-btn:active {
+  border: 2px solid #222;
+  border-bottom-color: #888;
+  border-right-color: #888;
+}
