@@ -644,6 +644,7 @@ resetInactivity();
 // ========================
 var pet = document.getElementById('desktop-pet');
 var petBubble = document.getElementById('pet-bubble');
+var petFace = document.getElementById('pet-face');
 var petX = window.innerWidth - 150;
 var petY = 80; // from bottom
 var petDx = -1;
@@ -656,6 +657,28 @@ var petQuotes = [
   "Hire Subhranil!"
 ];
 
+var normalFaces = ['• _ •', '• u •', '• ~ •', '• - •', '> _ <', '^ _ ^', '• : •'];
+var talkingFaces = ['• o •', '• O •', '• - •', '• ] •'];
+var speakTimer, faceInterval;
+
+function petSpeak(text, duration) {
+  clearTimeout(speakTimer);
+  clearInterval(faceInterval);
+  
+  petBubble.textContent = text;
+  pet.classList.add('speaking');
+  
+  faceInterval = setInterval(function() {
+    petFace.textContent = talkingFaces[Math.floor(Math.random() * talkingFaces.length)];
+  }, 150);
+  
+  speakTimer = setTimeout(function() {
+    pet.classList.remove('speaking');
+    clearInterval(faceInterval);
+    petFace.textContent = '• _ •';
+  }, duration);
+}
+
 if (pet) {
   pet.style.transform = 'translateX(' + petX + 'px)';
   
@@ -664,6 +687,11 @@ if (pet) {
     if (Math.random() < 0.05) {
       // Randomly change direction or stop
       petDx = (Math.random() > 0.5 ? 1 : -1) * (Math.random() < 0.3 ? 0 : 1);
+    }
+    
+    // Random facial expression while walking
+    if (Math.random() < 0.05 && !pet.classList.contains('speaking')) {
+      petFace.textContent = normalFaces[Math.floor(Math.random() * normalFaces.length)];
     }
     
     if (petDx !== 0) {
@@ -677,10 +705,8 @@ if (pet) {
   // Random talking
   setInterval(function() {
     if (Math.random() < 0.3) {
-      petBubble.textContent = petQuotes[Math.floor(Math.random() * petQuotes.length)];
-      pet.classList.add('speaking');
       playSound('hover');
-      setTimeout(function() { pet.classList.remove('speaking'); }, 3000);
+      petSpeak(petQuotes[Math.floor(Math.random() * petQuotes.length)], 3000);
     }
   }, 10000);
 
@@ -689,13 +715,13 @@ if (pet) {
     playSound('epic');
     pet.style.transition = 'transform 0.2s cubic-bezier(0.25, 1, 0.5, 1)';
     pet.style.transform = 'translate(' + petX + 'px, -50px) scale(1.2)';
-    petBubble.textContent = "Ouch! Watch the pixels!";
-    pet.classList.add('speaking');
+    
+    petSpeak("Ouch! Watch the pixels!", 2000);
+    petFace.textContent = '> O <'; // initial shock face
     
     setTimeout(function() {
       pet.style.transition = 'none';
       pet.style.transform = 'translateX(' + petX + 'px)';
-      setTimeout(function() { pet.classList.remove('speaking'); }, 2000);
     }, 500);
   });
 }
