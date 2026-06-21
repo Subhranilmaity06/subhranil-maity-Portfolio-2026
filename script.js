@@ -732,6 +732,36 @@ if (pet) {
 var neoPlayer = document.getElementById('winamp-player');
 if (neoPlayer) {
   makeDraggable(neoPlayer, neoPlayer.querySelector('.widget-header'));
+
+  // Participate in dynamic z-index window layering
+  neoPlayer.addEventListener('mousedown', function() {
+    bringToFront(neoPlayer);
+  });
+  neoPlayer.addEventListener('touchstart', function() {
+    bringToFront(neoPlayer);
+  }, { passive: true });
+
+  // Close / minimize action
+  var closePlayerBtn = neoPlayer.querySelector('.close-btn');
+  if (closePlayerBtn) {
+    closePlayerBtn.addEventListener('click', function() {
+      playSound('click');
+      neoPlayer.style.display = 'none';
+      showToast("🎵 Turntable minimized to background.");
+    });
+  }
+}
+
+// Menu bar toggle action
+var menuTurntableBtn = document.getElementById('menu-turntable-btn');
+if (menuTurntableBtn && neoPlayer) {
+  menuTurntableBtn.addEventListener('click', function() {
+    playSound('click');
+    if (neoPlayer.style.display === 'none') {
+      neoPlayer.style.display = 'block';
+    }
+    bringToFront(neoPlayer);
+  });
 }
 
 var audioPlayer = document.getElementById('audio-player');
