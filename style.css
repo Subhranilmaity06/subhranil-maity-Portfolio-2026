@@ -375,9 +375,9 @@ h2, h3, .quote-text, .window-title {
 
 #dock {
   display: flex;
-  align-items: flex-end;
-  gap: 4px;
-  padding: 8px 12px;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 28px;
   background: var(--retro-grey);
 }
 
@@ -391,17 +391,21 @@ h2, h3, .quote-text, .window-title {
 }
 
 .dock-item i {
-  width: 32px;
-  height: 32px;
+  width: 44px;
+  height: 44px;
   background: var(--retro-white);
   border: 2px solid var(--retro-black);
-  padding: 4px;
-  box-shadow: 3px 3px 0px var(--retro-black);
+  border-bottom: 4px solid var(--retro-black);
+  border-right: 4px solid var(--retro-black);
+  border-radius: 6px;
+  padding: 8px;
+  box-shadow: inset 2px 2px 0px rgba(255,255,255,0.8), 2px 2px 0px rgba(0,0,0,0.2);
   display: block;
+  transition: all 0.1s;
 }
 
 .dock-item:hover {
-  transform: scale(1.25) translateY(-10px);
+  transform: translateY(-8px);
 }
 
 .dock-item:hover i {
@@ -409,14 +413,17 @@ h2, h3, .quote-text, .window-title {
 }
 
 .dock-item:active i {
-  transform: translate(3px, 3px);
-  box-shadow: 0px 0px 0px var(--retro-black);
+  transform: translate(2px, 2px);
+  border-bottom: 2px solid var(--retro-black);
+  border-right: 2px solid var(--retro-black);
+  box-shadow: inset 2px 2px 0px rgba(0,0,0,0.3);
 }
 
 .dock-label {
   font-family: var(--font-retro);
-  font-size: 12px;
-  margin-top: 2px;
+  font-size: 13px;
+  font-weight: bold;
+  margin-top: 6px;
   color: var(--retro-black);
 }
 
@@ -426,16 +433,17 @@ h2, h3, .quote-text, .window-title {
   height: 6px;
   background: var(--retro-pink);
   border: 1px solid var(--retro-black);
+  border-radius: 50%;
   display: block;
-  margin-top: 2px;
+  margin-top: 4px;
 }
 
 .dock-separator {
-  width: 3px;
-  height: 50px;
-  background: var(--retro-black);
-  margin: 0 4px;
-  align-self: center;
+  width: 4px;
+  height: 48px;
+  background: var(--retro-dark-grey);
+  border-right: 2px solid var(--retro-white);
+  margin: 0 12px;
 }
 
 /* ========================

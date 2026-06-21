@@ -458,4 +458,54 @@ document.addEventListener('DOMContentLoaded', function() {
     showToast("💾 SubhranilOS v1.0 loaded successfully. Welcome!");
   }, 800);
 
+  // Add sound effects to interactive elements
+  var interactables = document.querySelectorAll('button, .dock-item, .project-card, .flat-btn, .win-btn');
+  for (var i = 0; i < interactables.length; i++) {
+    interactables[i].addEventListener('mouseenter', function() { playSound('hover'); });
+    interactables[i].addEventListener('mousedown', function() { playSound('click'); });
+    interactables[i].addEventListener('touchstart', function() { playSound('click'); }, {passive: true});
+  }
+
 });
+
+// ========================
+// RETRO SOUND EFFECTS (Web Audio API)
+// ========================
+var AudioContext = window.AudioContext || window.webkitAudioContext;
+var audioCtx = null;
+
+function playSound(type) {
+  if (!audioCtx) {
+    audioCtx = new AudioContext();
+  }
+  if (audioCtx.state === 'suspended') {
+    audioCtx.resume();
+  }
+  
+  var osc = audioCtx.createOscillator();
+  var gain = audioCtx.createGain();
+  
+  osc.connect(gain);
+  gain.connect(audioCtx.destination);
+  
+  if (type === 'click') {
+    // Retro button click (short mechanical thud)
+    osc.type = 'square';
+    osc.frequency.setValueAtTime(150, audioCtx.currentTime);
+    osc.frequency.exponentialRampToValueAtTime(40, audioCtx.currentTime + 0.05);
+    gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.05);
+    osc.start();
+    osc.stop(audioCtx.currentTime + 0.05);
+    if (navigator.vibrate) navigator.vibrate(15);
+  } else if (type === 'hover') {
+    // Subtle retro tick
+    osc.type = 'triangle';
+    osc.frequency.setValueAtTime(800, audioCtx.currentTime);
+    gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.03);
+    osc.start();
+    osc.stop(audioCtx.currentTime + 0.03);
+    if (navigator.vibrate) navigator.vibrate(5);
+  }
+}
