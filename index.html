@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Subhranil Maity — Retro OS</title>
+  <meta name="description" content="Portfolio of Subhranil Maity — Product & Brand Designer. A fun retro OS experience.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Top Menu Bar -->
+  <div id="menu-bar">
+    <div class="menu-left">
+      <span class="menu-item menu-logo" id="logo-btn" title="Click me a few times...">☰</span>
+      <span class="menu-item bold">Subhranil Maity</span>
+      <span class="menu-item">File</span>
+      <span class="menu-item">Edit</span>
+      <span class="menu-item">View</span>
+      <span class="menu-item" id="help-btn">Help</span>
+    </div>
+    <div class="menu-right">
+      <span class="menu-item"><i data-lucide="wifi" style="width:14px;height:14px;"></i></span>
+      <span class="menu-item"><i data-lucide="volume-2" style="width:14px;height:14px;"></i></span>
+      <span class="menu-item"><i data-lucide="battery-medium" style="width:14px;height:14px;"></i></span>
+      <span class="menu-item" id="clock">10:00 AM</span>
+    </div>
+  </div>
+
+  <!-- Desktop Environment -->
+  <div id="desktop">
+
+    <!-- Widgets Layout -->
+    <div id="widgets-container">
+
+      <!-- LEFT COLUMN -->
+      <div class="widget-col left-col">
+
+        <!-- Socials Widget -->
+        <div class="widget socials retro-box" data-widget-id="socials">
+          <div class="widget-header">
+            <h3>Links.sys</h3>
+            <button class="btn-close" onclick="tryCloseWidget(this, 'socials')">X</button>
+          </div>
+          <div class="widget-content">
+            <p class="widget-label">SOCIALS</p>
+            <div class="social-grid">
+              <div class="social-item" title="Instagram"><i data-lucide="instagram"></i></div>
+              <div class="social-item" title="Twitter"><i data-lucide="twitter"></i></div>
+              <div class="social-item" title="Dribbble"><i data-lucide="dribbble"></i></div>
+              <div class="social-item" title="LinkedIn"><i data-lucide="linkedin"></i></div>
+              <div class="social-item" title="Figma"><i data-lucide="figma"></i></div>
+              <div class="social-item" title="Behance"><i data-lucide="monitor"></i></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quote Widget -->
+        <div class="widget quote retro-box" data-widget-id="quote">
+          <div class="widget-header">
+            <h3>Quote.txt</h3>
+            <button class="btn-close" onclick="tryCloseWidget(this, 'quote')">X</button>
+          </div>
+          <div class="widget-content">
+            <div class="quote-text">"Design is not just what it looks like and feels like. Design is how it works."</div>
+            <div class="quote-author">— SUBHRANIL MAITY</div>
+          </div>
+        </div>
+
+        <!-- Resume Widget -->
+        <div class="widget resume retro-box" data-widget-id="resume">
+          <div class="widget-header">
+            <h3>Resume.pdf</h3>
+            <button class="btn-close" onclick="tryCloseWidget(this, 'resume')">X</button>
+          </div>
+          <div class="widget-content">
+            <div class="resume-preview">PDF</div>
+            <div class="contact-actions">
+              <a href="assets/resume.pdf" target="_blank" class="flat-btn">Download</a>
+              <button class="flat-btn" onclick="openApp('resume')">View</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- RIGHT COLUMN -->
+      <div class="widget-col right-col">
+
+        <!-- Profile Widget -->
+        <div class="widget profile retro-box" data-widget-id="profile">
+          <div class="widget-header">
+            <h3>User.exe</h3>
+            <button class="btn-close" onclick="tryCloseWidget(this, 'profile')">X</button>
+          </div>
+          <div class="widget-content">
+            <img src="assets/profile.png" alt="Subhranil Maity" class="profile-img">
+            <h2>Subhranil Maity</h2>
+            <p>PRODUCT & BRAND DESIGNER</p>
+          </div>
+        </div>
+
+        <!-- Contact Widget -->
+        <div class="widget contact retro-box" data-widget-id="contact">
+          <div class="widget-header">
+            <h3>Contact.exe</h3>
+            <button class="btn-close" onclick="tryCloseWidget(this, 'contact')">X</button>
+          </div>
+          <div class="widget-content">
+            <div class="contact-item">
+              <i data-lucide="phone"></i> +91 9547333361
+            </div>
+            <div class="contact-item">
+              <i data-lucide="mail"></i> subhranilmaityofficial@gmail.com
+            </div>
+            <div class="contact-item">
+              <i data-lucide="map-pin"></i> Haldia, West Bengal, India
+            </div>
+            <div class="contact-actions">
+              <a href="mailto:subhranilmaityofficial@gmail.com" class="flat-btn">Email</a>
+              <a href="tel:+919547333361" class="flat-btn">Call</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Windows Container -->
+    <div id="windows-container"></div>
+
+    <!-- Floating Dock -->
+    <div id="dock-container">
+      <div id="dock" class="retro-box">
+        <div class="dock-item" data-app="projects" data-tooltip="Projects" onclick="openApp('projects')">
+          <i data-lucide="folder-open"></i>
+          <span class="dock-label">PROJECTS</span>
+        </div>
+        <div class="dock-item" data-app="casestudies" data-tooltip="Case Studies" onclick="openApp('casestudies')">
+          <i data-lucide="folder"></i>
+          <span class="dock-label">CASES</span>
+        </div>
+        <div class="dock-item" data-app="creatives" data-tooltip="Creatives" onclick="openApp('creatives')">
+          <i data-lucide="image"></i>
+          <span class="dock-label">GALLERY</span>
+        </div>
+        <div class="dock-item" data-app="mystory" data-tooltip="My Story" onclick="openApp('mystory')">
+          <i data-lucide="book"></i>
+          <span class="dock-label">STORY</span>
+        </div>
+        <div class="dock-item" data-app="skills" data-tooltip="Skills" onclick="openApp('skills')">
+          <i data-lucide="cpu"></i>
+          <span class="dock-label">SKILLS</span>
+        </div>
+        <div class="dock-item" data-app="contact" data-tooltip="Contact" onclick="openApp('contact')">
+          <i data-lucide="user"></i>
+          <span class="dock-label">CONTACT</span>
+        </div>
+        <div class="dock-separator"></div>
+        <div class="dock-item" data-app="bin" data-tooltip="Bin" onclick="openApp('bin')">
+          <i data-lucide="trash"></i>
+          <span class="dock-label">BIN</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Retro Confirm Dialog -->
+  <div id="confirm-overlay">
+    <div id="confirm-dialog">
+      <div class="dialog-header">
+        <span id="confirm-title">Warning</span>
+      </div>
+      <div class="dialog-body">
+        <div class="dialog-icon" id="confirm-icon">⚠️</div>
+        <div id="confirm-msg">Are you sure?</div>
+      </div>
+      <div class="dialog-actions">
+        <button class="win-btn" id="confirm-yes">Yes</button>
+        <button class="win-btn" id="confirm-no">No way!</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div id="toast-container"></div>
+
+  <!-- Scripts at end of body for reliability -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="script.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
+      }
+    });
+  </script>
+</body>
+</html>
