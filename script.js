@@ -731,7 +731,7 @@ if (pet) {
 // ========================
 var winamp = document.getElementById('winamp-player');
 if (winamp) {
-  makeDraggable(winamp);
+  makeDraggable(winamp, winamp.querySelector('.widget-header'));
   
   var playBtn = document.getElementById('play-btn');
   var pauseBtn = document.getElementById('pause-btn');
