@@ -592,6 +592,8 @@ function hideScreensaver() {
   cancelAnimationFrame(ssReq);
 }
 
+var lastCornerHit = 0;
+
 function bounceLogo() {
   if (!isScreensaverActive) return;
   
@@ -604,14 +606,10 @@ function bounceLogo() {
   
   var hitEdge = false;
   
-  if (ssX <= 0 || ssX + w >= window.innerWidth) {
-    ssDx *= -1;
-    hitEdge = true;
-  }
-  if (ssY <= 0 || ssY + h >= window.innerHeight) {
-    ssDy *= -1;
-    hitEdge = true;
-  }
+  if (ssX <= 0 && ssDx < 0) { ssDx *= -1; hitEdge = true; }
+  if (ssX + w >= window.innerWidth && ssDx > 0) { ssDx *= -1; hitEdge = true; }
+  if (ssY <= 0 && ssDy < 0) { ssDy *= -1; hitEdge = true; }
+  if (ssY + h >= window.innerHeight && ssDy > 0) { ssDy *= -1; hitEdge = true; }
   
   if (hitEdge) {
     ssColorIndex = (ssColorIndex + 1) % ssColors.length;
@@ -621,8 +619,12 @@ function bounceLogo() {
     var inCornerX = (ssX <= 2) || (ssX + w >= window.innerWidth - 2);
     var inCornerY = (ssY <= 2) || (ssY + h >= window.innerHeight - 2);
     if (inCornerX && inCornerY) {
-      playSound('epic');
-      setTimeout(function() { showToast("💿 PERFECT CORNER HIT! 💿"); }, 100);
+      var now = Date.now();
+      if (now - lastCornerHit > 2000) { // 2 second cooldown
+        lastCornerHit = now;
+        playSound('epic');
+        setTimeout(function() { showToast("💿 PERFECT CORNER HIT! 💿"); }, 100);
+      }
     }
   }
   

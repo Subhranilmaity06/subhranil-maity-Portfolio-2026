@@ -802,3 +802,31 @@ h2, h3, .quote-text, .window-title {
     font-size: 16px;
   }
 }
+
+/* ========================
+   SCREENSAVER
+   ======================== */
+#screensaver {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background: var(--retro-black);
+  z-index: 999999;
+  display: none;
+  cursor: none;
+}
+#screensaver.show {
+  display: block;
+}
+#dvd-logo {
+  position: absolute;
+  top: 0; left: 0;
+  font-family: var(--font-retro);
+  font-size: 48px;
+  font-weight: bold;
+  color: var(--retro-pink);
+  text-shadow: 4px 4px 0px var(--retro-blue);
+  white-space: nowrap;
+  user-select: none;
+  will-change: transform;
+}
