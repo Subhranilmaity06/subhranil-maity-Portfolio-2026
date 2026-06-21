@@ -727,70 +727,102 @@ if (pet) {
 }
 
 // ========================
-// RETRO TURNTABLE LOGIC
+// RETRO TURNTABLE — YOUTUBE API
 // ========================
 var neoPlayer = document.getElementById('winamp-player');
 if (neoPlayer) {
   makeDraggable(neoPlayer, neoPlayer.querySelector('.widget-header'));
-  
-  var playPauseBtn = document.getElementById('play-pause-btn');
-  var vinyl = document.getElementById('vinyl-record');
-  var tonearm = document.getElementById('tonearm');
-  var audioPlayer = document.getElementById('audio-player');
-  var progressFill = document.getElementById('progress-fill');
-  var progressHandle = document.getElementById('progress-handle');
-  var currentTimeEl = document.getElementById('current-time');
-  
-  var duration = 537; // 8 minutes 57 seconds for November Rain
-  var currentTime = 0;
-  var interval;
-  var isPlaying = false;
+}
 
-  function updateProgress() {
-    var percent = (currentTime / duration) * 100;
-    if (progressFill) progressFill.style.width = percent + '%';
-    if (progressHandle) progressHandle.style.left = percent + '%';
-    var m = Math.floor(currentTime / 60);
-    var s = Math.floor(currentTime % 60);
-    if (currentTimeEl) currentTimeEl.innerText = m + ':' + (s < 10 ? '0' : '') + s;
-  }
-  
-  playPauseBtn.addEventListener('click', function() {
-    playSound('click');
-    if (isPlaying) {
-      // Pause
-      isPlaying = false;
-      playPauseBtn.innerHTML = '<i data-lucide="play"></i>';
-      if (window.lucide) lucide.createIcons();
-      if (vinyl) vinyl.classList.remove('playing');
-      if (tonearm) tonearm.classList.remove('playing');
-      if (audioPlayer && audioPlayer.getAttribute('src')) {
-         audioPlayer.pause();
+var ytPlayer = null;
+var vinyl = document.getElementById('vinyl-record');
+var tonearm = document.getElementById('tonearm');
+var playPauseBtn = document.getElementById('play-pause-btn');
+var progressFill = document.getElementById('progress-fill');
+var progressHandle = document.getElementById('progress-handle');
+var currentTimeEl = document.getElementById('current-time');
+var totalTimeEl = document.getElementById('total-time');
+var progressInterval;
+var isPlaying = false;
+
+// Track list — add more here!
+var tracks = [
+  { title: 'November Rain', artist: "Guns N' Roses", ytId: '8SbUC-UaAxE' }
+];
+var currentTrack = 0;
+
+// Called automatically by YouTube API when ready
+function onYouTubeIframeAPIReady() {
+  ytPlayer = new YT.Player('yt-player', {
+    height: '1',
+    width: '1',
+    videoId: tracks[currentTrack].ytId,
+    playerVars: { autoplay: 0, controls: 0, rel: 0, modestbranding: 1 },
+    events: {
+      onReady: function() {
+        var dur = ytPlayer.getDuration();
+        if (totalTimeEl && dur) {
+          var m = Math.floor(dur / 60);
+          var s = Math.floor(dur % 60);
+          totalTimeEl.innerText = m + ':' + (s < 10 ? '0' : '') + s;
+        }
+      },
+      onStateChange: function(e) {
+        if (e.data === YT.PlayerState.ENDED) {
+          setPlayState(false);
+        }
       }
-      clearInterval(interval);
-    } else {
-      // Play
-      isPlaying = true;
-      playPauseBtn.innerHTML = '<i data-lucide="pause"></i>';
-      if (window.lucide) lucide.createIcons();
-      if (vinyl) vinyl.classList.add('playing');
-      if (tonearm) tonearm.classList.add('playing');
-      
-      if (audioPlayer && audioPlayer.getAttribute('src')) {
-         audioPlayer.play().catch(function(e){ console.log(e); });
-      } else {
-         clearInterval(interval);
-         interval = setInterval(function() {
-           currentTime++;
-           if (currentTime >= duration) {
-              currentTime = 0;
-              playPauseBtn.click(); // auto pause
-           }
-           updateProgress();
-         }, 1000);
-      }
-      showToast("🎵 Playing: November Rain");
     }
   });
 }
 
+function formatTime(sec) {
+  var m = Math.floor(sec / 60);
+  var s = Math.floor(sec % 60);
+  return m + ':' + (s < 10 ? '0' : '') + s;
+}
+
+function setPlayState(playing) {
+  isPlaying = playing;
+  if (playing) {
+    if (vinyl) vinyl.classList.add('playing');
+    if (tonearm) tonearm.classList.add('playing');
+    if (playPauseBtn) {
+      playPauseBtn.innerHTML = '<i data-lucide="pause"></i>';
+      if (window.lucide) lucide.createIcons();
+    }
+    progressInterval = setInterval(function() {
+      if (!ytPlayer) return;
+      var cur = ytPlayer.getCurrentTime ? ytPlayer.getCurrentTime() : 0;
+      var dur = ytPlayer.getDuration ? ytPlayer.getDuration() : 1;
+      var pct = dur > 0 ? (cur / dur) * 100 : 0;
+      if (progressFill) progressFill.style.width = pct + '%';
+      if (progressHandle) progressHandle.style.left = pct + '%';
+      if (currentTimeEl) currentTimeEl.innerText = formatTime(cur);
+    }, 500);
+  } else {
+    if (vinyl) vinyl.classList.remove('playing');
+    if (tonearm) tonearm.classList.remove('playing');
+    if (playPauseBtn) {
+      playPauseBtn.innerHTML = '<i data-lucide="play"></i>';
+      if (window.lucide) lucide.createIcons();
+    }
+    clearInterval(progressInterval);
+  }
+}
+
+if (playPauseBtn) {
+  playPauseBtn.addEventListener('click', function() {
+    playSound('click');
+    if (isPlaying) {
+      if (ytPlayer && ytPlayer.pauseVideo) ytPlayer.pauseVideo();
+      setPlayState(false);
+    } else {
+      if (ytPlayer && ytPlayer.playVideo) {
+        ytPlayer.playVideo();
+        showToast('\ud83c\udfb5 Playing: ' + tracks[currentTrack].title);
+      }
+      setPlayState(true);
+    }
+  });
+}
