@@ -127,52 +127,52 @@
 
       </div> <!-- end right col -->
 
-      <!-- Retro Music Player (Vinyl Vibe) -->
-      <div class="widget retro-box neo-player" id="winamp-player" style="position: absolute; top: 0; left: calc(50% - 150px); display: block; z-index: 100;">
-        <div class="widget-header neo-header-override">
-          <div class="header-left">
-            <i data-lucide="disc"></i>
-            <span class="window-title">Turntable.exe</span>
-          </div>
-          <div class="header-right">
-            <button class="win-btn close-btn" aria-label="Close">X</button>
-          </div>
+    </div> <!-- end widgets-container -->
+
+    <!-- Retro Music Player (Vinyl Vibe) -->
+    <div class="widget retro-box neo-player" id="winamp-player" data-widget-id="turntable" style="position: absolute; top: 30px; left: calc(50% - 150px); display: block; z-index: 100;">
+      <div class="widget-header neo-header-override">
+        <div class="header-left">
+          <i data-lucide="disc"></i>
+          <span class="window-title">Turntable.exe</span>
         </div>
-        
-        <div class="neo-body turntable-body">
-          <div class="turntable-chassis">
-            <div class="neo-vinyl" id="vinyl-record">
-               <div class="neo-vinyl-center"></div>
-            </div>
-            <div class="tonearm" id="tonearm"></div>
-          </div>
-          
-          <div class="neo-track-info">
-            <div class="neo-track-name">November Rain</div>
-            <div class="neo-track-artist">Guns N' Roses</div>
-          </div>
-          
-          <div class="neo-progress">
-            <span class="time" id="current-time">0:00</span>
-            <div class="neo-progress-bar" id="progress-bar-container">
-               <div class="neo-progress-fill" id="progress-fill" style="width: 0%;"></div>
-               <div class="neo-progress-handle" id="progress-handle" style="left: 0%;"></div>
-            </div>
-            <span class="time" id="total-time">8:57</span>
-          </div>
-          
-          <div class="winamp-controls">
-            <button class="flat-btn" id="prev-btn"><i data-lucide="skip-back"></i></button>
-            <button class="flat-btn" id="play-pause-btn"><i data-lucide="play"></i></button>
-            <button class="flat-btn" id="next-btn"><i data-lucide="skip-forward"></i></button>
-          </div>
-          
-          <!-- HTML5 Audio Player (November Rain) -->
-          <audio id="audio-player" src="https://archive.org/download/gnr-november-rain/GNR%20-%20November%20Rain.mp3" preload="metadata"></audio>
+        <div class="header-right">
+          <button class="win-btn close-btn" aria-label="Close" onclick="tryCloseWidget(this, 'turntable')">X</button>
         </div>
       </div>
-
-    </div> <!-- end widgets-container -->
+      
+      <div class="neo-body turntable-body">
+        <div class="turntable-chassis">
+          <div class="neo-vinyl" id="vinyl-record">
+             <div class="neo-vinyl-center"></div>
+          </div>
+          <div class="tonearm" id="tonearm"></div>
+        </div>
+        
+        <div class="neo-track-info">
+          <div class="neo-track-name">November Rain</div>
+          <div class="neo-track-artist">Guns N' Roses</div>
+        </div>
+        
+        <div class="neo-progress">
+          <span class="time" id="current-time">0:00</span>
+          <div class="neo-progress-bar" id="progress-bar-container">
+             <div class="neo-progress-fill" id="progress-fill" style="width: 0%;"></div>
+             <div class="neo-progress-handle" id="progress-handle" style="left: 0%;"></div>
+          </div>
+          <span class="time" id="total-time">8:57</span>
+        </div>
+        
+        <div class="winamp-controls">
+          <button class="flat-btn" id="prev-btn"><i data-lucide="skip-back"></i></button>
+          <button class="flat-btn" id="play-pause-btn"><i data-lucide="play"></i></button>
+          <button class="flat-btn" id="next-btn"><i data-lucide="skip-forward"></i></button>
+        </div>
+        
+        <!-- HTML5 Audio Player (November Rain) -->
+        <audio id="audio-player" src="https://archive.org/download/gnr-november-rain/GNR%20-%20November%20Rain.mp3" preload="metadata"></audio>
+      </div>
+    </div>
 
     <!-- Windows Container -->
     <div id="windows-container"></div>

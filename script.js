@@ -35,6 +35,11 @@ const closeMessages = {
     { icon: '📵', title: 'Unreachable', msg: "So you DON'T want people to contact you? Bold introvert energy.", yes: 'Leave me alone', no: 'People can call' },
     { icon: '🏝️', title: 'Island Mode', msg: "Might as well move to a deserted island.", yes: 'Book my flight', no: 'I like WiFi' },
     { icon: '☎️', title: 'Last Call', msg: "Your mom called. She said keep this one.", yes: 'Sorry mom', no: 'Hi mom!' }
+  ],
+  turntable: [
+    { icon: '📻', title: 'Kill the Vibe?', msg: "Silence November Rain? Are you sure you want to stop the music?", yes: 'Yes, shut it down', no: 'Keep rocking!' },
+    { icon: '🎧', title: 'Party Pooper', msg: "Are you sure you want to stop the grooves? The vinyl will get lonely.", yes: 'Silent night', no: 'No, let it spin' },
+    { icon: '⚡', title: 'Slash is crying', msg: "If you close this, Slash will stop his legendary guitar solo. You okay with that?", yes: 'Sorry Slash', no: 'Never!' }
   ]
 };
 
@@ -120,6 +125,13 @@ function removeWidget(widget, widgetId) {
   setTimeout(function() {
     widget.style.display = 'none';
     widget.classList.remove('removing');
+    if (widgetId === 'turntable') {
+      var audio = document.getElementById('audio-player');
+      if (audio) {
+        audio.pause();
+        if (typeof setPlayState === 'function') setPlayState(false);
+      }
+    }
     showToast("💀 " + widgetId.charAt(0).toUpperCase() + widgetId.slice(1) + " sent to the shadow realm.");
   }, 350);
 }
@@ -130,7 +142,7 @@ function removeWidget(widget, widgetId) {
 function restoreWidget(widgetId) {
   var widget = document.querySelector('[data-widget-id="' + widgetId + '"]');
   if (widget) {
-    widget.style.display = 'flex';
+    widget.style.display = (widgetId === 'turntable') ? 'block' : 'flex';
     deletedWidgets = deletedWidgets.filter(function(w) { return w !== widgetId; });
     showToast("🧟 " + widgetId.charAt(0).toUpperCase() + widgetId.slice(1) + " rose from the dead!");
     if (openWindows.has('bin')) {
@@ -740,16 +752,6 @@ if (neoPlayer) {
   neoPlayer.addEventListener('touchstart', function() {
     bringToFront(neoPlayer);
   }, { passive: true });
-
-  // Close / minimize action
-  var closePlayerBtn = neoPlayer.querySelector('.close-btn');
-  if (closePlayerBtn) {
-    closePlayerBtn.addEventListener('click', function() {
-      playSound('click');
-      neoPlayer.style.display = 'none';
-      showToast("🎵 Turntable minimized to background.");
-    });
-  }
 }
 
 // Menu bar toggle action
@@ -757,10 +759,14 @@ var menuTurntableBtn = document.getElementById('menu-turntable-btn');
 if (menuTurntableBtn && neoPlayer) {
   menuTurntableBtn.addEventListener('click', function() {
     playSound('click');
-    if (neoPlayer.style.display === 'none') {
-      neoPlayer.style.display = 'block';
+    if (deletedWidgets.includes('turntable')) {
+      restoreWidget('turntable');
+    } else {
+      if (neoPlayer.style.display === 'none') {
+        neoPlayer.style.display = 'block';
+      }
+      bringToFront(neoPlayer);
     }
-    bringToFront(neoPlayer);
   });
 }
 
