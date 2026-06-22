@@ -463,13 +463,22 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     let progress = 0;
+    let isPageLoaded = false;
+    
+    window.addEventListener('load', () => {
+      isPageLoaded = true;
+    });
     
     function updateProgress() {
-      // Add random chunks to progress (10% to 25%)
-      progress += Math.floor(Math.random() * 15) + 10;
+      if (isPageLoaded) {
+        progress = 100;
+      } else {
+        // Add random chunks to progress (10% to 25%)
+        progress += Math.floor(Math.random() * 15) + 10;
+        if (progress > 90) progress = 90; // Cap at 90% until fully loaded
+      }
       
       if (progress >= 100) {
-        progress = 100;
         bootProgress.style.width = '100%';
         
         setTimeout(() => {
@@ -480,8 +489,9 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 300); // Small pause at 100%
       } else {
         bootProgress.style.width = progress + '%';
-        // Random interval between 30ms and 100ms
-        setTimeout(updateProgress, Math.floor(Math.random() * 70) + 30);
+        // If capped at 90%, check again slightly slower
+        let delay = (progress === 90) ? 200 : Math.floor(Math.random() * 70) + 30;
+        setTimeout(updateProgress, delay);
       }
     }
 
