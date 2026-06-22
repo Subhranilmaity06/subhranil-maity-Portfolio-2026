@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Subhranil Maity — Retro OS</title>
   <meta name="description" content="Portfolio of Subhranil Maity — Product & Brand Designer. A fun retro OS experience.">
-  <link rel="stylesheet" href="style.css?v=7">
+  <link rel="stylesheet" href="style.css?v=8">
 
 </head>
 <body>
@@ -14,21 +14,24 @@
   <div id="boot-screen">
     <div class="crt-overlay"></div>
     <div class="crt-scanline"></div>
+    <div class="boot-frame"></div>
     <div class="boot-content">
       <div class="boot-header">
         <span id="boot-time"></span>
       </div>
-      <div class="boot-main">
-        <h1 class="boot-title">New designs in<br>progress... <span class="blink">█</span></h1>
-      </div>
-      <div class="boot-progress-section">
-        <div class="boot-processing-text">processing...</div>
-        <div class="boot-progress-bar-container">
-          <div class="boot-progress-bar" id="boot-progress"></div>
+      <div class="boot-center-group">
+        <div class="boot-main">
+          <h1 class="boot-title">You're about to enter<br>SUBHRANIL'S PORTFOLIO...</h1>
         </div>
-        <div class="boot-progress-labels">
-          <span>0%</span>
-          <span>100%</span>
+        <div class="boot-progress-section">
+          <div class="boot-processing-text">Processing...</div>
+          <div class="boot-progress-bar-container">
+            <div class="boot-progress-bar" id="boot-progress"></div>
+          </div>
+          <div class="boot-progress-labels">
+            <span>0%</span>
+            <span>100%</span>
+          </div>
         </div>
       </div>
       <div class="boot-footer">
@@ -281,7 +284,7 @@
 
   <!-- Scripts at end of body for reliability -->
   <script src="https://unpkg.com/lucide@latest"></script>
-  <script src="script.js?v=7"></script>
+  <script src="script.js?v=8"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       if (typeof lucide !== 'undefined') {

@@ -465,8 +465,8 @@ document.addEventListener('DOMContentLoaded', function() {
     let progress = 0;
     
     function updateProgress() {
-      // Add random chunks to progress (5% to 15%)
-      progress += Math.floor(Math.random() * 10) + 5;
+      // Add random chunks to progress (10% to 25%)
+      progress += Math.floor(Math.random() * 15) + 10;
       
       if (progress >= 100) {
         progress = 100;
@@ -477,16 +477,16 @@ document.addEventListener('DOMContentLoaded', function() {
           setTimeout(() => {
             bootScreen.style.display = 'none';
           }, 800); // Wait for CSS transition (0.8s)
-        }, 600); // Small pause at 100%
+        }, 300); // Small pause at 100%
       } else {
         bootProgress.style.width = progress + '%';
-        // Random interval between 50ms and 250ms
-        setTimeout(updateProgress, Math.floor(Math.random() * 200) + 50);
+        // Random interval between 30ms and 100ms
+        setTimeout(updateProgress, Math.floor(Math.random() * 70) + 30);
       }
     }
 
     // Start boot sequence slightly after page load for effect
-    setTimeout(updateProgress, 400);
+    setTimeout(updateProgress, 200);
   }
 
   // Confirm dialog buttons
