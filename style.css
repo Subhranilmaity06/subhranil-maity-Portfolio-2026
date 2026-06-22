@@ -1567,14 +1567,16 @@ h2, h3, .quote-text, .window-title {
     flex: none;
     border-right: none;
     border-bottom: 2px solid var(--retro-black);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: block;
+    text-align: center;
+    line-height: 156px;
   }
   .preview-img {
     max-height: 150px;
     max-width: 100%;
-    margin: 0 auto;
+    margin: 0;
+    display: inline-block;
+    vertical-align: middle;
     object-fit: contain;
   }
   .preview-right {
