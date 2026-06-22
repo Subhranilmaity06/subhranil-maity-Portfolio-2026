@@ -1550,6 +1550,8 @@ h2, h3, .quote-text, .window-title {
     overflow-x: auto;
     gap: 4px;
     padding: 4px;
+    flex-shrink: 0;
+    -webkit-overflow-scrolling: touch;
   }
   .sidebar-folder {
     white-space: nowrap;
@@ -1562,11 +1564,22 @@ h2, h3, .quote-text, .window-title {
   }
   .preview-left {
     height: 180px;
+    flex: none;
     border-right: none;
     border-bottom: 2px solid var(--retro-black);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .preview-img {
+    max-height: 150px;
+    max-width: 100%;
+    margin: 0 auto;
+    object-fit: contain;
   }
   .preview-right {
     padding: 12px;
+    flex: none;
   }
 }
 
