@@ -5043,7 +5043,7 @@ function initGalleryExplorer() {
       fileEl.className = 'explorer-file-item';
       
       fileEl.innerHTML = '<div class="file-icon-wrapper">' +
-        '<i data-lucide="file-image" class="file-icon-img"></i>' +
+        '<img src="assets/portfolio/' + item.name + '" alt="' + item.title + '" class="file-preview-img" loading="lazy" />' +
         '</div>' +
         '<span class="file-label-text">' + item.label + '</span>';
       

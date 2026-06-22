@@ -1245,9 +1245,16 @@ h2, h3, .quote-text, .window-title {
   align-items: center;
 }
 
-.file-icon-img {
-  width: 32px;
-  height: 32px;
+.file-preview-img {
+  width: 52px;
+  height: 40px;
+  object-fit: cover;
+  border: 1px solid #808080;
+  border-right-color: #dfdfdf;
+  border-bottom-color: #dfdfdf;
+  box-shadow: inset 1px 1px 0 #000, 1px 1px 0 #fff;
+  background: #fff;
+  padding: 2px;
 }
 
 .file-label-text {
