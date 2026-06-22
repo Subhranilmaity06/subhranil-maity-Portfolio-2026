@@ -1210,10 +1210,10 @@ h2, h3, .quote-text, .window-title {
 .explorer-grid {
   flex: 1;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
   grid-auto-rows: max-content;
-  gap: 12px;
-  padding: 12px;
+  gap: 16px;
+  padding: 16px;
   overflow-y: auto;
 }
 
@@ -1246,8 +1246,8 @@ h2, h3, .quote-text, .window-title {
 }
 
 .file-preview-img {
-  width: 52px;
-  height: 40px;
+  width: 100px;
+  height: 75px;
   object-fit: cover;
   border: 1px solid #808080;
   border-right-color: #dfdfdf;
