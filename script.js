@@ -448,47 +448,45 @@ function makeDraggable(element, handle) {
 // INIT — runs after DOM is ready
 // ========================
 document.addEventListener('DOMContentLoaded', function() {
-  // Retro Boot Sequence
+  // Premium Retro Boot Sequence
   const bootScreen = document.getElementById('boot-screen');
-  const bootText = document.getElementById('boot-text');
+  const bootProgress = document.getElementById('boot-progress');
+  const bootTime = document.getElementById('boot-time');
   
-  if (bootScreen && bootText) {
-    const sequence = [
-      { text: "SUBHRANIL-OS v1.0.4 BIOS", delay: 300 },
-      { text: "Copyright (C) 2026, Subhranil Maity.", delay: 100 },
-      { text: "", delay: 400 },
-      { text: "Initializing Memory... OK", delay: 200 },
-      { text: "Loading Core System Drivers... OK", delay: 300 },
-      { text: "Mounting File System... OK", delay: 150 },
-      { text: "Starting GUI Environment...", delay: 600 },
-      { text: "", delay: 200 },
-      { text: "Welcome to Subhranil's Portfolio.", delay: 800 }
-    ];
+  if (bootScreen && bootProgress) {
+    // Set Time and Date
+    if (bootTime) {
+      const now = new Date();
+      bootTime.innerText = now.toLocaleTimeString('en-US', { hour12: true }) + " | " + now.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+      const yearEl = document.getElementById('boot-year');
+      if (yearEl) yearEl.innerText = "*" + now.getFullYear();
+    }
 
-    let i = 0;
+    let progress = 0;
     
-    function nextLine() {
-      if (i < sequence.length) {
-        const line = sequence[i];
-        if (line.text === "") {
-          bootText.innerHTML += "<br>";
-        } else {
-          bootText.innerHTML += line.text + "<br>";
-        }
-        i++;
-        setTimeout(nextLine, line.delay);
-      } else {
+    function updateProgress() {
+      // Add random chunks to progress (5% to 15%)
+      progress += Math.floor(Math.random() * 10) + 5;
+      
+      if (progress >= 100) {
+        progress = 100;
+        bootProgress.style.width = '100%';
+        
         setTimeout(() => {
           bootScreen.classList.add('hidden');
           setTimeout(() => {
             bootScreen.style.display = 'none';
-          }, 500); // Wait for CSS transition
-        }, 500);
+          }, 800); // Wait for CSS transition (0.8s)
+        }, 600); // Small pause at 100%
+      } else {
+        bootProgress.style.width = progress + '%';
+        // Random interval between 50ms and 250ms
+        setTimeout(updateProgress, Math.floor(Math.random() * 200) + 50);
       }
     }
 
     // Start boot sequence slightly after page load for effect
-    setTimeout(nextLine, 500);
+    setTimeout(updateProgress, 400);
   }
 
   // Confirm dialog buttons

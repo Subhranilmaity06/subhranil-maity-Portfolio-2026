@@ -1586,7 +1586,7 @@ h2, h3, .quote-text, .window-title {
 }
 
 /* ========================
-   RETRO BOOT SCREEN
+   PREMIUM RETRO BOOT SCREEN
    ======================== */
 #boot-screen {
   position: fixed;
@@ -1594,22 +1594,35 @@ h2, h3, .quote-text, .window-title {
   left: 0;
   width: 100vw;
   height: 100dvh;
-  background: #000;
+  background: #040904;
   color: #33ff00;
-  font-family: 'Courier New', Courier, monospace;
-  font-size: 16px;
-  line-height: 1.5;
-  padding: 24px;
+  font-family: var(--font-retro);
   z-index: 9999999;
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   overflow: hidden;
-  transition: opacity 0.5s ease-out;
+  transition: opacity 0.8s ease-out;
+  text-shadow: 0 0 5px rgba(51, 255, 0, 0.7), 0 0 10px rgba(51, 255, 0, 0.4);
 }
 
 #boot-screen.hidden {
   opacity: 0;
   pointer-events: none;
+}
+
+/* CRT Screen Curvature Overlay */
+.crt-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  box-shadow: inset 0 0 100px rgba(0,0,0,0.9);
+  border: 4px solid #081108;
+  border-radius: 16px;
+  pointer-events: none;
+  z-index: 5;
 }
 
 /* CRT Scanline Effect */
@@ -1621,20 +1634,21 @@ h2, h3, .quote-text, .window-title {
   left: 0;
   bottom: 0;
   right: 0;
-  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
   z-index: 2;
-  background-size: 100% 2px, 3px 100%;
+  background-size: 100% 4px;
   pointer-events: none;
 }
 
 .crt-scanline {
   width: 100%;
-  height: 10px;
+  height: 15px;
   position: absolute;
-  background: rgba(51, 255, 0, 0.1);
-  opacity: 0.4;
-  animation: scanline 6s linear infinite;
+  background: rgba(51, 255, 0, 0.15);
+  opacity: 0.6;
+  animation: scanline 8s linear infinite;
   z-index: 3;
+  box-shadow: 0 0 20px rgba(51, 255, 0, 0.3);
 }
 
 @keyframes scanline {
@@ -1642,22 +1656,117 @@ h2, h3, .quote-text, .window-title {
   100% { top: 110%; }
 }
 
-/* Blinking Cursor */
-.blink {
-  animation: blinker 1s linear infinite;
-  display: inline-block;
-  width: 10px;
-  height: 18px;
+.boot-content {
+  position: relative;
+  width: 90%;
+  max-width: 800px;
+  height: 90%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  z-index: 4;
+}
+
+.boot-header {
+  font-size: 20px;
+  opacity: 0.9;
+  letter-spacing: 1px;
+}
+
+.boot-main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.boot-title {
+  font-size: 48px;
+  text-align: center;
+  line-height: 1.4;
+  font-weight: normal;
+  letter-spacing: 2px;
+  margin: 0;
+}
+
+.boot-progress-section {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  margin-bottom: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.boot-processing-text {
+  font-size: 24px;
+  margin-bottom: 16px;
+  letter-spacing: 2px;
+}
+
+.boot-progress-bar-container {
+  width: 100%;
+  height: 48px;
+  border: 4px solid #33ff00;
+  padding: 4px;
+  position: relative;
+  box-shadow: 0 0 10px rgba(51, 255, 0, 0.3), inset 0 0 10px rgba(51, 255, 0, 0.2);
+}
+
+.boot-progress-bar {
+  height: 100%;
+  width: 0%;
   background-color: #33ff00;
-  vertical-align: bottom;
-  margin-left: 2px;
+  box-shadow: 0 0 15px rgba(51, 255, 0, 0.8);
+  transition: width 0.1s linear;
+}
+
+.boot-progress-labels {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 12px;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.boot-footer {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  font-size: 20px;
+  letter-spacing: 1px;
+}
+
+.boot-footer-right {
+  position: absolute;
+  right: 0;
+}
+
+/* Blinking Block Cursor */
+.blink {
+  animation: blinker 1s step-end infinite;
+  display: inline-block;
+  color: #33ff00;
+  vertical-align: baseline;
 }
 
 @keyframes blinker {
   50% { opacity: 0; }
 }
 
-#boot-text-container {
-  white-space: pre-wrap;
-  z-index: 4;
+@media (max-width: 600px) {
+  .boot-title {
+    font-size: 32px;
+  }
+  .boot-progress-bar-container {
+    height: 36px;
+  }
+  .boot-header, .boot-footer {
+    font-size: 16px;
+  }
+  .boot-processing-text {
+    font-size: 20px;
+  }
 }

@@ -5,16 +5,36 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Subhranil Maity — Retro OS</title>
   <meta name="description" content="Portfolio of Subhranil Maity — Product & Brand Designer. A fun retro OS experience.">
-  <link rel="stylesheet" href="style.css?v=5">
+  <link rel="stylesheet" href="style.css?v=6">
 
 </head>
 <body>
 
-  <!-- Retro Boot Screen -->
+  <!-- Premium CRT Boot Screen -->
   <div id="boot-screen">
+    <div class="crt-overlay"></div>
     <div class="crt-scanline"></div>
-    <div id="boot-text-container">
-      <span id="boot-text"></span><span id="boot-cursor" class="blink"></span>
+    <div class="boot-content">
+      <div class="boot-header">
+        <span id="boot-time"></span>
+      </div>
+      <div class="boot-main">
+        <h1 class="boot-title">New designs in<br>progress... <span class="blink">█</span></h1>
+      </div>
+      <div class="boot-progress-section">
+        <div class="boot-processing-text">processing...</div>
+        <div class="boot-progress-bar-container">
+          <div class="boot-progress-bar" id="boot-progress"></div>
+        </div>
+        <div class="boot-progress-labels">
+          <span>0%</span>
+          <span>100%</span>
+        </div>
+      </div>
+      <div class="boot-footer">
+        <span>//subhranilmaity.com</span>
+        <span class="boot-footer-right" id="boot-year"></span>
+      </div>
     </div>
   </div>
 
@@ -261,7 +281,7 @@
 
   <!-- Scripts at end of body for reliability -->
   <script src="https://unpkg.com/lucide@latest"></script>
-  <script src="script.js?v=5"></script>
+  <script src="script.js?v=6"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       if (typeof lucide !== 'undefined') {
