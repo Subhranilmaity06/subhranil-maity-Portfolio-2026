@@ -329,7 +329,7 @@ function toggleMaximize(id) {
     win.dataset.origLeft = win.style.left;
     win.classList.add('maximized');
     win.style.width = 'calc(100% - 10px)';
-    win.style.height = 'calc(100% - 40px)';
+    win.style.height = 'calc(100% - 120px)';
     win.style.top = '30px';
     win.style.left = '5px';
     if (iconSpan) iconSpan.innerText = '[-]';
