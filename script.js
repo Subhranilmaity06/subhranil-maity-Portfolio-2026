@@ -185,7 +185,7 @@ var appData = {
         { title: 'Sundrex.exe', desc: '2025 • Active<br><span style="color:var(--retro-blue);text-decoration:underline;">sundrex.com</span>', url: 'https://www.sundrex.com/', img: 'sundrex.png' },
         { title: 'Haatak.exe', desc: '2025 • Active<br><span style="color:var(--retro-blue);text-decoration:underline;">haatak.com</span>', url: 'https://www.haatak.com/', img: 'haatak.png' },
         { title: 'RailwayHSS.exe', desc: '2022 • Active<br><span style="color:var(--retro-blue);text-decoration:underline;">railwayhsschoolapdj.com</span>', url: 'https://railwayhsschoolapdj.com/', img: 'railwayhss.png' },
-        { title: 'AiFalcon.exe', desc: '2023-24 • Deactive<br><span style="color:var(--retro-dark-grey);text-decoration:line-through;">aifalcon.framer.app</span>', url: 'https://aifalcon.framer.app/', img: 'aifalcon.png' },
+        { title: 'AiFalcon.exe', desc: '2023-24 • Active<br><span style="color:var(--retro-blue);text-decoration:underline;">Figma Design</span>', url: 'https://www.figma.com/design/j3qyMf8jQIMELdLtRaaOD5/AiFalcon?node-id=1489-13761&t=oQY08AMw9mMwcnn2-1', img: 'aifalcon.png' },
         { title: 'HaatakApp.apk', desc: '2025 • Active App', url: '', img: 'haatakapp.webp' },
         { title: 'AutoQuote.apk', desc: '2025 • Active App', url: '', img: 'autoquote.webp' },
         { title: 'Ayla.exe', desc: '2024-25 • Active App', url: '', img: 'ayla.webp' }
