@@ -1004,25 +1004,25 @@ if (nextBtn) {
 // ========================
 var galleryData = {
   ecommerce: [
-    { id: 'ecowell', name: 'ecowell.webp', label: 'Ecowell_Brand.webp', title: 'Ecowell Brand Identity', role: 'Design Lead', date: '2025-2026', desc: 'Crafted digital brand profile visuals, health/beauty layouts, and conversion-focused assets for Ecowell cosmetics.', driveLink: 'https://drive.google.com/drive/folders/1ecowell-folder-placeholder' },
-    { id: 'visiaro', name: 'visiaro.webp', label: 'Visiaro_Ecom_UX.webp', title: 'Visiaro E-Commerce Platform', role: 'UI/UX Designer', date: '2023', desc: 'Designed high-fidelity e-commerce storefront layouts, products UX grids, and scroll heatmaps to identify bottlenecks.', driveLink: 'https://drive.google.com/drive/folders/1visiaro-folder-placeholder' },
-    { id: 'lkaija', name: 'lkaija.webp', label: 'LKaija_Details_UX.webp', title: 'L-Kaija Products UX Details', role: 'Interaction Designer', date: '2023', desc: 'Created high-converting product details layouts backed by user scrolling and click heatmaps.', driveLink: 'https://drive.google.com/drive/folders/1lkaija-folder-placeholder' }
+    { id: 'ecowell', name: 'ecowell.webp', label: 'Ecowell_Brand.webp', title: 'Ecowell Brand Identity', role: 'Design Lead', date: '2025-2026', desc: 'Crafted digital brand profile visuals, health/beauty layouts, and conversion-focused assets for Ecowell cosmetics.', hiresPath: 'assets/portfolio/hires/ecowell.jpg' },
+    { id: 'visiaro', name: 'visiaro.webp', label: 'Visiaro_Ecom_UX.webp', title: 'Visiaro E-Commerce Platform', role: 'UI/UX Designer', date: '2023', desc: 'Designed high-fidelity e-commerce storefront layouts, products UX grids, and scroll heatmaps to identify bottlenecks.', hiresPath: 'assets/portfolio/hires/visiaro.jpg' },
+    { id: 'lkaija', name: 'lkaija.webp', label: 'LKaija_Details_UX.webp', title: 'L-Kaija Products UX Details', role: 'Interaction Designer', date: '2023', desc: 'Created high-converting product details layouts backed by user scrolling and click heatmaps.', hiresPath: 'assets/portfolio/hires/lkaija.jpg' }
   ],
   branding: [
-    { id: 'ecolixir', name: 'ecolixir.webp', label: 'Ecolixir_Identity.webp', title: 'Ecolixir Branding Guidelines', role: 'Brand Identity Lead', date: '2024', desc: 'Developed a comprehensive green-nature brand identity system, canvas bag mockup designs, and logo guidelines.', driveLink: 'https://drive.google.com/drive/folders/1ecolixir-folder-placeholder' },
-    { id: 'aifalcon', name: 'aifalcon.webp', label: 'AiFalcon_Assets.webp', title: 'AiFalcon App Icons & Logo Guidelines', role: 'Graphic Designer', date: '2024', desc: 'Designed mobile app icon guidelines, lightboxes, and brand assets for a design platform.', driveLink: 'https://drive.google.com/drive/folders/1aifalcon-folder-placeholder' },
-    { id: 'alteredai', name: 'alteredai.webp', label: 'AlteredAI_Signups.webp', title: 'AlteredAI Login & signup Flows', role: 'UI/UX Designer', date: '2024', desc: 'Designed signup flows, login screen dashboards, and user panels.', driveLink: 'https://drive.google.com/drive/folders/1alteredai-folder-placeholder' }
+    { id: 'ecolixir', name: 'ecolixir.webp', label: 'Ecolixir_Identity.webp', title: 'Ecolixir Branding Guidelines', role: 'Brand Identity Lead', date: '2024', desc: 'Developed a comprehensive green-nature brand identity system, canvas bag mockup designs, and logo guidelines.', hiresPath: 'assets/portfolio/hires/ecolixir.jpg' },
+    { id: 'aifalcon', name: 'aifalcon.webp', label: 'AiFalcon_Assets.webp', title: 'AiFalcon App Icons & Logo Guidelines', role: 'Graphic Designer', date: '2024', desc: 'Designed mobile app icon guidelines, lightboxes, and brand assets for a design platform.', hiresPath: 'assets/portfolio/hires/aifalcon.jpg' },
+    { id: 'alteredai', name: 'alteredai.webp', label: 'AlteredAI_Signups.webp', title: 'AlteredAI Login & Signup Flows', role: 'UI/UX Designer', date: '2024', desc: 'Designed signup flows, login screen dashboards, and user panels.', hiresPath: 'assets/portfolio/hires/alteredai.jpg' }
   ],
   challenges: [
-    { id: 'ui_challenges', name: 'ui_challenges.webp', label: 'UI_Challenges_1_10.webp', title: 'Daily UI/UX Design Challenges', role: 'UI Designer', date: '2024', desc: 'Created 10 distinct UI challenge screens ranging from user profile blocks to checkout modals.', driveLink: 'https://drive.google.com/drive/folders/1challenges-folder-placeholder' },
-    { id: 'lottle', name: 'lottle.webp', label: 'Lottle_App_Concept.webp', title: 'Lottle Vector Logotypes & Prototypes', role: 'UI Designer', date: '2023', desc: 'Designed custom app prototypes, vector logos, and design drafts for the Lottle project.', driveLink: 'https://drive.google.com/drive/folders/1lottle-folder-placeholder' }
+    { id: 'ui_challenges', name: 'ui_challenges.webp', label: 'UI_Challenges_1_10.webp', title: 'Daily UI/UX Design Challenges', role: 'UI Designer', date: '2024', desc: 'Created 10 distinct UI challenge screens ranging from user profile blocks to checkout modals.', hiresPath: 'assets/portfolio/hires/ui_challenges.jpg' },
+    { id: 'lottle', name: 'lottle.webp', label: 'Lottle_App_Concept.webp', title: 'Lottle Vector Logotypes & Prototypes', role: 'UI Designer', date: '2023', desc: 'Designed custom app prototypes, vector logos, and design drafts for the Lottle project.', hiresPath: 'assets/portfolio/hires/lottle.jpg' }
   ],
   graphics: [
-    { id: 'zarevna', name: 'zarevna.webp', label: 'Zarevna_Branding.webp', title: 'Zarevna Business Cards & Bootcamp Banners', role: 'Visual Designer', date: '2023', desc: 'Designed corporate business card mockups, boot camp banners, and marketing assets.', driveLink: 'https://drive.google.com/drive/folders/1zarevna-folder-placeholder' },
-    { id: 'fargo', name: 'fargo.webp', label: 'Fargo_Posters.webp', title: 'Fargo Promotional Posters', role: 'Graphic Designer', date: '2023', desc: 'Created high-impact poster and banner layouts for print and social media campaigns.', driveLink: 'https://drive.google.com/drive/folders/1fargo-folder-placeholder' },
-    { id: 'pylab', name: 'pylab.webp', label: 'PyLab_Logos_Home.webp', title: 'PyLab Logotypes & Homepage Design', role: 'Visual Designer', date: '2023', desc: 'Designed PyLab developer logotypes and technical website homepage concepts.', driveLink: 'https://drive.google.com/drive/folders/1pylab-folder-placeholder' },
-    { id: 'clg_banners', name: 'clg_banners.webp', label: 'College_Event_Banners.webp', title: 'TECH-O-NICKS Club Event Banners', role: 'Lead Graphic Designer', date: '2023', desc: 'Designed promotional graphics and event banners for college technical bootcamps.', driveLink: 'https://drive.google.com/drive/folders/1clgbanners-folder-placeholder' },
-    { id: 'print_media', name: 'wedding_invitations.webp', label: 'Wedding_Invitation_Card.webp', title: 'Premium Print Wedding Invitations', role: 'Print Graphic Designer', date: '2023', desc: 'Designed elegant, high-resolution vector wedding invitation cards for print production.', driveLink: 'https://drive.google.com/drive/folders/1printmedia-folder-placeholder' }
+    { id: 'zarevna', name: 'zarevna.webp', label: 'Zarevna_Branding.webp', title: 'Zarevna Business Cards & Bootcamp Banners', role: 'Visual Designer', date: '2023', desc: 'Designed corporate business card mockups, boot camp banners, and marketing assets.', hiresPath: 'assets/portfolio/hires/zarevna.jpg' },
+    { id: 'fargo', name: 'fargo.webp', label: 'Fargo_Posters.webp', title: 'Fargo Promotional Posters', role: 'Graphic Designer', date: '2023', desc: 'Created high-impact poster and banner layouts for print and social media campaigns.', hiresPath: 'assets/portfolio/hires/fargo.jpg' },
+    { id: 'pylab', name: 'pylab.webp', label: 'PyLab_Logos_Home.webp', title: 'PyLab Logotypes & Homepage Design', role: 'Visual Designer', date: '2023', desc: 'Designed PyLab developer logotypes and technical website homepage concepts.', hiresPath: 'assets/portfolio/hires/pylab.jpg' },
+    { id: 'clg_banners', name: 'clg_banners.webp', label: 'College_Event_Banners.webp', title: 'TECH-O-NICKS Club Event Banners', role: 'Lead Graphic Designer', date: '2023', desc: 'Designed promotional graphics and event banners for college technical bootcamps.', hiresPath: 'assets/portfolio/hires/clg_banners.jpg' },
+    { id: 'print_media', name: 'wedding_invitations.webp', label: 'Wedding_Invitation_Card.webp', title: 'Premium Print Wedding Invitations', role: 'Print Graphic Designer', date: '2023', desc: 'Designed elegant, high-resolution vector wedding invitation cards for print production.', hiresPath: 'assets/portfolio/hires/print_media.jpg' }
   ]
 };
 
@@ -1108,7 +1108,7 @@ function openProjectPreview(item) {
 
   var contentHTML = '<div class="project-preview-modal">' +
     '<div class="preview-left">' +
-      '<img src="assets/portfolio/' + item.id + '.webp" alt="' + item.title + '" class="preview-img" onclick="window.open(\'assets/portfolio/' + item.id + '.webp\', \'_blank\')">' +
+      '<img src="' + item.hiresPath + '" alt="' + item.title + '" class="preview-img" onclick="window.open(\'' + item.hiresPath + '\', \'_blank\')">' +
     '</div>' +
     '<div class="preview-right">' +
       '<h2 class="preview-title">' + item.title + '</h2>' +
@@ -1118,7 +1118,7 @@ function openProjectPreview(item) {
       '</div>' +
       '<p class="preview-desc">' + item.desc + '</p>' +
       '<div class="preview-actions">' +
-        '<a href="' + item.driveLink + '" target="_blank" class="flat-btn preview-action-btn"><i data-lucide="external-link" style="width:14px;height:14px;"></i> View High-Res (Drive)</a>' +
+        '<a href="' + item.hiresPath + '" target="_blank" class="flat-btn preview-action-btn"><i data-lucide="maximize" style="width:14px;height:14px;"></i> View Full Resolution</a>' +
       '</div>' +
     '</div>' +
   '</div>';
