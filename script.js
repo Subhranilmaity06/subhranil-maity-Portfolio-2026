@@ -5093,13 +5093,13 @@ function initGalleryExplorer() {
         
         // Double click for desktop
         fileEl.addEventListener('dblclick', function() {
-          openProjectPreview(item);
+          openProjectPreview(item, category, items.indexOf(item));
         });
         // Single tap for mobile / touch
         fileEl.addEventListener('click', function(e) {
           var isMobile = window.innerWidth <= 900;
           if (isMobile) {
-            openProjectPreview(item);
+            openProjectPreview(item, category, items.indexOf(item));
           } else {
             explorer.querySelectorAll('.explorer-file-item').forEach(i => i.classList.remove('selected'));
             fileEl.classList.add('selected');
@@ -5121,11 +5121,24 @@ function initGalleryExplorer() {
   renderFiles('ecommerce');
 }
 
-function openProjectPreview(item) {
+function openProjectPreview(item, category, index) {
   var windowId = 'preview-' + item.id;
   if (openWindows.has(windowId)) {
     bringToFront(openWindows.get(windowId));
     return;
+  }
+
+  var navHtml = '';
+  if (category && typeof index === 'number') {
+    var itemsArray = galleryData[category] || [];
+    navHtml += '<div style="margin-top:20px; display:flex; gap:10px;">';
+    if (index > 0) {
+      navHtml += '<button class="win-btn" onclick="closeApp(\'' + windowId + '\'); openProjectPreview(galleryData[\'' + category + '\'][' + (index - 1) + '], \'' + category + '\', ' + (index - 1) + ')">&lt; Prev</button>';
+    }
+    if (index < itemsArray.length - 1) {
+      navHtml += '<button class="win-btn" onclick="closeApp(\'' + windowId + '\'); openProjectPreview(galleryData[\'' + category + '\'][' + (index + 1) + '], \'' + category + '\', ' + (index + 1) + ')">Next &gt;</button>';
+    }
+    navHtml += '</div>';
   }
 
   var contentHTML = '<div class="project-preview-modal">' +
@@ -5142,6 +5155,7 @@ function openProjectPreview(item) {
       '<div class="preview-actions">' +
         '<a href="' + item.hiresPath + '" target="_blank" class="flat-btn preview-action-btn"><i data-lucide="maximize" style="width:14px;height:14px;"></i> View Full Resolution</a>' +
       '</div>' +
+      navHtml +
     '</div>' +
   '</div>';
 
