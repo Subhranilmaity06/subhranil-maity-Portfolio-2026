@@ -5,10 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Subhranil Maity — Retro OS</title>
   <meta name="description" content="Portfolio of Subhranil Maity — Product & Brand Designer. A fun retro OS experience.">
-  <link rel="stylesheet" href="style.css?v=4">
+  <link rel="stylesheet" href="style.css?v=5">
 
 </head>
 <body>
+
+  <!-- Retro Boot Screen -->
+  <div id="boot-screen">
+    <div class="crt-scanline"></div>
+    <div id="boot-text-container">
+      <span id="boot-text"></span><span id="boot-cursor" class="blink"></span>
+    </div>
+  </div>
 
   <!-- Top Menu Bar -->
   <div id="menu-bar">
@@ -253,7 +261,7 @@
 
   <!-- Scripts at end of body for reliability -->
   <script src="https://unpkg.com/lucide@latest"></script>
-  <script src="script.js?v=4"></script>
+  <script src="script.js?v=5"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       if (typeof lucide !== 'undefined') {

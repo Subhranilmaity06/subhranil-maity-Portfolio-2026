@@ -448,6 +448,48 @@ function makeDraggable(element, handle) {
 // INIT — runs after DOM is ready
 // ========================
 document.addEventListener('DOMContentLoaded', function() {
+  // Retro Boot Sequence
+  const bootScreen = document.getElementById('boot-screen');
+  const bootText = document.getElementById('boot-text');
+  
+  if (bootScreen && bootText) {
+    const sequence = [
+      { text: "SUBHRANIL-OS v1.0.4 BIOS", delay: 300 },
+      { text: "Copyright (C) 2026, Subhranil Maity.", delay: 100 },
+      { text: "", delay: 400 },
+      { text: "Initializing Memory... OK", delay: 200 },
+      { text: "Loading Core System Drivers... OK", delay: 300 },
+      { text: "Mounting File System... OK", delay: 150 },
+      { text: "Starting GUI Environment...", delay: 600 },
+      { text: "", delay: 200 },
+      { text: "Welcome to Subhranil's Portfolio.", delay: 800 }
+    ];
+
+    let i = 0;
+    
+    function nextLine() {
+      if (i < sequence.length) {
+        const line = sequence[i];
+        if (line.text === "") {
+          bootText.innerHTML += "<br>";
+        } else {
+          bootText.innerHTML += line.text + "<br>";
+        }
+        i++;
+        setTimeout(nextLine, line.delay);
+      } else {
+        setTimeout(() => {
+          bootScreen.classList.add('hidden');
+          setTimeout(() => {
+            bootScreen.style.display = 'none';
+          }, 500); // Wait for CSS transition
+        }, 500);
+      }
+    }
+
+    // Start boot sequence slightly after page load for effect
+    setTimeout(nextLine, 500);
+  }
 
   // Confirm dialog buttons
   var yesBtn = document.getElementById('confirm-yes');
