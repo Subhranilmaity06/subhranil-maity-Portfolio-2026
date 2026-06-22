@@ -621,6 +621,16 @@ h2, h3, .quote-text, .window-title {
   gap: 4px;
 }
 
+.window-controls .win-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  padding: 0 !important;
+  box-sizing: border-box;
+}
+
 .window-content {
   flex: 1;
   background: var(--retro-white);

@@ -361,9 +361,9 @@ function createWindow(id, title, contentHTML) {
   win.innerHTML = '<div class="window-header">' +
     '<div class="window-title">' + title + '</div>' +
     '<div class="window-controls">' +
-    '<button class="win-btn" style="padding:0 4px;font-size:14px;margin-right:4px;" onclick="toggleMaximize(\'' + id + '\')">' +
+    '<button class="win-btn" style="font-size:14px;" onclick="toggleMaximize(\'' + id + '\')">' +
     '<span class="max-btn-icon" style="font-weight:900;">[ ]</span></button>' +
-    '<button class="win-btn" style="padding:0 4px;font-size:14px;" onclick="closeApp(\'' + id + '\')">' +
+    '<button class="win-btn" style="font-size:14px;" onclick="closeApp(\'' + id + '\')">' +
     '<span style="font-weight:900;">X</span></button>' +
     '</div></div>' +
     '<div class="window-content">' + contentHTML + '</div>';
