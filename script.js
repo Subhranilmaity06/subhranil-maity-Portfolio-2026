@@ -175,20 +175,40 @@ updateClock();
 var appData = {
   projects: {
     title: 'C:\\Projects',
-    content: '<div class="app-grid">' +
-      '<div class="project-card" onclick="window.open(\'https://naata.in/\', \'_blank\')"><h4>Naata.exe</h4><p>2025 • Active<br><span style="color:var(--retro-blue);text-decoration:underline;">naata.in</span></p></div>' +
-      '<div class="project-card" onclick="window.open(\'https://www.ecowellonline.com/\', \'_blank\')"><h4>Ecowell.exe</h4><p>2024-26 • Active<br><span style="color:var(--retro-blue);text-decoration:underline;">ecowellonline.com</span></p></div>' +
-      '<div class="project-card" onclick="window.open(\'https://www.mechapixel.in/\', \'_blank\')"><h4>Mechapixel.exe</h4><p>2025 • Active<br><span style="color:var(--retro-blue);text-decoration:underline;">mechapixel.in</span></p></div>' +
-      '<div class="project-card" onclick="window.open(\'https://www.educircle.co/\', \'_blank\')"><h4>Educircle.exe</h4><p>2025 • Active<br><span style="color:var(--retro-blue);text-decoration:underline;">educircle.co</span></p></div>' +
-      '<div class="project-card" onclick="window.open(\'https://goodwyntea.com/\', \'_blank\')"><h4>Goodwyn.exe</h4><p>2025 • Active<br><span style="color:var(--retro-blue);text-decoration:underline;">goodwyntea.com</span></p></div>' +
-      '<div class="project-card" onclick="window.open(\'https://www.sundrex.com/\', \'_blank\')"><h4>Sundrex.exe</h4><p>2025 • Active<br><span style="color:var(--retro-blue);text-decoration:underline;">sundrex.com</span></p></div>' +
-      '<div class="project-card" onclick="window.open(\'https://www.haatak.com/\', \'_blank\')"><h4>Haatak.exe</h4><p>2025 • Active<br><span style="color:var(--retro-blue);text-decoration:underline;">haatak.com</span></p></div>' +
-      '<div class="project-card" onclick="window.open(\'https://railwayhsschoolapdj.com/\', \'_blank\')"><h4>RailwayHSS.exe</h4><p>2022 • Active<br><span style="color:var(--retro-blue);text-decoration:underline;">railwayhsschoolapdj.com</span></p></div>' +
-      '<div class="project-card" onclick="window.open(\'https://aifalcon.framer.app/\', \'_blank\')"><h4>AiFalcon.exe</h4><p>2023-24 • Deactive<br><span style="color:var(--retro-dark-grey);text-decoration:line-through;">aifalcon.framer.app</span></p></div>' +
-      '<div class="project-card"><h4>HaatakApp.apk</h4><p>2025 • Active App</p></div>' +
-      '<div class="project-card"><h4>AutoQuote.apk</h4><p>2025 • Active App</p></div>' +
-      '<div class="project-card"><h4>Ayla.exe</h4><p>2024-25 • Active App</p></div>' +
-      '</div>'
+    content: (function() {
+      var projs = [
+        { title: 'Naata.exe', desc: '2025 • Active<br><span style="color:var(--retro-blue);text-decoration:underline;">naata.in</span>', url: 'https://naata.in/', img: 'naata.webp' },
+        { title: 'Ecowell.exe', desc: '2024-26 • Active<br><span style="color:var(--retro-blue);text-decoration:underline;">ecowellonline.com</span>', url: 'https://www.ecowellonline.com/', img: 'ecowell.webp' },
+        { title: 'Mechapixel.exe', desc: '2025 • Active<br><span style="color:var(--retro-blue);text-decoration:underline;">mechapixel.in</span>', url: 'https://www.mechapixel.in/', img: 'mechapixel.webp' },
+        { title: 'Educircle.exe', desc: '2025 • Active<br><span style="color:var(--retro-blue);text-decoration:underline;">educircle.co</span>', url: 'https://www.educircle.co/', img: 'educircle.webp' },
+        { title: 'Goodwyn.exe', desc: '2025 • Active<br><span style="color:var(--retro-blue);text-decoration:underline;">goodwyntea.com</span>', url: 'https://goodwyntea.com/', img: 'goodwyn.webp' },
+        { title: 'Sundrex.exe', desc: '2025 • Active<br><span style="color:var(--retro-blue);text-decoration:underline;">sundrex.com</span>', url: 'https://www.sundrex.com/', img: 'sundrex.webp' },
+        { title: 'Haatak.exe', desc: '2025 • Active<br><span style="color:var(--retro-blue);text-decoration:underline;">haatak.com</span>', url: 'https://www.haatak.com/', img: 'haatak.webp' },
+        { title: 'RailwayHSS.exe', desc: '2022 • Active<br><span style="color:var(--retro-blue);text-decoration:underline;">railwayhsschoolapdj.com</span>', url: 'https://railwayhsschoolapdj.com/', img: 'railwayhss.webp' },
+        { title: 'AiFalcon.exe', desc: '2023-24 • Deactive<br><span style="color:var(--retro-dark-grey);text-decoration:line-through;">aifalcon.framer.app</span>', url: 'https://aifalcon.framer.app/', img: 'aifalcon.webp' },
+        { title: 'HaatakApp.apk', desc: '2025 • Active App', url: '', img: 'haatakapp.webp' },
+        { title: 'AutoQuote.apk', desc: '2025 • Active App', url: '', img: 'autoquote.webp' },
+        { title: 'Ayla.exe', desc: '2024-25 • Active App', url: '', img: 'ayla.webp' }
+      ];
+      var html = '<div class="app-grid mac-grid">';
+      projs.forEach(function(p) {
+        var clickAttr = p.url ? ' onclick="window.open(\'' + p.url + '\', \'_blank\')"' : '';
+        html += '<div class="project-wrapper"' + clickAttr + '>' +
+          '<div class="project-mac-chassis">' +
+            '<div class="mac-screen-bezel">' +
+              '<img class="mac-screen-content" src="assets/portfolio/' + p.img + '" onerror="this.style.opacity=0;" />' +
+            '</div>' +
+            '<div class="mac-floppy-drive"></div>' +
+          '</div>' +
+          '<div class="project-info">' +
+            '<h4>' + p.title + '</h4>' +
+            '<p>' + p.desc + '</p>' +
+          '</div>' +
+        '</div>';
+      });
+      html += '</div>';
+      return html;
+    })()
   },
   casestudies: {
     title: 'C:\\Case_Studies',
