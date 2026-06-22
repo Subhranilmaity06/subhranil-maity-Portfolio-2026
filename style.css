@@ -1227,6 +1227,19 @@ h2, h3, .quote-text, .window-title {
   overflow-y: auto;
 }
 
+.explorer-group-header {
+  grid-column: 1 / -1;
+  font-family: Arial, sans-serif;
+  font-weight: bold;
+  font-size: 16px;
+  color: #333;
+  margin-top: 12px;
+  margin-bottom: 4px;
+  padding-bottom: 4px;
+  border-bottom: 2px solid var(--retro-grey);
+  text-transform: capitalize;
+}
+
 .explorer-file-item {
   cursor: pointer;
   display: flex;

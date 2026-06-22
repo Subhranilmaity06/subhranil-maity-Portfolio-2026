@@ -5068,32 +5068,47 @@ function initGalleryExplorer() {
       return;
     }
 
+    var groups = {};
     items.forEach(function(item) {
-      var fileEl = document.createElement('div');
-      fileEl.className = 'explorer-file-item';
-      
-      fileEl.innerHTML = '<div class="file-icon-wrapper">' +
-        '<img src="assets/portfolio/' + item.name + '" alt="' + item.title + '" class="file-preview-img" loading="lazy" />' +
-        '</div>' +
-        '<span class="file-label-text">' + item.label + '</span>';
-      
-      // Double click for desktop
-      fileEl.addEventListener('dblclick', function() {
-        openProjectPreview(item);
-      });
-      // Single tap for mobile / touch
-      fileEl.addEventListener('click', function(e) {
-        var isMobile = window.innerWidth <= 900;
-        if (isMobile) {
-          openProjectPreview(item);
-        } else {
-          explorer.querySelectorAll('.explorer-file-item').forEach(i => i.classList.remove('selected'));
-          fileEl.classList.add('selected');
-        }
-      });
-      
-      fileGrid.appendChild(fileEl);
+      var parts = item.title.split(' - ');
+      var groupName = parts.length > 1 ? parts[0].trim() : 'Other Projects';
+      if (!groups[groupName]) groups[groupName] = [];
+      groups[groupName].push(item);
     });
+
+    for (var groupName in groups) {
+      var headerEl = document.createElement('div');
+      headerEl.className = 'explorer-group-header';
+      headerEl.innerText = groupName;
+      fileGrid.appendChild(headerEl);
+
+      groups[groupName].forEach(function(item) {
+        var fileEl = document.createElement('div');
+        fileEl.className = 'explorer-file-item';
+        
+        fileEl.innerHTML = '<div class="file-icon-wrapper">' +
+          '<img src="assets/portfolio/' + item.name + '" alt="' + item.title + '" class="file-preview-img" loading="lazy" />' +
+          '</div>' +
+          '<span class="file-label-text">' + item.label + '</span>';
+        
+        // Double click for desktop
+        fileEl.addEventListener('dblclick', function() {
+          openProjectPreview(item);
+        });
+        // Single tap for mobile / touch
+        fileEl.addEventListener('click', function(e) {
+          var isMobile = window.innerWidth <= 900;
+          if (isMobile) {
+            openProjectPreview(item);
+          } else {
+            explorer.querySelectorAll('.explorer-file-item').forEach(i => i.classList.remove('selected'));
+            fileEl.classList.add('selected');
+          }
+        });
+        
+        fileGrid.appendChild(fileEl);
+      });
+    }
 
     if (window.lucide) {
       lucide.createIcons({
