@@ -5121,7 +5121,7 @@ function initGalleryExplorer() {
   renderFiles('ecommerce');
 }
 
-function openProjectPreview(item, category, index) {
+function openProjectPreview(item, category, index, isMaximized) {
   var windowId = 'preview-' + item.id;
   if (openWindows.has(windowId)) {
     bringToFront(openWindows.get(windowId));
@@ -5132,11 +5132,14 @@ function openProjectPreview(item, category, index) {
   if (category && typeof index === 'number') {
     var itemsArray = galleryData[category] || [];
     navHtml += '<div style="margin-top:20px; display:flex; gap:10px;">';
+    
+    var checkMaxStr = 'var w=document.getElementById(\'window-' + windowId + '\'); var max=w?w.classList.contains(\'maximized\'):false; closeApp(\'' + windowId + '\');';
+
     if (index > 0) {
-      navHtml += '<button class="win-btn" onclick="closeApp(\'' + windowId + '\'); openProjectPreview(galleryData[\'' + category + '\'][' + (index - 1) + '], \'' + category + '\', ' + (index - 1) + ')">&lt; Prev</button>';
+      navHtml += '<button class="win-btn" onclick="' + checkMaxStr + ' openProjectPreview(galleryData[\'' + category + '\'][' + (index - 1) + '], \'' + category + '\', ' + (index - 1) + ', max)">&lt; Prev</button>';
     }
     if (index < itemsArray.length - 1) {
-      navHtml += '<button class="win-btn" onclick="closeApp(\'' + windowId + '\'); openProjectPreview(galleryData[\'' + category + '\'][' + (index + 1) + '], \'' + category + '\', ' + (index + 1) + ')">Next &gt;</button>';
+      navHtml += '<button class="win-btn" onclick="' + checkMaxStr + ' openProjectPreview(galleryData[\'' + category + '\'][' + (index + 1) + '], \'' + category + '\', ' + (index + 1) + ', max)">Next &gt;</button>';
     }
     navHtml += '</div>';
   }
@@ -5171,6 +5174,10 @@ function openProjectPreview(item, category, index) {
       var offset = (openWindows.size % 5) * 30;
       win.style.top = (100 + offset) + 'px';
       win.style.left = 'calc(50% - 360px + ' + offset + 'px)';
+    }
+    
+    if (isMaximized) {
+      toggleMaximize(windowId);
     }
   }
 }
