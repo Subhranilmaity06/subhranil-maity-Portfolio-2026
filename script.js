@@ -312,12 +312,16 @@ function bringToFront(winElement) {
 function toggleMaximize(id) {
   var win = document.getElementById('window-' + id);
   if (!win) return;
+  
+  var iconSpan = win.querySelector('.max-btn-icon');
+  
   if (win.classList.contains('maximized')) {
     win.classList.remove('maximized');
     win.style.width = win.dataset.origWidth || '';
     win.style.height = win.dataset.origHeight || '';
     win.style.top = win.dataset.origTop || '';
     win.style.left = win.dataset.origLeft || '';
+    if (iconSpan) iconSpan.innerText = '[ ]';
   } else {
     win.dataset.origWidth = win.style.width;
     win.dataset.origHeight = win.style.height;
@@ -328,6 +332,7 @@ function toggleMaximize(id) {
     win.style.height = 'calc(100% - 40px)';
     win.style.top = '30px';
     win.style.left = '5px';
+    if (iconSpan) iconSpan.innerText = '[-]';
     bringToFront(win);
   }
 }
@@ -339,7 +344,6 @@ function createWindow(id, title, contentHTML) {
   var win = document.createElement('div');
   win.className = 'app-window retro-box';
   win.id = 'window-' + id;
-  win.style.transition = 'width 0.2s, height 0.2s, top 0.2s, left 0.2s';
 
   var offset = (openWindows.size % 5) * 30;
   var isMobile = window.innerWidth <= 900;
@@ -358,7 +362,7 @@ function createWindow(id, title, contentHTML) {
     '<div class="window-title">' + title + '</div>' +
     '<div class="window-controls">' +
     '<button class="win-btn" style="padding:0 4px;font-size:14px;margin-right:4px;" onclick="toggleMaximize(\'' + id + '\')">' +
-    '<span style="font-weight:900;">[ ]</span></button>' +
+    '<span class="max-btn-icon" style="font-weight:900;">[ ]</span></button>' +
     '<button class="win-btn" style="padding:0 4px;font-size:14px;" onclick="closeApp(\'' + id + '\')">' +
     '<span style="font-weight:900;">X</span></button>' +
     '</div></div>' +
