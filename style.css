@@ -683,8 +683,44 @@ h2, h3, .quote-text, .window-title {
 @media (max-width: 600px) {
   .mac-grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 16px;
+    gap: 16px 8px;
     padding: 12px;
+  }
+  
+  .project-mac-chassis {
+    width: 140px;
+    height: 180px;
+    padding-top: 14px;
+    border-width: 2px;
+    box-shadow: 3px 3px 0px rgba(0,0,0,1), inset -3px -3px 0px rgba(0,0,0,0.1);
+    margin-bottom: 8px;
+  }
+  
+  .mac-screen-bezel {
+    width: 115px;
+    height: 90px;
+    padding: 6px;
+  }
+  
+  .mac-floppy-drive {
+    width: 30px;
+    height: 3px;
+    bottom: 20px;
+    right: 20px;
+  }
+  
+  .mac-floppy-drive::before {
+    right: 76px;
+    width: 6px;
+    height: 6px;
+  }
+  
+  .project-info h4 {
+    font-size: 12px;
+  }
+  
+  .project-info p {
+    font-size: 10px;
   }
 }
 
