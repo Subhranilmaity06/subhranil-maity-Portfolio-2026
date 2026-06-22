@@ -28,10 +28,12 @@ body {
     linear-gradient(var(--grid-color) 1px, transparent 1px),
     linear-gradient(90deg, var(--grid-color) 1px, transparent 1px),
     var(--bg-gradient);
-  background-size: 40px 40px, 40px 40px, 100% 100%;
+  background-size: 40px 40px, 40px 40px, cover;
+  background-attachment: fixed;
   color: var(--retro-black);
   overflow: hidden;
   height: 100vh;
+  height: 100dvh;
   width: 100vw;
   user-select: none;
 }
@@ -367,7 +369,7 @@ h2, h3, .quote-text, .window-title {
    ======================== */
 #dock-container {
   position: absolute;
-  bottom: 12px;
+  bottom: calc(12px + env(safe-area-inset-bottom, 0px));
   left: 50%;
   transform: translateX(-50%);
   z-index: 10000;
