@@ -115,6 +115,34 @@
           </div>
         </div>
 
+        <!-- Case Studies Widget (Win 95 style) -->
+        <div class="widget case-studies retro-box" data-widget-id="case-studies" style="border: 4px solid var(--retro-black); padding: 0; background: var(--retro-white);">
+          <div class="widget-header" style="background: #0000aa; color: white; border-bottom: 4px solid var(--retro-black); padding: 4px 8px; display: flex; justify-content: space-between; align-items: center;">
+            <h3 style="color: white; font-size: 18px; font-family: monospace; font-weight: bold; letter-spacing: 0;">C:\Case_Studies</h3>
+            <div style="display: flex; gap: 4px;">
+              <button class="btn-close" style="background: #c0c0c0; width: 18px; height: 18px; display: flex; align-items: center; justify-content: center; border: 2px solid #fff; border-bottom-color: #000; border-right-color: #000; cursor: default; box-shadow: none;"><span style="display: block; width: 9px; height: 9px; border: 1px solid #000; border-top-width: 2px;"></span></button>
+              <button class="btn-close" onclick="tryCloseWidget(this, 'case-studies')" style="background: #c0c0c0; width: 18px; height: 18px; display: flex; align-items: center; justify-content: center; border: 2px solid #fff; border-bottom-color: #000; border-right-color: #000; color: black; font-weight: bold; font-family: sans-serif; font-size: 13px; padding: 0; box-shadow: none;">X</button>
+            </div>
+          </div>
+          <div class="widget-content" style="padding: 15px; display: flex; flex-wrap: wrap; gap: 15px; background: white;">
+            <!-- Ecowell -->
+            <a href="ecowell-case-study-web/index.html" class="case-file" style="text-decoration: none; display: block; width: calc(50% - 8px); background: #c0c0c0; border: 2px solid #555; border-top-color: #fff; border-left-color: #fff; padding: 12px; cursor: pointer; box-shadow: inset -1px -1px 0px #000;">
+              <h4 style="color: #0000aa; font-family: monospace; font-size: 16px; margin: 0 0 8px 0; letter-spacing: -0.5px;">Ecowell.exe</h4>
+              <p style="color: #000; font-family: sans-serif; font-size: 12px; margin: 0; line-height: 1.4;">Comprehensive multi-category branding, packaging & e-commerce case study.</p>
+            </a>
+            <!-- CRO -->
+            <a href="#" class="case-file" onclick="showToast('CRO case study pending...'); return false;" style="text-decoration: none; display: block; width: calc(50% - 8px); background: #c0c0c0; border: 2px solid #555; border-top-color: #fff; border-left-color: #fff; padding: 12px; cursor: pointer; box-shadow: inset -1px -1px 0px #000;">
+              <h4 style="color: #0000aa; font-family: monospace; font-size: 16px; margin: 0 0 8px 0; letter-spacing: -0.5px;">CRO.doc</h4>
+              <p style="color: #000; font-family: sans-serif; font-size: 12px; margin: 0; line-height: 1.4;">Conversion Rate Optimization — 40% improvement in engagement.</p>
+            </a>
+            <!-- MedData -->
+            <a href="#" class="case-file" onclick="showToast('MedData case study pending...'); return false;" style="text-decoration: none; display: block; width: calc(50% - 8px); background: #c0c0c0; border: 2px solid #555; border-top-color: #fff; border-left-color: #fff; padding: 12px; cursor: pointer; box-shadow: inset -1px -1px 0px #000;">
+              <h4 style="color: #0000aa; font-family: monospace; font-size: 16px; margin: 0 0 8px 0; letter-spacing: -0.5px;">MedData.doc</h4>
+              <p style="color: #000; font-family: sans-serif; font-size: 12px; margin: 0; line-height: 1.4;">Medical Data Visualization UX flows.</p>
+            </a>
+          </div>
+        </div>
+
       </div>
 
       <!-- RIGHT COLUMN -->

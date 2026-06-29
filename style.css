@@ -671,6 +671,22 @@ h2, h3, .quote-text, .window-title {
   justify-items: center;
 }
 
+/* Projects side-scrolling when not maximized on desktop */
+@media (min-width: 601px) {
+  .app-window:not(.maximized) .app-grid.mac-grid {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    justify-content: flex-start;
+    padding-bottom: 24px;
+  }
+  .app-window:not(.maximized) .app-grid.mac-grid .project-wrapper {
+    flex: 0 0 auto;
+    width: 220px;
+  }
+}
+
 .project-wrapper {
   display: flex;
   flex-direction: column;
