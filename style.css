@@ -393,7 +393,8 @@ h2, h3, .quote-text, .window-title {
   transition: margin 0.2s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
-.dock-item i {
+.dock-item i,
+.dock-item svg {
   width: 44px;
   height: 44px;
   background: var(--retro-white);
@@ -434,7 +435,8 @@ h2, h3, .quote-text, .window-title {
   margin: 0 14px;
 }
 
-.dock-item:hover i {
+.dock-item:hover i,
+.dock-item:hover svg {
   animation: icon-elastic-rotate 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
   background: var(--retro-pink);
 }
@@ -445,7 +447,9 @@ h2, h3, .quote-text, .window-title {
 }
 
 .dock-item:has(+ .dock-item:hover) i,
-.dock-item:has(+ .dock-separator + .dock-item:hover) i {
+.dock-item:has(+ .dock-item:hover) svg,
+.dock-item:has(+ .dock-separator + .dock-item:hover) i,
+.dock-item:has(+ .dock-separator + .dock-item:hover) svg {
   transform: scale(1.2) translateY(-4px);
 }
 
@@ -455,11 +459,14 @@ h2, h3, .quote-text, .window-title {
 }
 
 .dock-item:hover + .dock-item i,
-.dock-item:hover + .dock-separator + .dock-item i {
+.dock-item:hover + .dock-item svg,
+.dock-item:hover + .dock-separator + .dock-item i,
+.dock-item:hover + .dock-separator + .dock-item svg {
   transform: scale(1.2) translateY(-4px);
 }
 
-.dock-item:active i {
+.dock-item:active i,
+.dock-item:active svg {
   transform: translate(2px, 2px);
   border-bottom: 2px solid var(--retro-black);
   border-right: 2px solid var(--retro-black);
