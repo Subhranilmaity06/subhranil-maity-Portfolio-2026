@@ -414,12 +414,12 @@ h2, h3, .quote-text, .window-title {
     transform: perspective(400px) scale(1) translateY(0) rotateY(0deg);
   }
   100% {
-    transform: perspective(400px) scale(1.5) translateY(-8px) rotateY(360deg);
+    transform: perspective(400px) scale(1.2) translateY(0) rotateY(360deg);
   }
 }
 
 .dock-item:hover {
-  margin: 0 14px;
+  margin: 0 8px;
 }
 
 .dock-item:hover i,
@@ -430,31 +430,31 @@ h2, h3, .quote-text, .window-title {
 
 .dock-item:has(+ .dock-item:hover),
 .dock-item:has(+ .dock-separator + .dock-item:hover) {
-  margin-right: 6px;
+  margin-right: 4px;
 }
 
 .dock-item:has(+ .dock-item:hover) i,
 .dock-item:has(+ .dock-item:hover) svg,
 .dock-item:has(+ .dock-separator + .dock-item:hover) i,
 .dock-item:has(+ .dock-separator + .dock-item:hover) svg {
-  transform: scale(1.2) translateY(-4px);
+  transform: scale(1.1) translateY(0);
 }
 
 .dock-item:hover + .dock-item,
 .dock-item:hover + .dock-separator + .dock-item {
-  margin-left: 6px;
+  margin-left: 4px;
 }
 
 .dock-item:hover + .dock-item i,
 .dock-item:hover + .dock-item svg,
 .dock-item:hover + .dock-separator + .dock-item i,
 .dock-item:hover + .dock-separator + .dock-item svg {
-  transform: scale(1.2) translateY(-4px);
+  transform: scale(1.1) translateY(0);
 }
 
 .dock-item:active i,
 .dock-item:active svg {
-  transform: translateY(-6px) scale(1.4) rotateY(360deg);
+  transform: translateY(2px) scale(1.1) rotateY(360deg);
 }
 
 .dock-label {
