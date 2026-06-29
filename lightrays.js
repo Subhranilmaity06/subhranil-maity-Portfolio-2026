@@ -5,10 +5,8 @@ import { Renderer, Program, Triangle, Mesh } from 'https://unpkg.com/ogl@1.0.11/
  * Ported from the React component to integrate with Retro OS
  */
 
-document.addEventListener("DOMContentLoaded", () => {
-  const container = document.getElementById("lightrays-bg-container");
-  if (!container) return;
-
+const container = document.getElementById("lightrays-bg-container");
+if (container) {
   // Configuration for the light rays effect
   const config = {
     raysOrigin: 'top-center', // Try 'top-center', 'left', 'bottom-right', etc.
@@ -235,4 +233,4 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   initializeWebGL();
-});
+}
