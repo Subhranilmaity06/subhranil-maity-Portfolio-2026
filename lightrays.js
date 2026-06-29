@@ -1,4 +1,4 @@
-import { Renderer, Program, Triangle, Mesh } from 'https://unpkg.com/ogl@1.0.11/dist/ogl.mjs';
+import { Renderer, Program, Triangle, Mesh } from 'https://esm.sh/ogl@1.0.11';
 
 /**
  * LightRays Background - Vanilla JS ES Module
