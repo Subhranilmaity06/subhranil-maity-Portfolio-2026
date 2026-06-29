@@ -213,10 +213,30 @@ var appData = {
   casestudies: {
     title: 'C:\\Case_Studies',
     content: '<div class="app-grid">' +
-      '<div class="project-card" onclick="window.open(\'./ecowell-case-study-web/index.html\', \'_blank\')" style="cursor: pointer; border: 2px solid var(--accent);">' +
-      '<h4>Ecowell.exe</h4><p>Comprehensive multi-category branding, packaging & e-commerce case study.</p></div>' +
-      '<div class="project-card"><h4>CRO.doc</h4><p>Conversion Rate Optimization — 40% improvement in engagement.</p></div>' +
-      '<div class="project-card"><h4>MedData.doc</h4><p>Medical Data Visualization UX flows.</p></div>' +
+      '<div class="project-card" onclick="window.open(\'./ecowell-case-study-web/index.html\', \'_blank\')" style="cursor: pointer; border: 2px solid var(--accent); display: flex; flex-direction: column;">' +
+        '<div style="width: 100%; height: 140px; background: #000; border: 2px inset #fff; margin-bottom: 12px; position: relative; overflow: hidden; padding: 2px;">' +
+          '<div style="width: 100%; height: 100%; border: 2px solid #555; overflow: hidden;">' +
+            '<img src="assets/portfolio/ecowell.webp" style="width: 100%; height: 100%; object-fit: cover; filter: contrast(1.2) grayscale(0.2);" alt="Ecowell Preview" onerror="this.style.opacity=0;">' +
+          '</div>' +
+        '</div>' +
+        '<h4>Ecowell.exe</h4><p style="flex: 1;">Comprehensive multi-category branding, packaging & e-commerce case study.</p>' +
+      '</div>' +
+      '<div class="project-card" style="display: flex; flex-direction: column;">' +
+        '<div style="width: 100%; height: 140px; background: #000; border: 2px inset #fff; margin-bottom: 12px; position: relative; overflow: hidden; padding: 2px;">' +
+          '<div style="width: 100%; height: 100%; border: 2px solid #555; display: flex; align-items: center; justify-content: center; background: #c0c0c0;">' +
+            '<i data-lucide="line-chart" style="width: 48px; height: 48px; color: #555;"></i>' +
+          '</div>' +
+        '</div>' +
+        '<h4>CRO.doc</h4><p style="flex: 1;">Conversion Rate Optimization — 40% improvement in engagement.</p>' +
+      '</div>' +
+      '<div class="project-card" style="display: flex; flex-direction: column;">' +
+        '<div style="width: 100%; height: 140px; background: #000; border: 2px inset #fff; margin-bottom: 12px; position: relative; overflow: hidden; padding: 2px;">' +
+          '<div style="width: 100%; height: 100%; border: 2px solid #555; display: flex; align-items: center; justify-content: center; background: #c0c0c0;">' +
+            '<i data-lucide="heart-pulse" style="width: 48px; height: 48px; color: #555;"></i>' +
+          '</div>' +
+        '</div>' +
+        '<h4>MedData.doc</h4><p style="flex: 1;">Medical Data Visualization UX flows.</p>' +
+      '</div>' +
       '</div>'
   },
   creatives: {
@@ -313,6 +333,10 @@ function openApp(appId) {
       win.style.height = '480px';
     }
     initGalleryExplorer();
+  }
+  
+  if (window.lucide) {
+    lucide.createIcons();
   }
 }
 
