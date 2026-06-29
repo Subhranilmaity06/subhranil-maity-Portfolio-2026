@@ -49,8 +49,8 @@ function updateCarousel() {
     labels.forEach((label, index) => {
         if (index === currentSlide) {
             label.classList.add('active');
-            label.style.borderBottomColor = '#1a5632';
-            label.style.color = '#1a5632';
+            label.style.borderBottomColor = 'var(--highlight)';
+            label.style.color = 'var(--highlight)';
         } else {
             label.classList.remove('active');
             label.style.borderBottomColor = 'transparent';
@@ -73,8 +73,8 @@ function updateAmazonCarousel() {
     labels.forEach((label, index) => {
         if (index === currentAmazonSlide) {
             label.classList.add('active');
-            label.style.borderBottomColor = '#1a5632';
-            label.style.color = '#1a5632';
+            label.style.borderBottomColor = 'var(--highlight)';
+            label.style.color = 'var(--highlight)';
         } else {
             label.classList.remove('active');
             label.style.borderBottomColor = 'transparent';
