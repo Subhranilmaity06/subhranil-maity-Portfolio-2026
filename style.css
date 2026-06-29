@@ -395,17 +395,16 @@ h2, h3, .quote-text, .window-title {
 
 .dock-item i,
 .dock-item svg {
-  width: 44px;
-  height: 44px;
-  background: var(--retro-white);
-  border: 2px solid var(--retro-black);
-  border-bottom: 4px solid var(--retro-black);
-  border-right: 4px solid var(--retro-black);
-  border-radius: 6px;
-  padding: 8px;
-  box-shadow: inset 2px 2px 0px rgba(255,255,255,0.8), 2px 2px 0px rgba(0,0,0,0.2);
+  width: 28px;
+  height: 28px;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  box-shadow: none;
   display: block;
-  transition: transform 0.2s cubic-bezier(0.25, 1, 0.5, 1), background 0.1s;
+  color: var(--retro-black);
+  transition: transform 0.2s cubic-bezier(0.25, 1, 0.5, 1), color 0.1s;
   transform-origin: bottom center;
 }
 
@@ -426,7 +425,7 @@ h2, h3, .quote-text, .window-title {
 .dock-item:hover i,
 .dock-item:hover svg {
   animation: icon-smooth-rotate 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  background: var(--retro-pink);
+  color: var(--retro-pink);
 }
 
 .dock-item:has(+ .dock-item:hover),
@@ -455,10 +454,7 @@ h2, h3, .quote-text, .window-title {
 
 .dock-item:active i,
 .dock-item:active svg {
-  transform: translate(2px, 2px);
-  border-bottom: 2px solid var(--retro-black);
-  border-right: 2px solid var(--retro-black);
-  box-shadow: inset 2px 2px 0px rgba(0,0,0,0.3);
+  transform: translateY(-6px) scale(1.4) rotateY(360deg);
 }
 
 .dock-label {
