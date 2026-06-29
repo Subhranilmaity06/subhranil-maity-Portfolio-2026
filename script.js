@@ -213,6 +213,8 @@ var appData = {
   casestudies: {
     title: 'C:\\Case_Studies',
     content: '<div class="app-grid">' +
+      '<div class="project-card" onclick="window.open(\'./ecowell-case-study-web/index.html\', \'_blank\')" style="cursor: pointer; border: 2px solid var(--accent);">' +
+      '<h4>Ecowell.exe</h4><p>Comprehensive multi-category branding, packaging & e-commerce case study.</p></div>' +
       '<div class="project-card"><h4>CRO.doc</h4><p>Conversion Rate Optimization — 40% improvement in engagement.</p></div>' +
       '<div class="project-card"><h4>MedData.doc</h4><p>Medical Data Visualization UX flows.</p></div>' +
       '</div>'
