@@ -390,7 +390,7 @@ h2, h3, .quote-text, .window-title {
   align-items: center;
   cursor: pointer;
   padding: 4px;
-  transition: transform 0.15s cubic-bezier(0.25, 1, 0.5, 1);
+  transition: margin 0.2s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 .dock-item i {
@@ -404,15 +404,38 @@ h2, h3, .quote-text, .window-title {
   padding: 8px;
   box-shadow: inset 2px 2px 0px rgba(255,255,255,0.8), 2px 2px 0px rgba(0,0,0,0.2);
   display: block;
-  transition: all 0.1s;
+  transition: transform 0.2s cubic-bezier(0.25, 1, 0.5, 1), background 0.1s;
+  transform-origin: bottom center;
 }
 
+/* Dock Magnification Effect */
 .dock-item:hover {
-  transform: translateY(-8px);
+  margin: 0 14px;
 }
 
 .dock-item:hover i {
+  transform: scale(1.5) translateY(-8px);
   background: var(--retro-pink);
+}
+
+.dock-item:has(+ .dock-item:hover),
+.dock-item:has(+ .dock-separator + .dock-item:hover) {
+  margin-right: 6px;
+}
+
+.dock-item:has(+ .dock-item:hover) i,
+.dock-item:has(+ .dock-separator + .dock-item:hover) i {
+  transform: scale(1.2) translateY(-4px);
+}
+
+.dock-item:hover + .dock-item,
+.dock-item:hover + .dock-separator + .dock-item {
+  margin-left: 6px;
+}
+
+.dock-item:hover + .dock-item i,
+.dock-item:hover + .dock-separator + .dock-item i {
+  transform: scale(1.2) translateY(-4px);
 }
 
 .dock-item:active i {
