@@ -425,7 +425,7 @@ h2, h3, .quote-text, .window-title {
 .dock-item:hover i,
 .dock-item:hover svg {
   animation: icon-smooth-rotate 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  color: var(--retro-pink);
+  color: var(--retro-blue);
 }
 
 .dock-item:has(+ .dock-item:hover),
