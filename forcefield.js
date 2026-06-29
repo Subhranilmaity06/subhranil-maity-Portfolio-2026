@@ -18,19 +18,19 @@ document.addEventListener("DOMContentLoaded", () => {
     // Hardcoded config matching the retro aesthetic
     const config = {
       imageUrl: "assets/retro-floppy.png",
-      hue: 240,         // Blue hue matching --retro-blue
+      hue: 210,         // Blue hue matching the reference image
       saturation: 100,
-      threshold: 200,   // Adjust threshold depending on image brightness
+      threshold: 255,   // Set to 255 so it draws points everywhere
       minStroke: 2,
       maxStroke: 6,
-      spacing: 8,       // Slightly tighter for blocky pixel feel
-      noiseScale: 0,    // 0 noise to keep pixel grid perfect
+      spacing: 12,      // Good density for full screen matrix
+      noiseScale: 0,    
       density: 2.0,     
-      invertImage: false,
+      invertImage: true, // Invert so the white floppy becomes bright particles, black bg becomes dark particles
       invertWireframe: true,
       magnifierEnabled: true,
-      magnifierRadius: 150,
-      forceStrength: 10,
+      magnifierRadius: 200,
+      forceStrength: 15,
       friction: 0.9,
       restoreSpeed: 0.05
     };
@@ -55,6 +55,9 @@ document.addEventListener("DOMContentLoaded", () => {
     p.setup = () => {
       if (!originalImg) return;
       
+      // Fix for retina displays cutting off the image map
+      p.pixelDensity(1);
+      
       p.createCanvas(window.innerWidth, window.innerHeight);
       
       magnifierX = p.width / 2;
@@ -73,27 +76,28 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function processImage() {
       if (!originalImg) return;
-      img = originalImg.get();
+      
+      // Create a temporary canvas matching our screen size to draw the centered image onto
+      let pg = p.createGraphics(p.width, p.height);
+      pg.pixelDensity(1); // Ensure 1:1 pixel mapping
+      pg.background(0); // Black background
+      pg.imageMode(p.CENTER);
       
       // Calculate aspect ratio to fit image beautifully in center
-      let imgRatio = img.width / img.height;
-      let canvasRatio = p.width / p.height;
+      let imgRatio = originalImg.width / originalImg.height;
+      let canvasRatio = pg.width / pg.height;
       let drawW, drawH;
 
-      // Scale to fit 70% of the screen
+      // Scale to fit 50% of the screen so it's a nice centered logo
       if (canvasRatio > imgRatio) {
-        drawH = p.height * 0.7;
+        drawH = pg.height * 0.5;
         drawW = drawH * imgRatio;
       } else {
-        drawW = p.width * 0.7;
+        drawW = pg.width * 0.5;
         drawH = drawW / imgRatio;
       }
 
-      // Create a temporary canvas matching our screen size to draw the centered image onto
-      let pg = p.createGraphics(p.width, p.height);
-      pg.background(0); // Black background
-      pg.imageMode(p.CENTER);
-      pg.image(img, p.width/2, p.height/2, drawW, drawH);
+      pg.image(originalImg, pg.width/2, pg.height/2, drawW, drawH);
       
       // Extract the drawn image to process
       img = pg.get();
@@ -115,7 +119,8 @@ document.addEventListener("DOMContentLoaded", () => {
       p.push();
       p.colorMode(p.HSL);
       for (let i = 0; i < 12; i++) {
-        let lightness = p.map(i, 0, 11, 95, 5);
+        // Map from dark blue to bright blue/white
+        let lightness = p.map(i, 0, 11, 10, 95);
         palette.push(p.color(h, s, lightness));
       }
       p.pop();
@@ -170,7 +175,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     p.draw = () => {
       if (!img) return;
-      // Clear instead of background(0) so the CSS grid underneath shines through!
+      // Clear canvas to let grid show through
       p.clear();
 
       // Mouse interaction using global coordinates
@@ -196,10 +201,11 @@ document.addEventListener("DOMContentLoaded", () => {
         if (brightness === undefined) continue;
 
         let condition = config.invertWireframe
-          ? brightness < config.threshold
+          ? brightness <= config.threshold
           : brightness > config.threshold;
 
         if (condition) {
+          // The brighter the image pixel, the higher the index -> brighter color and thicker stroke
           let shadeIndex = Math.floor(p.map(brightness, 0, 255, 0, palette.length - 1));
           shadeIndex = p.constrain(shadeIndex, 0, palette.length - 1);
           
