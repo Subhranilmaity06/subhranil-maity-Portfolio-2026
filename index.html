@@ -6,9 +6,12 @@
   <title>Subhranil Maity — Retro OS</title>
   <meta name="description" content="Portfolio of Subhranil Maity — Product & Brand Designer. A fun retro OS experience.">
   <link rel="stylesheet" href="style.css?v=8">
-
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
 </head>
 <body>
+  
+  <!-- Interactive Particle Background Container -->
+  <div id="p5-bg-container"></div>
 
   <!-- Premium CRT Boot Screen -->
   <div id="boot-screen">
@@ -284,7 +287,8 @@
 
   <!-- Scripts at end of body for reliability -->
   <script src="https://unpkg.com/lucide@latest"></script>
-  <script src="script.js?v=8"></script>
+  <script src="script.js"></script>
+  <script src="forcefield.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       if (typeof lucide !== 'undefined') {
