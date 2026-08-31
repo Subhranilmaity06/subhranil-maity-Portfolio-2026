@@ -620,49 +620,161 @@ h2, h3, .quote-text, .window-title {
 }
 
 /* ---- Profile Widget ---- */
+/* ---- Profile: business-card layout, portrait beside the type ---- */
 .widget.profile .widget-content {
-  align-items: center;
-  text-align: center;
-  justify-content: center;
-  padding: 24px 20px;
+  padding: 16px;
   background: #fffdf0;
 }
+
+.profile-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
 .profile-img {
-  width: 140px;
-  height: 160px;
+  width: 84px;
+  height: 96px;
+  flex: 0 0 auto;
   object-fit: cover;
+  object-position: top center;
   border: 3px solid var(--retro-black);
   box-shadow: 4px 4px 0px var(--retro-pink);
-  margin-bottom: 16px;
+  margin: 0;
 }
+
+.profile-meta {
+  min-width: 0;
+}
+
 .profile h2 {
-  font-size: 32px;
+  font-size: 25px;
+  line-height: 1.05;
   color: var(--retro-blue);
-  margin-bottom: 8px;
+  margin: 0 0 6px;
 }
-.widget.profile p {
+
+.widget.profile .profile-role {
   font-family: var(--font-retro);
-  font-size: 20px;
-  letter-spacing: 2px;
+  font-size: 15px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
   color: var(--retro-dark-grey);
+  margin: 0 0 10px;
+  line-height: 1.2;
+}
+
+.widget.profile .profile-status {
+  font-family: var(--font-retro);
+  font-size: 13px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--retro-black);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+  padding-top: 8px;
+  border-top: 2px solid var(--retro-black);
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  background: #16a34a;
+  border: 1px solid var(--retro-black);
+  flex: 0 0 auto;
+  animation: statusPulse 2s ease-in-out infinite;
+}
+
+@keyframes statusPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
 }
 
 /* ---- Contact Widget ---- */
+/* ---- Contact: compact card, rows double as the actions ---- */
 .widget.contact .widget-content {
   background: #E0FFFF;
+  padding: 14px 16px 16px;
 }
+
 .contact-item {
-  font-size: 14px;
-  font-weight: bold;
-  margin-bottom: 12px;
+  font-size: 12.5px;
+  font-weight: 700;
+  margin-bottom: 9px;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 9px;
+  color: var(--retro-black);
+  text-decoration: none;
+  padding: 2px 0;
+  transition: transform 0.12s, color 0.12s;
 }
+
+a.contact-item:hover {
+  color: var(--retro-blue);
+  transform: translateX(3px);
+}
+
+.contact-item.is-static {
+  cursor: default;
+}
+
+.contact-item span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .contact-item i {
-  width: 16px;
-  height: 16px;
+  width: 15px;
+  height: 15px;
   flex-shrink: 0;
+}
+
+.contact-socials {
+  display: flex;
+  gap: 7px;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 2px solid var(--retro-black);
+}
+
+.soc-btn {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--retro-white);
+  border: 2px solid var(--retro-black);
+  box-shadow: 2px 2px 0px var(--retro-black);
+  color: var(--retro-black);
+  text-decoration: none;
+  transition: transform 0.1s, background 0.15s, box-shadow 0.1s;
+}
+
+.soc-btn i {
+  width: 15px;
+  height: 15px;
+}
+
+/* lucide has no Behance glyph, so the wordmark stands in */
+.soc-be {
+  font-family: var(--font-retro);
+  font-size: 16px;
+  line-height: 1;
+  font-weight: 700;
+}
+
+.soc-btn:hover {
+  background: var(--retro-pink);
+}
+
+.soc-btn:active {
+  transform: translate(2px, 2px);
+  box-shadow: 0px 0px 0px var(--retro-black);
 }
 
 /* ========================
@@ -1230,12 +1342,12 @@ h2, h3, .quote-text, .window-title {
   }
 
   .profile-img {
-    width: 100px;
-    height: 120px;
+    width: 78px;
+    height: 90px;
   }
 
   .profile h2 {
-    font-size: 26px;
+    font-size: 23px;
   }
 
   .quote-text {
@@ -1348,11 +1460,19 @@ h2, h3, .quote-text, .window-title {
   }
 
   .profile h2 {
-    font-size: 24px;
+    font-size: 21px;
   }
 
-  .widget.profile p {
-    font-size: 16px;
+  .widget.profile .profile-role {
+    font-size: 13px;
+  }
+
+  .widget.profile .profile-status {
+    font-size: 11px;
+  }
+
+  .profile-card {
+    gap: 11px;
   }
 }
 

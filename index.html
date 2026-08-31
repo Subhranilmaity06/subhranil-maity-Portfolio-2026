@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Subhranil Maity — Retro OS</title>
   <meta name="description" content="Portfolio of Subhranil Maity — Product & Brand Designer. A fun retro OS experience.">
-  <link rel="stylesheet" href="style.css?v=13">
+  <link rel="stylesheet" href="style.css?v=14">
 </head>
 <body>
   
@@ -128,9 +128,14 @@
             <button class="btn-close" onclick="tryCloseWidget(this, 'profile')">X</button>
           </div>
           <div class="widget-content">
-            <img src="assets/profile.png" alt="Subhranil Maity" class="profile-img" loading="lazy">
-            <h2>Subhranil Maity</h2>
-            <p>PRODUCT & BRAND DESIGNER</p>
+            <div class="profile-card">
+              <img src="assets/profile.png" alt="Subhranil Maity" class="profile-img" loading="lazy">
+              <div class="profile-meta">
+                <h2>Subhranil&nbsp;Maity</h2>
+                <p class="profile-role">Product &amp; Brand Designer</p>
+                <p class="profile-status"><span class="status-dot"></span> Open to work</p>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -141,18 +146,22 @@
             <button class="btn-close" onclick="tryCloseWidget(this, 'contact')">X</button>
           </div>
           <div class="widget-content">
-            <div class="contact-item">
-              <i data-lucide="phone"></i> +91 9547333361
+            <!-- rows are the actions now, so the card stays compact -->
+            <a class="contact-item" href="tel:+919547333361">
+              <i data-lucide="phone"></i><span>+91 9547333361</span>
+            </a>
+            <a class="contact-item" href="mailto:subhranilmaityofficial@gmail.com">
+              <i data-lucide="mail"></i><span>subhranilmaityofficial@gmail.com</span>
+            </a>
+            <div class="contact-item is-static">
+              <i data-lucide="map-pin"></i><span>Haldia, West Bengal, India</span>
             </div>
-            <div class="contact-item">
-              <i data-lucide="mail"></i> subhranilmaityofficial@gmail.com
-            </div>
-            <div class="contact-item">
-              <i data-lucide="map-pin"></i> Haldia, West Bengal, India
-            </div>
-            <div class="contact-actions">
-              <a href="mailto:subhranilmaityofficial@gmail.com" class="flat-btn">Email</a>
-              <a href="tel:+919547333361" class="flat-btn">Call</a>
+
+            <div class="contact-socials">
+              <a href="https://www.linkedin.com/in/subhranilmaity" target="_blank" rel="noopener" class="soc-btn" title="LinkedIn" aria-label="LinkedIn"><i data-lucide="linkedin"></i></a>
+              <a href="https://dribbble.com/subhranilmaity" target="_blank" rel="noopener" class="soc-btn" title="Dribbble" aria-label="Dribbble"><i data-lucide="dribbble"></i></a>
+              <a href="https://www.behance.net/subhranilmaity" target="_blank" rel="noopener" class="soc-btn" title="Behance" aria-label="Behance"><span class="soc-be">Bē</span></a>
+              <a href="#" class="soc-btn" title="Instagram" aria-label="Instagram" onclick="showToast('Instagram link pending...'); return false;"><i data-lucide="instagram"></i></a>
             </div>
           </div>
         </div>
