@@ -314,15 +314,39 @@ h2, h3, .quote-text, .window-title {
 /* ---- Resume Widget ---- */
 .widget.resume .resume-preview {
   flex: 1;
-  min-height: 120px;
+  min-height: 150px;
+  max-height: 210px;
   border: 3px solid var(--retro-black);
-  background: #ccc;
+  background: #fff;
   margin-bottom: 16px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-family: var(--font-retro);
-  font-size: 24px;
+  overflow: hidden;
+  cursor: pointer;
+  position: relative;
+}
+
+/* show the top of the page — name and summary — rather than
+   squashing the whole sheet into an unreadable strip */
+.widget.resume .resume-preview img {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: transform 0.35s ease;
+}
+
+.widget.resume .resume-preview:hover img {
+  transform: translateY(-12px);
+}
+
+/* fade the cut-off edge so it reads as a preview, not a crop bug */
+.widget.resume .resume-preview::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 42px;
+  background: linear-gradient(to bottom, rgba(255,255,255,0), #ffffff);
+  pointer-events: none;
 }
 .contact-actions {
   display: flex;

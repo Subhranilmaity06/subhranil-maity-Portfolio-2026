@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Subhranil Maity — Retro OS</title>
   <meta name="description" content="Portfolio of Subhranil Maity — Product & Brand Designer. A fun retro OS experience.">
-  <link rel="stylesheet" href="style.css?v=8">
+  <link rel="stylesheet" href="style.css?v=9">
 </head>
 <body>
   
@@ -109,9 +109,11 @@
             <button class="btn-close" onclick="tryCloseWidget(this, 'resume')">X</button>
           </div>
           <div class="widget-content">
-            <div class="resume-preview">PDF</div>
+            <div class="resume-preview" onclick="openApp('resume')" title="Click to open the full resume">
+              <img src="assets/resume-preview.webp" alt="Preview of Subhranil Maity's resume" loading="lazy" decoding="async">
+            </div>
             <div class="contact-actions">
-              <a href="assets/resume.pdf" target="_blank" class="flat-btn">Download</a>
+              <a href="assets/resume.pdf" download class="flat-btn">Download</a>
               <button class="flat-btn" onclick="openApp('resume')">View</button>
             </div>
           </div>
@@ -288,7 +290,7 @@
   <script src="https://unpkg.com/lucide@latest"></script>
   
   <!-- Core Scripts -->
-  <script src="script.js"></script>
+  <script src="script.js?v=3"></script>
   <script type="module" src="lightrays.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {

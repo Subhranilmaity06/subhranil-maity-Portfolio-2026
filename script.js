@@ -289,7 +289,13 @@ var appData = {
   },
   resume: {
     title: 'Acrobat - Resume.pdf',
-    content: '<iframe src="assets/resume.pdf" width="100%" height="100%" style="border: 3px solid #000; background: white;"></iframe>'
+    content: '<div style="display:flex; flex-direction:column; height:100%; gap:10px;">' +
+      '<iframe src="assets/resume.pdf#view=FitH" title="Subhranil Maity — Resume" ' +
+      'style="flex:1; width:100%; border: 3px solid #000; background: white;"></iframe>' +
+      '<div class="contact-actions" style="flex:0 0 auto; margin:0;">' +
+      '<a href="assets/resume.pdf" download class="flat-btn">Download PDF</a>' +
+      '<a href="assets/resume.pdf" target="_blank" rel="noopener" class="flat-btn">Open in new tab</a>' +
+      '</div></div>'
   },
   bin: {
     title: 'Recycle Bin',
@@ -333,6 +339,22 @@ function openApp(appId) {
       win.style.height = '480px';
     }
     initGalleryExplorer();
+  }
+
+  // The resume is meant to be READ by a recruiter, so open it large and
+  // centred. Width matters most: the PDF is embedded with #view=FitH, so
+  // a wider window renders the page bigger and more legible.
+  if (appId === 'resume') {
+    var rwin = document.getElementById('window-resume');
+    if (rwin && window.innerWidth > 900) {
+      var w = Math.min(1120, window.innerWidth - 120);
+      var h = Math.min(940, window.innerHeight - 100);
+      rwin.style.width = w + 'px';
+      rwin.style.height = h + 'px';
+      rwin.style.left = Math.max(20, Math.round((window.innerWidth - w) / 2)) + 'px';
+      rwin.style.top = Math.max(46, Math.round((window.innerHeight - h) / 2)) + 'px';
+      bringToFront(rwin);
+    }
   }
   
   if (window.lucide) {
