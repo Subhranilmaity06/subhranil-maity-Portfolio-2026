@@ -1,0 +1,6 @@
+.DS_Store
+.wrangler/
+
+# Source PNGs are the working masters (~520MB). Only the optimized
+# .webp derivatives are deployed, so keep the originals out of git.
+ecowell-case-study-web/images/**/*.png

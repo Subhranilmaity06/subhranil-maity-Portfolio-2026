@@ -1,0 +1,6 @@
+# Fingerprinted-by-content assets: cache hard, they never change in place
+/ecowell-case-study-web/images/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
