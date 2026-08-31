@@ -358,7 +358,7 @@ function openApp(appId) {
       swin.style.top = Math.max(46, Math.round((window.innerHeight - sh) / 2)) + 'px';
     }
     // manifest may not have landed yet on a cold load
-    if (socialCreatives.length) initSocialGallery();
+    if (socialAlbums.length) initSocialGallery();
     else loadSocialCreatives().then(initSocialGallery);
   }
 
