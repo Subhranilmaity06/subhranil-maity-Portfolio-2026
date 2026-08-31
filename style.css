@@ -1610,10 +1610,12 @@ a.contact-item:hover {
     margin-bottom: 6px;
   }
 
-  /* social creative tiles: 5-up is too small to read on a phone */
+  /* Keep all five covers on a single row — a 4-column grid left the
+     fifth orphaned on its own line. ~54px per tile at 360px, which
+     still reads fine. */
   .widget.socials .social-creative-grid {
-    grid-template-columns: repeat(4, 1fr);
-    gap: 7px;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 6px;
   }
 }
 
