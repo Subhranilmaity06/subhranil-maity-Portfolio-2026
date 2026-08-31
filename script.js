@@ -131,6 +131,8 @@ function removeWidget(widget, widgetId) {
         audio.pause();
         if (typeof setPlayState === 'function') setPlayState(false);
       }
+      // closing it counts as "don't show me this again"
+      if (typeof setTurntableDismissed === 'function') setTurntableDismissed(true);
     }
     showToast("💀 " + widgetId.charAt(0).toUpperCase() + widgetId.slice(1) + " sent to the shadow realm.");
   }, 350);
@@ -533,6 +535,8 @@ document.addEventListener('DOMContentLoaded', function() {
           bootScreen.classList.add('hidden');
           setTimeout(() => {
             bootScreen.style.display = 'none';
+            // greet desktop visitors with the turntable already open
+            if (typeof autoOpenTurntable === 'function') autoOpenTurntable();
           }, 800); // Wait for CSS transition (0.8s)
         }, 300); // Small pause at 100%
       } else {
@@ -950,6 +954,38 @@ if (document.readyState === 'loading') {
 }
 window.addEventListener('resize', adjustPlayerForMobile);
 
+// ------------------------------------------------------------------
+// The turntable greets desktop visitors already open. Once someone
+// closes or hides it, that choice is remembered so it never forces
+// itself back on them. Mobile is left alone — it sits inline there and
+// an auto-open would push the actual content down.
+// ------------------------------------------------------------------
+var TURNTABLE_DISMISSED_KEY = 'sm_turntable_dismissed';
+
+function turntableDismissed() {
+  try {
+    return localStorage.getItem(TURNTABLE_DISMISSED_KEY) === '1';
+  } catch (e) {
+    return false; // private mode / storage blocked
+  }
+}
+
+function setTurntableDismissed(dismissed) {
+  try {
+    if (dismissed) localStorage.setItem(TURNTABLE_DISMISSED_KEY, '1');
+    else localStorage.removeItem(TURNTABLE_DISMISSED_KEY);
+  } catch (e) {}
+}
+
+function autoOpenTurntable() {
+  if (!neoPlayer) return;
+  if (window.innerWidth <= 900) return;
+  if (turntableDismissed()) return;
+  if (deletedWidgets.indexOf('turntable') !== -1) return;
+  neoPlayer.style.display = 'block';
+  bringToFront(neoPlayer);
+}
+
 // Menu bar toggle action
 var menuTurntableBtn = document.getElementById('menu-turntable-btn');
 if (menuTurntableBtn && neoPlayer) {
@@ -957,12 +993,15 @@ if (menuTurntableBtn && neoPlayer) {
     playSound('click');
     if (deletedWidgets.includes('turntable')) {
       restoreWidget('turntable');
+      setTurntableDismissed(false);
     } else {
       if (neoPlayer.style.display === 'none') {
         neoPlayer.style.display = 'block';
         bringToFront(neoPlayer);
+        setTurntableDismissed(false);
       } else {
         neoPlayer.style.display = 'none';
+        setTurntableDismissed(true);
       }
     }
   });
