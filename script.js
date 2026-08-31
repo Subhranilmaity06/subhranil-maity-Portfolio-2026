@@ -289,6 +289,10 @@ var appData = {
       '<a href="mailto:subhranilmaityofficial@gmail.com" class="flat-btn" style="margin-right: 12px;">📧 Email</a>' +
       '<a href="tel:+919547333361" class="flat-btn">📞 Call</a></div>'
   },
+  socialcreatives: {
+    title: 'Social Creatives',
+    getContent: function() { return getSocialsContent(); }
+  },
   resume: {
     title: 'Acrobat - Resume.pdf',
     content: '<div style="display:flex; flex-direction:column; height:100%; gap:10px;">' +
@@ -341,6 +345,21 @@ function openApp(appId) {
       win.style.height = '480px';
     }
     initGalleryExplorer();
+  }
+
+  if (appId === 'socialcreatives') {
+    var swin = document.getElementById('window-socialcreatives');
+    if (swin && window.innerWidth > 900) {
+      var sw = Math.min(1000, window.innerWidth - 120);
+      var sh = Math.min(760, window.innerHeight - 120);
+      swin.style.width = sw + 'px';
+      swin.style.height = sh + 'px';
+      swin.style.left = Math.max(20, Math.round((window.innerWidth - sw) / 2)) + 'px';
+      swin.style.top = Math.max(46, Math.round((window.innerHeight - sh) / 2)) + 'px';
+    }
+    // manifest may not have landed yet on a cold load
+    if (socialCreatives.length) initSocialGallery();
+    else loadSocialCreatives().then(initSocialGallery);
   }
 
   // The resume is meant to be READ by a recruiter, so open it large and
@@ -909,6 +928,121 @@ if (pet) {
     }, 500);
   });
 }
+
+// ========================
+// SOCIAL CREATIVES — widget preview + full gallery
+// ========================
+var socialCreatives = [];
+var scFiltered = [];
+var scIndex = 0;
+
+function loadSocialCreatives() {
+  return fetch('assets/social/manifest.json')
+    .then(function(r) { return r.ok ? r.json() : []; })
+    .then(function(list) { socialCreatives = list || []; return socialCreatives; })
+    .catch(function() { socialCreatives = []; return socialCreatives; });
+}
+
+// six thumbnails in the desktop widget, newest-feeling mix first
+function initSocialWidget() {
+  var grid = document.getElementById('socialCreativeGrid');
+  var count = document.getElementById('socialCount');
+  if (!grid) return;
+
+  if (count) count.textContent = '(' + socialCreatives.length + ')';
+
+  var picks = socialCreatives.slice(0, 6);
+  grid.innerHTML = picks.map(function(item, i) {
+    return '<button class="social-creative-tile" onclick="openSocialViewer(' + i + ')" ' +
+      'aria-label="Open social creative ' + (i + 1) + '">' +
+      '<img src="' + item.thumb + '" alt="' + item.brand + ' social creative" ' +
+      'loading="lazy" decoding="async"></button>';
+  }).join('');
+}
+
+// full gallery window content
+function getSocialsContent() {
+  return '<div class="sc-toolbar" id="scToolbar"></div><div class="sc-grid" id="scGrid"></div>';
+}
+
+function initSocialGallery() {
+  var grid = document.getElementById('scGrid');
+  var bar = document.getElementById('scToolbar');
+  if (!grid || !bar) return;
+
+  var brands = ['All'];
+  socialCreatives.forEach(function(i) {
+    if (brands.indexOf(i.brand) === -1) brands.push(i.brand);
+  });
+
+  bar.innerHTML = brands.map(function(b, i) {
+    return '<button class="sc-filter' + (i === 0 ? ' active' : '') +
+      '" onclick="filterSocials(\'' + b + '\', this)">' + b + '</button>';
+  }).join('');
+
+  renderSocialGrid(socialCreatives);
+}
+
+function filterSocials(brand, btn) {
+  var all = document.querySelectorAll('.sc-filter');
+  for (var i = 0; i < all.length; i++) all[i].classList.remove('active');
+  if (btn) btn.classList.add('active');
+  renderSocialGrid(brand === 'All'
+    ? socialCreatives
+    : socialCreatives.filter(function(x) { return x.brand === brand; }));
+}
+
+function renderSocialGrid(list) {
+  scFiltered = list;
+  var grid = document.getElementById('scGrid');
+  if (!grid) return;
+  grid.innerHTML = list.map(function(item, i) {
+    return '<button class="sc-tile" onclick="openSocialViewer(' + i + ', true)" ' +
+      'aria-label="' + item.brand + ' — ' + item.kind + '">' +
+      '<img src="' + item.thumb + '" alt="' + item.brand + ' ' + item.kind + '" ' +
+      'loading="lazy" decoding="async"></button>';
+  }).join('');
+}
+
+// fullscreen single-creative viewer
+function openSocialViewer(index, fromGallery) {
+  if (!fromGallery) scFiltered = socialCreatives;
+  scIndex = index;
+  var v = document.getElementById('scViewer');
+  if (!v) return;
+  v.classList.add('active');
+  updateSocialViewer();
+}
+
+function updateSocialViewer() {
+  var item = scFiltered[scIndex];
+  if (!item) return;
+  var img = document.getElementById('scViewerImg');
+  var cap = document.getElementById('scViewerCaption');
+  if (img) { img.src = item.full; img.alt = item.brand + ' — ' + item.kind; }
+  if (cap) cap.textContent = item.brand + ' · ' + item.kind + '  ' + (scIndex + 1) + '/' + scFiltered.length;
+}
+
+function moveSocialViewer(step) {
+  if (!scFiltered.length) return;
+  scIndex = (scIndex + step + scFiltered.length) % scFiltered.length;
+  updateSocialViewer();
+}
+
+function closeSocialViewer() {
+  var v = document.getElementById('scViewer');
+  if (v) v.classList.remove('active');
+}
+
+document.addEventListener('keydown', function(e) {
+  var v = document.getElementById('scViewer');
+  if (!v || !v.classList.contains('active')) return;
+  if (e.key === 'Escape') closeSocialViewer();
+  else if (e.key === 'ArrowLeft') moveSocialViewer(-1);
+  else if (e.key === 'ArrowRight') moveSocialViewer(1);
+});
+
+loadSocialCreatives().then(initSocialWidget);
 
 // ========================
 // RETRO TURNTABLE — AUDIO PLAYER

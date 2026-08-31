@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Subhranil Maity — Retro OS</title>
   <meta name="description" content="Portfolio of Subhranil Maity — Product & Brand Designer. A fun retro OS experience.">
-  <link rel="stylesheet" href="style.css?v=9">
+  <link rel="stylesheet" href="style.css?v=10">
 </head>
 <body>
   
@@ -74,19 +74,16 @@
         <!-- Socials Widget -->
         <div class="widget socials retro-box" data-widget-id="socials">
           <div class="widget-header">
-            <h3>Links.sys</h3>
+            <h3>Socials.exe</h3>
             <button class="btn-close" onclick="tryCloseWidget(this, 'socials')">X</button>
           </div>
           <div class="widget-content">
-            <p class="widget-label">SOCIALS</p>
-            <div class="social-grid">
-              <a href="#" class="social-item" title="Instagram" onclick="showToast('Instagram link pending...'); return false;"><i data-lucide="instagram"></i></a>
-              <a href="#" class="social-item" title="Twitter" onclick="showToast('Twitter link pending...'); return false;"><i data-lucide="twitter"></i></a>
-              <a href="#" class="social-item" title="Dribbble" onclick="showToast('Dribbble link pending...'); return false;"><i data-lucide="dribbble"></i></a>
-              <a href="https://www.linkedin.com/in/subhranil-maity/" target="_blank" class="social-item" title="LinkedIn"><i data-lucide="linkedin"></i></a>
-              <a href="#" class="social-item" title="Figma" onclick="showToast('Figma link pending...'); return false;"><i data-lucide="figma"></i></a>
-              <a href="mailto:Subhranilmaityofficial@gmail.com" class="social-item" title="Email"><i data-lucide="mail"></i></a>
-            </div>
+            <p class="widget-label">SOCIAL CREATIVES</p>
+            <!-- thumbnails injected by initSocialWidget() in script.js -->
+            <div class="social-creative-grid" id="socialCreativeGrid"></div>
+            <button class="flat-btn social-viewall" onclick="openApp('socialcreatives')">
+              View all <span id="socialCount"></span>
+            </button>
           </div>
         </div>
 
@@ -278,6 +275,15 @@
     <div class="pet-bubble" id="pet-bubble">Hi! I'm Byte.</div>
   </div>
 
+  <!-- Fullscreen viewer for a single social creative -->
+  <div id="scViewer" role="dialog" aria-modal="true" aria-label="Social creative viewer">
+    <button class="sc-viewer-btn close" onclick="closeSocialViewer()" aria-label="Close">X</button>
+    <button class="sc-viewer-btn prev" onclick="moveSocialViewer(-1)" aria-label="Previous">&#10094;</button>
+    <img id="scViewerImg" src="" alt="">
+    <button class="sc-viewer-btn next" onclick="moveSocialViewer(1)" aria-label="Next">&#10095;</button>
+    <div class="sc-viewer-caption" id="scViewerCaption"></div>
+  </div>
+
   <!-- Toast Container -->
   <div id="toast-container"></div>
 
@@ -290,7 +296,7 @@
   <script src="https://unpkg.com/lucide@latest"></script>
   
   <!-- Core Scripts -->
-  <script src="script.js?v=4"></script>
+  <script src="script.js?v=6"></script>
   <script type="module" src="lightrays.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
