@@ -1346,21 +1346,47 @@ a.contact-item:hover {
 @media (max-width: 900px) {
   #widgets-container {
     flex-direction: column;
-    left: 16px;
-    right: 16px;
-    top: 16px;
-    bottom: 100px;
+    left: 14px;
+    right: 14px;
+    top: 14px;
+    bottom: 96px;
     overflow-y: auto;
     overflow-x: hidden;
     pointer-events: auto;
     -webkit-overflow-scrolling: touch;
-    gap: 16px;
+    gap: 14px;
   }
 
+  /* Columns dissolve so each widget becomes a direct flex child and can
+     be reordered independently — otherwise only the two columns move. */
   .left-col, .right-col {
-    max-width: 100%;
-    width: 100%;
-    margin-left: 0;
+    display: contents;
+  }
+
+  /* --- Mobile reading order -------------------------------------------
+     Identity first, then how to reach me, then the work, then the
+     supporting material. On desktop these sit in two columns, so the
+     DOM order is optimised for that; on a phone it reads top-to-bottom
+     and needs to lead with who this is. */
+  .widget.profile  { order: 1; }
+  .widget.contact  { order: 2; }
+  .widget.socials  { order: 3; }
+  .widget.resume   { order: 4; }
+  .widget.quote    { order: 5; }
+  #winamp-player   { order: 6; }
+
+  /* Cards keep their identity but shed desktop-only chrome: closing a
+     card is a desktop easter egg and an accidental tap-target here. */
+  .widget .widget-header .btn-close {
+    display: none;
+  }
+
+  .widget-header {
+    padding: 5px 12px;
+  }
+
+  .widget-header h3 {
+    font-size: 19px;
   }
 
   .widget.socials .social-grid {
@@ -1388,30 +1414,34 @@ a.contact-item:hover {
     transform: none;
   }
 
+  /* Everything fits, so nothing hides off-screen behind a scroll the
+     visitor has to discover. */
   #dock {
     width: 100%;
-    justify-content: space-around;
-    gap: 8px;
-    padding: 8px;
-    overflow-x: auto;
+    justify-content: space-between;
+    gap: 2px;
+    padding: 7px 6px;
+    overflow-x: visible;
     flex-wrap: nowrap;
-    -webkit-overflow-scrolling: touch;
   }
 
   .dock-item {
-    padding: 4px;
+    padding: 2px 0;
+    flex: 1 1 0;
+    min-width: 0;
   }
 
   .dock-item i {
-    width: 38px;
-    height: 38px;
-    padding: 6px;
+    width: 32px;
+    height: 32px;
+    padding: 5px;
     box-shadow: 2px 2px 0px var(--retro-black);
   }
 
   .dock-label {
-    font-size: 11px;
-    margin-top: 4px;
+    font-size: 9px;
+    margin-top: 3px;
+    letter-spacing: 0;
   }
 
   .dock-item:hover {
@@ -1457,12 +1487,80 @@ a.contact-item:hover {
     z-index: 1 !important;
   }
 
-  /* Windows */
+  /* --- Windows become full-screen sheets ---------------------------
+     A draggable 70%-height pseudo-window is a desktop idea. On a phone
+     a window should own the screen so content gets real room. */
   .app-window {
-    width: calc(100% - 20px);
-    height: 70%;
-    left: 10px;
-    top: 40px;
+    width: 100% !important;
+    height: calc(100% - var(--menu-bar-h)) !important;
+    left: 0 !important;
+    top: var(--menu-bar-h) !important;
+    border-width: 0 !important;
+    box-shadow: none !important;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .app-window .window-header {
+    cursor: default;
+    flex: 0 0 auto;
+    height: 44px;
+  }
+
+  .app-window .window-content {
+    flex: 1 1 auto;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* bigger tap targets in window chrome */
+  .window-controls .win-btn {
+    min-width: 34px;
+    min-height: 34px;
+  }
+
+  /* --- Resume card: a preview, not a wall of 8pt text --------------- */
+  .widget.resume .resume-preview {
+    min-height: 0;
+    height: 132px;
+    max-height: 132px;
+  }
+
+  /* --- Desktop-only ambience is noise on a phone ------------------- */
+  #desktop-pet,
+  #screensaver {
+    display: none !important;
+  }
+
+  /* --- Touch targets ----------------------------------------------- */
+  .flat-btn {
+    min-height: 42px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .soc-btn {
+    width: 40px;
+    height: 40px;
+  }
+
+  .soc-btn svg,
+  .soc-btn i {
+    width: 18px;
+    height: 18px;
+  }
+
+  .contact-item {
+    font-size: 13px;
+    min-height: 34px;
+    margin-bottom: 6px;
+  }
+
+  /* social creative tiles: 5-up is too small to read on a phone */
+  .widget.socials .social-creative-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 7px;
   }
 }
 

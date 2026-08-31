@@ -438,10 +438,8 @@ function createWindow(id, title, contentHTML) {
   var isMobile = window.innerWidth <= 900;
 
   if (isMobile) {
-    win.style.width = 'calc(100% - 20px)';
-    win.style.height = '70%';
-    win.style.left = '10px';
-    win.style.top = '40px';
+    // Full-screen sheet: geometry comes from CSS so there are no inline
+    // values to fight with on rotate or resize.
   } else {
     win.style.top = (60 + offset) + 'px';
     win.style.left = (280 + offset) + 'px';
@@ -467,7 +465,10 @@ function createWindow(id, title, contentHTML) {
 
   win.addEventListener('mousedown', function() { bringToFront(win); });
   win.addEventListener('touchstart', function() { bringToFront(win); }, { passive: true });
-  makeDraggable(win, win.querySelector('.window-header'));
+  // Dragging a full-screen sheet does nothing except fight the scroll
+  if (!isMobile) {
+    makeDraggable(win, win.querySelector('.window-header'));
+  }
 }
 
 function makeDraggable(element, handle) {
@@ -773,6 +774,9 @@ function resetInactivity() {
   if (isScreensaverActive) {
     hideScreensaver();
   }
+  // The screensaver is hidden on phones, so don't burn a timer (and the
+  // bounce animation) on hardware that's already battery-constrained.
+  if (window.innerWidth <= 900) return;
   inactivityTimer = setTimeout(showScreensaver, INACTIVITY_LIMIT);
 }
 
@@ -882,9 +886,12 @@ function petSpeak(text, duration) {
   }, duration);
 }
 
-if (pet) {
+// Byte is hidden on phones (he'd float over the content), so skip his
+// 20fps wander loop and chatter timer there rather than animating an
+// invisible element.
+if (pet && window.innerWidth > 900) {
   pet.style.transform = 'translateX(' + petX + 'px)';
-  
+
   // Pet wandering loop
   setInterval(function() {
     if (Math.random() < 0.05) {
@@ -5488,9 +5495,17 @@ function openProjectPreview(item, category, index, isMaximized) {
     navHtml += '</div>';
   }
 
+  // On a phone the hi-res JPEG (~260KB avg) is far more than the screen
+  // can show. Serve the standard WebP (~69KB) and keep the full-res file
+  // one tap away for anyone who actually wants it.
+  var onPhone = window.innerWidth <= 900;
+  var previewSrc = (onPhone && item.name)
+    ? 'assets/portfolio/' + item.name
+    : item.hiresPath;
+
   var contentHTML = '<div class="project-preview-modal">' +
     '<div class="preview-left">' +
-      '<img src="' + item.hiresPath + '" alt="' + item.title + '" class="preview-img" onclick="window.open(\'' + item.hiresPath + '\', \'_blank\')">' +
+      '<img src="' + previewSrc + '" alt="' + item.title + '" class="preview-img" loading="lazy" decoding="async" onclick="window.open(\'' + item.hiresPath + '\', \'_blank\')">' +
     '</div>' +
     '<div class="preview-right">' +
       '<h2 class="preview-title">' + item.title + '</h2>' +
