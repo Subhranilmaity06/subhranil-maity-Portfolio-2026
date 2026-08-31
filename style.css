@@ -755,17 +755,13 @@ a.contact-item:hover {
   transition: transform 0.1s, background 0.15s, box-shadow 0.1s;
 }
 
-.soc-btn i {
+/* Brand marks are inline SVG: lucide 1.x dropped every brand icon
+   (linkedin/dribbble/instagram), which is why these rendered empty. */
+.soc-btn i,
+.soc-btn svg {
   width: 15px;
   height: 15px;
-}
-
-/* lucide has no Behance glyph, so the wordmark stands in */
-.soc-be {
-  font-family: var(--font-retro);
-  font-size: 16px;
-  line-height: 1;
-  font-weight: 700;
+  display: block;
 }
 
 .soc-btn:hover {
