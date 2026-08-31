@@ -101,6 +101,11 @@ h2, h3, .quote-text, .window-title {
   color: var(--retro-white);
 }
 
+/* the disc glyph is a mobile affordance only */
+.music-glyph {
+  display: none;
+}
+
 .menu-logo {
   font-size: 16px;
   font-family: var(--font-system);
@@ -1462,6 +1467,54 @@ a.contact-item:hover {
   /* Hide File, Edit, View, Help on mobile but show logo, name, and Music */
   .menu-left .menu-item:not(.menu-logo):not(.bold):not(#menu-turntable-btn) {
     display: none;
+  }
+
+  /* --- Music -------------------------------------------------------
+     The turntable only auto-opens on desktop, so on a phone this is the
+     single way in. As plain menu text it read as a label, not a control.
+     Give it the same chip treatment as the retro buttons — enough to
+     register as tappable without shouting. */
+  #menu-turntable-btn {
+    background: var(--retro-pink);
+    border: 2px solid var(--retro-black);
+    box-shadow: 2px 2px 0px var(--retro-black);
+    padding: 1px 9px;
+    margin-left: 4px;
+    min-height: 26px;
+    font-size: 15px;
+    line-height: 1;
+    gap: 5px;
+  }
+
+  #menu-turntable-btn .music-glyph {
+    width: 13px;
+    height: 13px;
+    flex: 0 0 auto;
+    display: block;
+  }
+
+  #menu-turntable-btn:active {
+    transform: translate(2px, 2px);
+    box-shadow: none;
+  }
+
+  #menu-turntable-btn:hover {
+    background: var(--retro-pink);
+    color: var(--retro-black);
+  }
+
+  /* A brief nudge on arrival, then it settles and stays quiet. */
+  #menu-turntable-btn {
+    animation: musicNudge 1.4s ease-in-out 3;
+  }
+
+  @keyframes musicNudge {
+    0%, 100% { box-shadow: 2px 2px 0px var(--retro-black); }
+    50%      { box-shadow: 2px 2px 0px var(--retro-black), 0 0 0 3px rgba(255, 105, 180, 0.45); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #menu-turntable-btn { animation: none; }
   }
 
   /* Hide status icons on mobile clock */
