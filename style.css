@@ -1233,7 +1233,7 @@ a.contact-item:hover {
   }
   .app-window:not(.maximized) .app-grid.mac-grid .project-wrapper {
     flex: 0 0 auto;
-    width: 220px;
+    width: 250px;
   }
 }
 
@@ -1252,81 +1252,109 @@ a.contact-item:hover {
 }
 
 .project-mac-chassis {
-  width: 180px;
-  height: 230px;
+  width: 100%;
+  max-width: 250px;
   background: #e5decc;
-  border: 2px solid var(--retro-black);
-  border-radius: 8px 8px 4px 4px;
-  box-shadow: 4px 4px 0px rgba(0,0,0,1), inset -4px -4px 0px rgba(0,0,0,0.1);
+  border: 3px solid var(--retro-black);
+  border-radius: 10px 10px 5px 5px;
+  box-shadow: 5px 5px 0px rgba(0,0,0,1), inset -4px -4px 0px rgba(0,0,0,0.08);
   display: flex;
   flex-direction: column;
-  align-items: center;
-  padding-top: 20px;
+  padding: 16px 16px 14px;
   position: relative;
-  margin-bottom: 12px;
 }
 
+/* Screen gets the space it deserves — it is the actual work */
 .mac-screen-bezel {
-  width: 140px;
-  height: 110px;
+  width: 100%;
+  aspect-ratio: 4 / 3;
   background: var(--retro-black);
-  border-radius: 6px;
-  padding: 8px;
+  border-radius: 8px;
+  padding: 9px;
   box-shadow: inset 2px 2px 0 rgba(255,255,255,0.2);
+  flex: 0 0 auto;
 }
 
 .mac-screen-content {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: top center;
   background: #4ab3b6;
-  border-radius: 2px;
+  border-radius: 3px;
   display: block;
 }
 
-.mac-floppy-drive {
-  width: 40px;
-  height: 4px;
-  background: var(--retro-black);
-  position: absolute;
-  bottom: 24px;
-  right: 28px;
-  border-radius: 2px;
-}
-
-.mac-floppy-drive::before {
-  content: '';
-  position: absolute;
-  right: 96px;
-  bottom: -2px;
-  width: 8px;
-  height: 8px;
-  background: linear-gradient(to bottom, #5ba448 20%, #f4b238 20% 40%, #ea8536 40% 60%, #df3e33 60% 80%, #902f8f 80%);
-  border: 1px solid rgba(0,0,0,0.5);
-  border-radius: 1px;
-}
-
-.project-info {
+/* Name and domain sit inside the chassis, centred under the screen */
+.mac-body {
   text-align: center;
-  width: 100%;
+  padding: 14px 2px 0;
+  flex: 1 1 auto;
 }
 
-.project-info h4 {
-  font-family: var(--font-retro);
-  font-size: 14px;
+.mac-title {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 17px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
   color: var(--retro-black);
-  margin: 0 0 4px 0;
+  margin: 0 0 5px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.project-info p {
-  font-family: Arial, sans-serif;
-  font-size: 11px;
-  color: #555;
+.mac-domain {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: #2b2b2b;
   margin: 0;
-  line-height: 1.4;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Footer: rainbow chip left, status + drive slot right */
+.mac-footer {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 16px;
+  flex: 0 0 auto;
+}
+
+.mac-rainbow {
+  width: 15px;
+  height: 15px;
+  flex: 0 0 auto;
+  background: linear-gradient(to bottom, #5ba448 20%, #f4b238 20% 40%, #ea8536 40% 60%, #df3e33 60% 80%, #902f8f 80%);
+  border: 1px solid rgba(0,0,0,0.5);
+  border-radius: 1px;
+}
+
+.mac-footer-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+  min-width: 0;
+}
+
+.mac-status {
+  font-family: var(--font-retro);
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  color: var(--retro-black);
+  white-space: nowrap;
+}
+
+.mac-bar {
+  width: 62px;
+  height: 5px;
+  background: var(--retro-black);
+  border-radius: 2px;
 }
 
 /* --- Fit the desktop columns to shorter viewports -------------------
@@ -1396,43 +1424,25 @@ a.contact-item:hover {
   }
 
   .project-mac-chassis {
-    width: 110px;
-    height: 145px;
-    padding-top: 10px;
+    max-width: 100%;
+    padding: 10px 10px 9px;
     border-width: 2px;
-    border-radius: 6px 6px 3px 3px;
-    box-shadow: 2px 2px 0px rgba(0,0,0,1), inset -2px -2px 0px rgba(0,0,0,0.1);
-    margin-bottom: 6px;
+    border-radius: 7px 7px 3px 3px;
+    box-shadow: 3px 3px 0px rgba(0,0,0,1), inset -2px -2px 0px rgba(0,0,0,0.1);
   }
-  
+
   .mac-screen-bezel {
-    width: 90px;
-    height: 70px;
-    padding: 4px;
-    border-radius: 4px;
+    padding: 5px;
+    border-radius: 5px;
   }
-  
-  .mac-floppy-drive {
-    width: 24px;
-    height: 3px;
-    bottom: 16px;
-    right: 14px;
-  }
-  
-  .mac-floppy-drive::before {
-    right: 60px;
-    width: 5px;
-    height: 5px;
-  }
-  
-  .project-info h4 {
-    font-size: 11px;
-    margin-bottom: 2px;
-  }
-  
-  .project-info p {
-    font-size: 9px;
-  }
+
+  .mac-body { padding-top: 9px; }
+  .mac-title { font-size: 13px; margin-bottom: 3px; }
+  .mac-domain { font-size: 10.5px; }
+  .mac-footer { margin-top: 10px; }
+  .mac-rainbow { width: 11px; height: 11px; }
+  .mac-status { font-size: 11px; }
+  .mac-bar { width: 42px; height: 4px; }
 }
 
 .project-card:active {

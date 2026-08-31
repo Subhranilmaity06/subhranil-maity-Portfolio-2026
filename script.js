@@ -179,32 +179,39 @@ var appData = {
     title: 'C:\\Projects',
     content: (function() {
       var projs = [
-        { title: 'Naata.exe', desc: '2025 • Active<br><span style="color:var(--retro-blue);text-decoration:underline;">naata.in</span>', url: 'https://naata.in/', img: 'naata.png' },
-        { title: 'Ecowell.exe', desc: '2024-26 • Active<br><span style="color:var(--retro-blue);text-decoration:underline;">ecowellonline.com</span>', url: 'https://www.ecowellonline.com/', img: 'ecowell.png' },
-        { title: 'Mechapixel.exe', desc: '2025 • Active<br><span style="color:var(--retro-blue);text-decoration:underline;">mechapixel.in</span>', url: 'https://www.mechapixel.in/', img: 'mechapixel.png' },
-        { title: 'Educircle.exe', desc: '2025 • Active<br><span style="color:var(--retro-blue);text-decoration:underline;">educircle.co</span>', url: 'https://www.educircle.co/', img: 'educircle.png' },
-        { title: 'Goodwyn.exe', desc: '2025 • Active<br><span style="color:var(--retro-blue);text-decoration:underline;">goodwyntea.com</span>', url: 'https://goodwyntea.com/', img: 'goodwyn.png' },
-        { title: 'Sundrex.exe', desc: '2025 • Active<br><span style="color:var(--retro-blue);text-decoration:underline;">sundrex.com</span>', url: 'https://www.sundrex.com/', img: 'sundrex.png' },
-        { title: 'Haatak.exe', desc: '2025 • Active<br><span style="color:var(--retro-blue);text-decoration:underline;">haatak.com</span>', url: 'https://www.haatak.com/', img: 'haatak.png' },
-        { title: 'RailwayHSS.exe', desc: '2022 • Active<br><span style="color:var(--retro-blue);text-decoration:underline;">railwayhsschoolapdj.com</span>', url: 'https://railwayhsschoolapdj.com/', img: 'railwayhss.png' },
-        { title: 'AiFalcon.exe', desc: '2023-24 • Active<br><span style="color:var(--retro-blue);text-decoration:underline;">Figma Design</span>', url: 'https://www.figma.com/design/j3qyMf8jQIMELdLtRaaOD5/AiFalcon?node-id=1489-13761&t=oQY08AMw9mMwcnn2-1', img: 'aifalcon.png' },
-        { title: 'HaatakApp.apk', desc: '2025 • Active App', url: '', img: 'haatakapp.webp' },
-        { title: 'AutoQuote.apk', desc: '2025 • Active App', url: '', img: 'autoquote.webp' },
-        { title: 'Ayla.exe', desc: '2024-25 • Active App', url: '', img: 'ayla.webp' }
+        { title: 'Naata.exe',       domain: 'naata.in',                url: 'https://naata.in/', meta: '2025 \u00b7 active', img: 'naata.png' },
+        { title: 'Ecowell.exe',     domain: 'ecowellonline.com',       url: 'https://www.ecowellonline.com/', meta: '2024-26 \u00b7 active', img: 'ecowell.png' },
+        { title: 'Mechapixel.exe',  domain: 'mechapixel.in',           url: 'https://www.mechapixel.in/', meta: '2025 \u00b7 active', img: 'mechapixel.png' },
+        { title: 'Educircle.exe',   domain: 'educircle.co',            url: 'https://www.educircle.co/', meta: '2025 \u00b7 active', img: 'educircle.png' },
+        { title: 'Goodwyn.exe',     domain: 'goodwyntea.com',          url: 'https://goodwyntea.com/', meta: '2025 \u00b7 active', img: 'goodwyn.png' },
+        { title: 'Haatak.exe',      domain: 'haatak.com',              url: 'https://www.haatak.com/', meta: '2025 \u00b7 active', img: 'haatak.png' },
+        { title: 'RailwayHSS.exe',  domain: 'railwayhsschoolapdj.com', url: 'https://railwayhsschoolapdj.com/', meta: '2022 \u00b7 active', img: 'railwayhss.png' },
+        { title: 'AiFalcon.exe',    domain: 'Figma Design',            url: 'https://www.figma.com/design/j3qyMf8jQIMELdLtRaaOD5/AiFalcon?node-id=1489-13761&t=oQY08AMw9mMwcnn2-1', meta: '2023-24 \u00b7 active', img: 'aifalcon.png' },
+        { title: 'HaatakApp.apk',   domain: 'Mobile app',              url: '', meta: '2025 \u00b7 active', img: 'haatakapp.webp' },
+        { title: 'AutoQuote.apk',   domain: 'Mobile app',              url: '', meta: '2025 \u00b7 active', img: 'autoquote.webp' },
+        { title: 'Ayla.exe',        domain: 'Mobile app',              url: '', meta: '2024-25 \u00b7 active', img: 'ayla.webp' }
       ];
       var html = '<div class="app-grid mac-grid">';
       projs.forEach(function(p) {
         var clickAttr = p.url ? ' onclick="window.open(\'' + p.url + '\', \'_blank\')"' : '';
+        // Title, domain and status now live inside the chassis so each
+        // card reads as one object instead of art with a caption below.
         html += '<div class="project-wrapper"' + clickAttr + '>' +
           '<div class="project-mac-chassis">' +
             '<div class="mac-screen-bezel">' +
-              '<img class="mac-screen-content" src="assets/portfolio/' + p.img + '" onerror="this.style.opacity=0;" />' +
+              '<img class="mac-screen-content" src="assets/portfolio/' + p.img + '" alt="' + p.title + '" loading="lazy" decoding="async" onerror="this.style.opacity=0;" />' +
             '</div>' +
-            '<div class="mac-floppy-drive"></div>' +
-          '</div>' +
-          '<div class="project-info">' +
-            '<h4>' + p.title + '</h4>' +
-            '<p>' + p.desc + '</p>' +
+            '<div class="mac-body">' +
+              '<h4 class="mac-title">' + p.title + '</h4>' +
+              '<p class="mac-domain">' + p.domain + '</p>' +
+            '</div>' +
+            '<div class="mac-footer">' +
+              '<span class="mac-rainbow"></span>' +
+              '<span class="mac-footer-right">' +
+                '<span class="mac-status">' + p.meta + '</span>' +
+                '<span class="mac-bar"></span>' +
+              '</span>' +
+            '</div>' +
           '</div>' +
         '</div>';
       });
@@ -345,6 +352,20 @@ function openApp(appId) {
       win.style.height = '480px';
     }
     initGalleryExplorer();
+  }
+
+  // Projects is a horizontal shelf of cards, so the default 500px window
+  // showed barely two. Open it wide and centred.
+  if (appId === 'projects') {
+    var pwin = document.getElementById('window-projects');
+    if (pwin && window.innerWidth > 900) {
+      var pw = Math.min(1180, window.innerWidth - 100);
+      var ph = Math.min(620, window.innerHeight - 130);
+      pwin.style.width = pw + 'px';
+      pwin.style.height = ph + 'px';
+      pwin.style.left = Math.max(20, Math.round((window.innerWidth - pw) / 2)) + 'px';
+      pwin.style.top = Math.max(44, Math.round((window.innerHeight - ph) / 2)) + 'px';
+    }
   }
 
   if (appId === 'socialcreatives') {
