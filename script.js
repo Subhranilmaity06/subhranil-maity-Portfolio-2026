@@ -955,7 +955,7 @@ function initSocialWidget() {
   if (!grid) return;
   if (count) count.textContent = '(' + scPostCount() + ')';
 
-  grid.innerHTML = socialAlbums.slice(0, 6).map(function(a, i) {
+  grid.innerHTML = socialAlbums.slice(0, 5).map(function(a, i) {
     return '<button class="social-creative-tile" onclick="openSocialAlbum(\'' + a.id + '\')" ' +
       'aria-label="' + a.title + '">' +
       '<img src="' + a.cover + '" alt="' + a.title + '" loading="lazy" decoding="async">' +

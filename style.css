@@ -266,7 +266,7 @@ h2, h3, .quote-text, .window-title {
 /* ---- Socials Widget: showcase of social creatives ---- */
 .widget.socials .social-creative-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   gap: 8px;
   margin-bottom: 12px;
 }
@@ -306,6 +306,19 @@ h2, h3, .quote-text, .window-title {
   line-height: 1;
   padding: 3px 6px;
   pointer-events: none;
+}
+
+/* widget tiles are only ~45px across at 5-up, so scale the badge down */
+.social-creative-tile .sc-count {
+  font-size: 10px;
+  padding: 2px 3px;
+  top: 2px;
+  right: 2px;
+}
+
+.widget.socials .social-creative-tile {
+  border-width: 2px;
+  box-shadow: 2px 2px 0px var(--retro-black);
 }
 
 .social-creative-tile,
@@ -477,7 +490,14 @@ h2, h3, .quote-text, .window-title {
 
 .sc-viewer-btn.prev { left: -6px; top: 50%; transform: translateY(-50%); }
 .sc-viewer-btn.next { right: -6px; top: 50%; transform: translateY(-50%); }
-.sc-viewer-btn.close { position: fixed; top: 2vh; right: 2vw; }
+/* .sc-stage is positioned and comes later in the DOM, so without an
+   explicit z-index it paints over this button and eats the clicks */
+.sc-viewer-btn.close {
+  position: fixed;
+  top: 2vh;
+  right: 2vw;
+  z-index: 20;
+}
 
 .sc-viewer-caption {
   margin-top: 14px;
