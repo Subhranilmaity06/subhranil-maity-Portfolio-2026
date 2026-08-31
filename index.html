@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Subhranil Maity — Retro OS</title>
   <meta name="description" content="Portfolio of Subhranil Maity — Product & Brand Designer. A fun retro OS experience.">
-  <link rel="stylesheet" href="style.css?v=10">
+  <link rel="stylesheet" href="style.css?v=11">
 </head>
 <body>
   
@@ -278,9 +278,11 @@
   <!-- Fullscreen viewer for a single social creative -->
   <div id="scViewer" role="dialog" aria-modal="true" aria-label="Social creative viewer">
     <button class="sc-viewer-btn close" onclick="closeSocialViewer()" aria-label="Close">X</button>
-    <button class="sc-viewer-btn prev" onclick="moveSocialViewer(-1)" aria-label="Previous">&#10094;</button>
+    <span id="scViewerNav">
+      <button class="sc-viewer-btn prev" onclick="moveSocialViewer(-1)" aria-label="Previous post">&#10094;</button>
+      <button class="sc-viewer-btn next" onclick="moveSocialViewer(1)" aria-label="Next post">&#10095;</button>
+    </span>
     <img id="scViewerImg" src="" alt="">
-    <button class="sc-viewer-btn next" onclick="moveSocialViewer(1)" aria-label="Next">&#10095;</button>
     <div class="sc-viewer-caption" id="scViewerCaption"></div>
   </div>
 
@@ -296,7 +298,7 @@
   <script src="https://unpkg.com/lucide@latest"></script>
   
   <!-- Core Scripts -->
-  <script src="script.js?v=6"></script>
+  <script src="script.js?v=7"></script>
   <script type="module" src="lightrays.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {

@@ -930,37 +930,40 @@ if (pet) {
 }
 
 // ========================
-// SOCIAL CREATIVES — widget preview + full gallery
+// SOCIAL CREATIVES — album grid + per-album carousel
 // ========================
-var socialCreatives = [];
-var scFiltered = [];
-var scIndex = 0;
+var socialAlbums = [];     // every album from the manifest
+var scAlbums = [];         // current (filtered) album list
+var scAlbum = null;        // album open in the viewer
+var scIndex = 0;           // slide within that album
 
 function loadSocialCreatives() {
   return fetch('assets/social/manifest.json')
     .then(function(r) { return r.ok ? r.json() : []; })
-    .then(function(list) { socialCreatives = list || []; return socialCreatives; })
-    .catch(function() { socialCreatives = []; return socialCreatives; });
+    .then(function(list) { socialAlbums = list || []; scAlbums = socialAlbums; return socialAlbums; })
+    .catch(function() { socialAlbums = []; return socialAlbums; });
 }
 
-// six thumbnails in the desktop widget, newest-feeling mix first
+function scPostCount() {
+  return socialAlbums.reduce(function(n, a) { return n + a.count; }, 0);
+}
+
+// widget: six album covers
 function initSocialWidget() {
   var grid = document.getElementById('socialCreativeGrid');
   var count = document.getElementById('socialCount');
   if (!grid) return;
+  if (count) count.textContent = '(' + scPostCount() + ')';
 
-  if (count) count.textContent = '(' + socialCreatives.length + ')';
-
-  var picks = socialCreatives.slice(0, 6);
-  grid.innerHTML = picks.map(function(item, i) {
-    return '<button class="social-creative-tile" onclick="openSocialViewer(' + i + ')" ' +
-      'aria-label="Open social creative ' + (i + 1) + '">' +
-      '<img src="' + item.thumb + '" alt="' + item.brand + ' social creative" ' +
-      'loading="lazy" decoding="async"></button>';
+  grid.innerHTML = socialAlbums.slice(0, 6).map(function(a, i) {
+    return '<button class="social-creative-tile" onclick="openSocialAlbum(\'' + a.id + '\')" ' +
+      'aria-label="' + a.title + '">' +
+      '<img src="' + a.cover + '" alt="' + a.title + '" loading="lazy" decoding="async">' +
+      (a.count > 1 ? '<span class="sc-count">' + a.count + '</span>' : '') +
+      '</button>';
   }).join('');
 }
 
-// full gallery window content
 function getSocialsContent() {
   return '<div class="sc-toolbar" id="scToolbar"></div><div class="sc-grid" id="scGrid"></div>';
 }
@@ -971,16 +974,15 @@ function initSocialGallery() {
   if (!grid || !bar) return;
 
   var brands = ['All'];
-  socialCreatives.forEach(function(i) {
-    if (brands.indexOf(i.brand) === -1) brands.push(i.brand);
+  socialAlbums.forEach(function(a) {
+    if (brands.indexOf(a.brand) === -1) brands.push(a.brand);
   });
-
   bar.innerHTML = brands.map(function(b, i) {
     return '<button class="sc-filter' + (i === 0 ? ' active' : '') +
       '" onclick="filterSocials(\'' + b + '\', this)">' + b + '</button>';
   }).join('');
 
-  renderSocialGrid(socialCreatives);
+  renderSocialGrid(socialAlbums);
 }
 
 function filterSocials(brand, btn) {
@@ -988,50 +990,65 @@ function filterSocials(brand, btn) {
   for (var i = 0; i < all.length; i++) all[i].classList.remove('active');
   if (btn) btn.classList.add('active');
   renderSocialGrid(brand === 'All'
-    ? socialCreatives
-    : socialCreatives.filter(function(x) { return x.brand === brand; }));
+    ? socialAlbums
+    : socialAlbums.filter(function(a) { return a.brand === brand; }));
 }
 
+// one cover per album — a carousel is represented by its first post only
 function renderSocialGrid(list) {
-  scFiltered = list;
+  scAlbums = list;
   var grid = document.getElementById('scGrid');
   if (!grid) return;
-  grid.innerHTML = list.map(function(item, i) {
-    return '<button class="sc-tile" onclick="openSocialViewer(' + i + ', true)" ' +
-      'aria-label="' + item.brand + ' — ' + item.kind + '">' +
-      '<img src="' + item.thumb + '" alt="' + item.brand + ' ' + item.kind + '" ' +
-      'loading="lazy" decoding="async"></button>';
+  grid.innerHTML = list.map(function(a) {
+    return '<button class="sc-tile" onclick="openSocialAlbum(\'' + a.id + '\')" ' +
+      'aria-label="' + a.title + ', ' + a.count + ' posts">' +
+      '<img src="' + a.cover + '" alt="' + a.title + '" loading="lazy" decoding="async">' +
+      (a.count > 1 ? '<span class="sc-count">' + a.count + '</span>' : '') +
+      '</button>';
   }).join('');
 }
 
-// fullscreen single-creative viewer
-function openSocialViewer(index, fromGallery) {
-  if (!fromGallery) scFiltered = socialCreatives;
-  scIndex = index;
+// open an album and page through its posts
+function openSocialAlbum(id) {
+  var album = null;
+  for (var i = 0; i < socialAlbums.length; i++) {
+    if (socialAlbums[i].id === id) { album = socialAlbums[i]; break; }
+  }
+  if (!album) return;
+  scAlbum = album;
+  scIndex = 0;
   var v = document.getElementById('scViewer');
-  if (!v) return;
-  v.classList.add('active');
+  if (v) v.classList.add('active');
   updateSocialViewer();
 }
 
 function updateSocialViewer() {
-  var item = scFiltered[scIndex];
-  if (!item) return;
+  if (!scAlbum) return;
   var img = document.getElementById('scViewerImg');
   var cap = document.getElementById('scViewerCaption');
-  if (img) { img.src = item.full; img.alt = item.brand + ' — ' + item.kind; }
-  if (cap) cap.textContent = item.brand + ' · ' + item.kind + '  ' + (scIndex + 1) + '/' + scFiltered.length;
+  var nav = document.getElementById('scViewerNav');
+  if (img) {
+    img.src = scAlbum.items[scIndex];
+    img.alt = scAlbum.title + ' — post ' + (scIndex + 1);
+  }
+  if (cap) {
+    cap.textContent = scAlbum.brand + ' · ' + scAlbum.title +
+      (scAlbum.count > 1 ? '   ' + (scIndex + 1) + ' / ' + scAlbum.count : '');
+  }
+  // hide arrows on single-post albums
+  if (nav) nav.style.display = scAlbum.count > 1 ? '' : 'none';
 }
 
 function moveSocialViewer(step) {
-  if (!scFiltered.length) return;
-  scIndex = (scIndex + step + scFiltered.length) % scFiltered.length;
+  if (!scAlbum || scAlbum.count < 2) return;
+  scIndex = (scIndex + step + scAlbum.count) % scAlbum.count;
   updateSocialViewer();
 }
 
 function closeSocialViewer() {
   var v = document.getElementById('scViewer');
   if (v) v.classList.remove('active');
+  scAlbum = null;
 }
 
 document.addEventListener('keydown', function(e) {
