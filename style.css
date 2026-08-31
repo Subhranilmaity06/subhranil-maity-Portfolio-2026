@@ -195,6 +195,20 @@ h2, h3, .quote-text, .window-title {
   max-width: 380px;
 }
 
+/* Flex items default to min-height:auto, which stops them shrinking
+   below their content — that's why the column overflowed the fixed
+   container and the resume card got clipped with no way to scroll.
+   Letting them shrink is what makes the fit-to-viewport rules below
+   actually take effect. */
+.widget-col > .widget,
+.widget .widget-content {
+  min-height: 0;
+}
+
+.widget.resume .resume-preview {
+  min-height: 0;
+}
+
 .right-col {
   flex: 1;
   max-width: 360px;
@@ -698,6 +712,64 @@ h2, h3, .quote-text, .window-title {
 }
 
 /* ---- Contact Widget ---- */
+/* ---- Case study card ---- */
+.widget.casestudy .widget-content {
+  background: #fff7fb;
+  gap: 12px;
+}
+
+.case-card {
+  display: block;
+  text-decoration: none;
+  color: var(--retro-black);
+  border: 3px solid var(--retro-black);
+  box-shadow: 3px 3px 0px var(--retro-black);
+  background: var(--retro-white);
+  overflow: hidden;
+  transition: transform 0.12s, box-shadow 0.12s;
+}
+
+.case-card img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-bottom: 3px solid var(--retro-black);
+}
+
+.case-meta {
+  padding: 9px 11px 11px;
+}
+
+.case-meta strong {
+  display: block;
+  font-family: var(--font-retro);
+  font-size: 20px;
+  color: var(--retro-blue);
+  line-height: 1;
+  margin-bottom: 5px;
+}
+
+.case-meta span {
+  display: block;
+  font-size: 11.5px;
+  line-height: 1.45;
+  color: var(--retro-dark-grey);
+}
+
+.case-card:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 5px 5px 0px var(--retro-pink);
+}
+
+.case-card:active {
+  transform: translate(3px, 3px);
+  box-shadow: 0px 0px 0px var(--retro-black);
+}
+
+.case-open {
+  width: 100%;
+}
+
 /* ---- Contact: compact card, rows double as the actions ---- */
 .widget.contact .widget-content {
   background: #E0FFFF;
@@ -1257,6 +1329,49 @@ a.contact-item:hover {
   line-height: 1.4;
 }
 
+/* --- Fit the desktop columns to shorter viewports -------------------
+   The widget container is a fixed frame with overflow:hidden, so on a
+   laptop (~650-800px of viewport height) the left column ran past the
+   bottom and the resume card was cut off. Tighten the vertical rhythm
+   as height shrinks so everything stays on screen without scrolling. */
+@media (min-width: 901px) and (max-height: 900px) {
+  #widgets-container {
+    top: 22px;
+    bottom: 98px;
+    gap: 20px;
+  }
+  .widget-col { gap: 14px; }
+  .widget-content { padding: 12px; }
+  .quote-text { font-size: 21px; margin-bottom: 8px; }
+  .widget.resume .resume-preview { max-height: 150px; margin-bottom: 12px; }
+  .widget.socials .social-creative-grid { margin-bottom: 10px; }
+}
+
+@media (min-width: 901px) and (max-height: 760px) {
+  #widgets-container {
+    top: 16px;
+    bottom: 92px;
+  }
+  .widget-col { gap: 11px; }
+  .widget-content { padding: 10px; }
+  .widget-header { padding: 3px 8px; }
+  .widget-header h3 { font-size: 19px; }
+  .quote-text { font-size: 18px; line-height: 1.15; }
+  .widget.resume .resume-preview { max-height: 104px; margin-bottom: 10px; }
+  .widget.profile .profile-img { width: 72px; height: 82px; }
+  .profile h2 { font-size: 21px; }
+  .flat-btn { font-size: 17px; padding: 6px 12px; }
+}
+
+@media (min-width: 901px) and (max-height: 680px) {
+  #widgets-container { top: 12px; bottom: 86px; }
+  .widget-col { gap: 9px; }
+  .quote-text { font-size: 16px; }
+  .widget.resume .resume-preview { max-height: 78px; }
+  .widget.socials .social-creative-grid { margin-bottom: 8px; }
+  .flat-btn { font-size: 16px; padding: 5px 10px; }
+}
+
 @media (max-width: 1100px) {
   .mac-grid {
     grid-template-columns: repeat(4, 1fr);
@@ -1373,12 +1488,13 @@ a.contact-item:hover {
      supporting material. On desktop these sit in two columns, so the
      DOM order is optimised for that; on a phone it reads top-to-bottom
      and needs to lead with who this is. */
-  .widget.profile  { order: 1; }
-  .widget.contact  { order: 2; }
-  .widget.socials  { order: 3; }
-  .widget.resume   { order: 4; }
-  .widget.quote    { order: 5; }
-  #winamp-player   { order: 6; }
+  .widget.profile   { order: 1; }
+  .widget.contact   { order: 2; }
+  .widget.casestudy { order: 3; }
+  .widget.socials   { order: 4; }
+  .widget.resume    { order: 5; }
+  .widget.quote     { order: 6; }
+  #winamp-player    { order: 7; }
 
   /* Cards keep their identity but shed desktop-only chrome: closing a
      card is a desktop easter egg and an accidental tap-target here. */

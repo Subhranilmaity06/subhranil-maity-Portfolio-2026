@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Subhranil Maity — Retro OS</title>
   <meta name="description" content="Portfolio of Subhranil Maity — Product & Brand Designer. A fun retro OS experience.">
-  <link rel="stylesheet" href="style.css?v=19">
+  <link rel="stylesheet" href="style.css?v=20">
 </head>
 <body>
   
@@ -166,6 +166,24 @@
           </div>
         </div>
 
+        <!-- Case Study Widget -->
+        <div class="widget casestudy retro-box" data-widget-id="casestudy">
+          <div class="widget-header">
+            <h3>CaseStudy.exe</h3>
+            <button class="btn-close" onclick="tryCloseWidget(this, 'casestudy')">X</button>
+          </div>
+          <div class="widget-content">
+            <a class="case-card" href="ecowell-case-study-web/">
+              <img src="assets/case-ecowell.webp" alt="Ecowell brand case study" loading="lazy" decoding="async">
+              <div class="case-meta">
+                <strong>Ecowell</strong>
+                <span>Brand system across 7 nutraceutical categories — identity, packaging, Amazon A+, social.</span>
+              </div>
+            </a>
+            <a href="ecowell-case-study-web/" class="flat-btn case-open">Read case study</a>
+          </div>
+        </div>
+
       </div> <!-- end right col -->
 
     </div> <!-- end widgets-container -->
@@ -224,10 +242,6 @@
         <div class="dock-item" data-app="projects" data-tooltip="Projects" onclick="openApp('projects')">
           <i data-lucide="folder-open"></i>
           <span class="dock-label">PROJECTS</span>
-        </div>
-        <div class="dock-item" data-app="casestudies" data-tooltip="Case Studies" onclick="openApp('casestudies')">
-          <i data-lucide="folder"></i>
-          <span class="dock-label">CASES</span>
         </div>
         <div class="dock-item" data-app="creatives" data-tooltip="Creatives" onclick="openApp('creatives')">
           <i data-lucide="image"></i>
@@ -314,7 +328,7 @@
   <script src="https://unpkg.com/lucide@latest"></script>
   
   <!-- Core Scripts -->
-  <script src="script.js?v=11"></script>
+  <script src="script.js?v=12"></script>
   <script type="module" src="lightrays.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
