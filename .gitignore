@@ -4,3 +4,7 @@
 # Source PNGs are the working masters (~520MB). Only the optimized
 # .webp derivatives are deployed, so keep the originals out of git.
 ecowell-case-study-web/images/**/*.png
+
+# Asset-pipeline dependencies (sharp, pdfjs, canvas) — the scripts are
+# versioned, the ~100MB of native binaries are not.
+tools/node_modules/

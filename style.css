@@ -291,9 +291,11 @@ h2, h3, .quote-text, .window-title {
 }
 
 /* ---- Socials Widget: showcase of social creatives ---- */
+/* Six covers, three up. Five in a row came out ~54px wide on a phone, which
+   is too small to read a creative — two rows of three actually show the work. */
 .widget.socials .social-creative-grid {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 8px;
   margin-bottom: 12px;
 }
@@ -358,233 +360,14 @@ h2, h3, .quote-text, .window-title {
   box-shadow: 0px 0px 0px var(--retro-black);
 }
 
+/* inline-flex (from .flat-btn on touch) drops the trailing space in the text
+   node, so the count needs its own gap or it reads "View all(186)". */
 .social-viewall {
   width: 100%;
-  text-align: center;
-}
-
-/* ---- Social Creatives gallery window ---- */
-.sc-toolbar {
   display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-  margin-bottom: 12px;
-  position: sticky;
-  top: 0;
-  background: var(--retro-white);
-  padding-bottom: 8px;
-  z-index: 2;
-}
-
-.sc-filter {
-  font-family: var(--font-retro);
-  font-size: 16px;
-  padding: 4px 12px;
-  background: var(--retro-grey);
-  border: 3px solid var(--retro-black);
-  box-shadow: 3px 3px 0 var(--retro-black);
-  cursor: pointer;
-}
-
-.sc-filter.active {
-  background: var(--retro-pink);
-}
-
-.sc-filter:active {
-  transform: translate(3px, 3px);
-  box-shadow: none;
-}
-
-.sc-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-  gap: 10px;
-}
-
-.sc-tile {
-  aspect-ratio: 1;
-  border: 3px solid var(--retro-black);
-  box-shadow: 3px 3px 0 var(--retro-black);
-  overflow: hidden;
-  cursor: pointer;
-  background: var(--retro-grey);
-  padding: 0;
-  display: block;
-  transition: transform 0.15s;
-}
-
-.sc-tile img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-.sc-tile:hover { transform: scale(1.04); }
-
-/* fullscreen viewer for a single creative */
-#scViewer {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.88);
-  z-index: 4000;
-  display: none;
   align-items: center;
   justify-content: center;
-}
-
-#scViewer.active { display: flex; }
-
-/* filmstrip on the left, stage on the right */
-.sc-viewer-shell {
-  display: flex;
-  align-items: stretch;
-  gap: 18px;
-  width: 100%;
-  height: 100%;
-  padding: 3vh 3vw;
-  box-sizing: border-box;
-}
-
-.sc-filmstrip {
-  flex: 0 0 118px;
-  overflow-y: auto;
-  overflow-x: hidden;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  padding-right: 4px;
-  scrollbar-width: thin;
-}
-
-.sc-filmstrip:empty { display: none; }
-
-.sc-film-item {
-  flex: 0 0 auto;
-  padding: 0;
-  border: 3px solid var(--retro-black);
-  background: var(--retro-grey);
-  cursor: pointer;
-  opacity: 0.55;
-  transition: opacity 0.15s, border-color 0.15s;
-  display: block;
-}
-
-.sc-film-item img {
-  width: 100%;
-  aspect-ratio: 1;
-  object-fit: cover;
-  display: block;
-}
-
-.sc-film-item:hover { opacity: 0.85; }
-
-.sc-film-item.active {
-  opacity: 1;
-  border-color: var(--retro-pink);
-  box-shadow: 0 0 0 2px var(--retro-pink);
-}
-
-.sc-stage {
-  flex: 1 1 auto;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-width: 0;
-}
-
-#scViewer img#scViewerImg {
-  max-width: 100%;
-  max-height: 76vh;
-  border: 4px solid var(--retro-black);
-  background: #fff;
-  object-fit: contain;
-}
-
-.sc-viewer-btn {
-  position: absolute;
-  background: var(--retro-white);
-  border: 3px solid var(--retro-black);
-  box-shadow: 3px 3px 0 var(--retro-black);
-  font-family: var(--font-retro);
-  font-size: 22px;
-  width: 46px;
-  height: 46px;
-  cursor: pointer;
-}
-
-.sc-viewer-btn.prev { left: -6px; top: 50%; transform: translateY(-50%); }
-.sc-viewer-btn.next { right: -6px; top: 50%; transform: translateY(-50%); }
-/* .sc-stage is positioned and comes later in the DOM, so without an
-   explicit z-index it paints over this button and eats the clicks */
-.sc-viewer-btn.close {
-  position: fixed;
-  top: 2vh;
-  right: 2vw;
-  z-index: 20;
-}
-
-.sc-viewer-caption {
-  margin-top: 14px;
-  color: #fff;
-  font-family: var(--font-retro);
-  font-size: 18px;
-  letter-spacing: 0.06em;
-  text-align: center;
-}
-
-@media (max-width: 900px) {
-  /* filmstrip moves under the image on small screens */
-  .sc-viewer-shell {
-    flex-direction: column-reverse;
-    gap: 10px;
-    padding: 6vh 12px 12px;
-  }
-  .sc-filmstrip {
-    flex: 0 0 auto;
-    flex-direction: row;
-    overflow-x: auto;
-    overflow-y: hidden;
-    max-height: 84px;
-    padding: 0 0 4px;
-  }
-  .sc-film-item { flex: 0 0 66px; }
-  #scViewer img#scViewerImg { max-height: 58vh; }
-  .sc-viewer-btn.prev { left: 2px; }
-  .sc-viewer-btn.next { right: 2px; }
-  .sc-grid { grid-template-columns: repeat(auto-fill, minmax(92px, 1fr)); }
-}
-
-.widget.socials .social-grid {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 8px;
-}
-.social-item {
-  aspect-ratio: 1;
-  background: var(--retro-grey);
-  border: 3px solid var(--retro-black);
-  box-shadow: 3px 3px 0px var(--retro-black);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  overflow: hidden;
-  transition: transform 0.15s;
-}
-.social-item i {
-  width: 22px;
-  height: 22px;
-}
-.social-item:hover {
-  background: var(--retro-pink);
-  transform: scale(1.1);
-}
-.social-item:active {
-  transform: translate(3px, 3px) scale(1);
-  box-shadow: 0px 0px 0px var(--retro-black);
+  gap: 6px;
 }
 
 /* ---- Quote Widget ---- */
@@ -1294,6 +1077,20 @@ a.contact-item:hover {
   display: block;
 }
 
+/* Stand-in screen for the projects with no screenshot on file. */
+.mac-screen-bezel.mac-screen-blank {
+  position: relative;
+}
+
+.mac-screen-bezel.mac-screen-blank::after {
+  content: "";
+  position: absolute;
+  inset: 9px;
+  border-radius: 3px;
+  background:
+    repeating-linear-gradient(45deg, #4ab3b6 0 3px, #3d9b9e 3px 6px);
+}
+
 /* Name and domain sit inside the chassis, centred under the screen */
 .mac-body {
   text-align: center;
@@ -1521,6 +1318,10 @@ a.contact-item:hover {
 @media (max-width: 900px) {
   #widgets-container {
     flex-direction: column;
+    /* The row layout sets align-items:flex-start so columns hug their content.
+       Stacked, that made every card as wide as its own contents — the profile
+       card came out visibly narrower than the ones below it. */
+    align-items: stretch;
     left: 14px;
     right: 14px;
     top: 14px;
@@ -1557,12 +1358,14 @@ a.contact-item:hover {
      DOM order is optimised for that; on a phone it reads top-to-bottom
      and needs to lead with who this is. */
   .widget.profile   { order: 1; }
-  .widget.contact   { order: 2; }
-  .widget.casestudy { order: 3; }
-  .widget.socials   { order: 4; }
-  .widget.resume    { order: 5; }
-  .widget.quote     { order: 6; }
-  #winamp-player    { order: 7; }
+  .widget.casestudy { order: 2; }
+  .widget.socials   { order: 3; }
+  .widget.resume    { order: 4; }
+  .widget.quote     { order: 5; }
+  #winamp-player    { order: 6; }
+  /* Contact closes the page: by the time it appears the visitor has seen
+     the work, which is when an email address is worth something. */
+  .widget.contact   { order: 7; }
 
   /* Cards keep their identity but shed desktop-only chrome: closing a
      card is a desktop easter egg and an accidental tap-target here. */
@@ -1576,10 +1379,6 @@ a.contact-item:hover {
 
   .widget-header h3 {
     font-size: 19px;
-  }
-
-  .widget.socials .social-grid {
-    grid-template-columns: repeat(3, 1fr);
   }
 
   .profile-img {
@@ -1794,21 +1593,12 @@ a.contact-item:hover {
     margin-bottom: 6px;
   }
 
-  /* Keep all five covers on a single row — a 4-column grid left the
-     fifth orphaned on its own line. ~54px per tile at 360px, which
-     still reads fine. */
   .widget.socials .social-creative-grid {
-    grid-template-columns: repeat(5, 1fr);
     gap: 6px;
   }
 }
 
 @media (max-width: 480px) {
-  .widget.socials .social-grid {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 6px;
-  }
-
   .contact-item {
     font-size: 12px;
   }
@@ -2142,281 +1932,720 @@ a.contact-item:hover {
 }
 
 /* ========================
-   RETRO FILE EXPLORER & PREVIEWS
-   ======================== */
-.explorer-container {
-  display: flex;
-  height: 100%;
-  background: #fff;
-  border: 2px inset var(--retro-black);
+   GALLERY & SOCIAL CREATIVES — shared shell
+   ========================
+   One layout serves both windows: a sticky bar carrying a breadcrumb and
+   filter chips, over a single scrolling body. Keeping them identical means a
+   visitor who learns one window already knows the other. */
+/* These two windows carry their own sticky bar and scroll area, so the
+   default window padding would double-pad and double-scroll them. */
+#window-creatives .window-content,
+#window-socialcreatives .window-content {
+  padding: 0;
+  overflow: hidden;
+  min-height: 0;
 }
 
-.explorer-sidebar {
-  width: 180px;
-  border-right: 2px solid var(--retro-black);
-  background: var(--retro-grey);
-  padding: 8px;
+.gal {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  height: 100%;
+  min-height: 0;
+  background: var(--retro-white);
 }
 
-.sidebar-folder {
-  cursor: pointer;
-  padding: 6px 8px;
+.gal-bar {
+  flex: 0 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 14px;
+  padding: 10px 14px;
+  background: var(--retro-grey);
+  border-bottom: 3px solid var(--retro-black);
+}
+
+.gal-crumb {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.gal-crumb-here {
+  font-family: var(--font-retro);
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: 1px;
+  color: var(--retro-black);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.gal-crumb-count {
   font-family: var(--font-retro);
   font-size: 16px;
-  color: var(--retro-black);
-  display: flex;
+  color: #4a4a4a;
+  white-space: nowrap;
+}
+
+.gal-back {
+  font-family: var(--font-retro);
+  font-size: 18px;
+  line-height: 1;
+  display: inline-flex;
   align-items: center;
+  gap: 2px;
+  padding: 5px 10px 5px 6px;
+  background: var(--retro-white);
+  color: var(--retro-black);
+  border: 2px solid var(--retro-black);
+  box-shadow: 2px 2px 0 var(--retro-black);
+  cursor: pointer;
+}
+
+.gal-back i { width: 15px; height: 15px; }
+.gal-back:hover { background: var(--retro-pink); }
+.gal-back:active { transform: translate(2px, 2px); box-shadow: none; }
+
+.gal-filters {
+  display: flex;
   gap: 8px;
-  border: 2px solid transparent;
+  flex-wrap: wrap;
 }
 
-.sidebar-folder:hover {
-  background: rgba(0, 0, 0, 0.05);
+.gal-chip {
+  font-family: var(--font-retro);
+  font-size: 17px;
+  line-height: 1;
+  padding: 6px 12px;
+  background: var(--retro-white);
+  color: var(--retro-black);
+  border: 2px solid var(--retro-black);
+  box-shadow: 2px 2px 0 var(--retro-black);
+  cursor: pointer;
+  white-space: nowrap;
 }
 
-.sidebar-folder.active {
-  background: var(--retro-blue);
-  color: var(--retro-white);
-  border: 2px inset var(--retro-black);
+.gal-chip:hover { background: #ffe9f5; }
+.gal-chip.active { background: var(--retro-pink); }
+.gal-chip:active { transform: translate(2px, 2px); box-shadow: none; }
+
+.gal-body {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 18px;
+  background: var(--retro-white);
 }
 
-.explorer-main {
-  flex: 1;
+.gal-loading {
+  font-family: var(--font-retro);
+  font-size: 20px;
+  color: var(--retro-dark-grey);
+  padding: 40px 0;
+  text-align: center;
+}
+
+.gal-star { color: #d40000; }
+
+/* ---- project index ---- */
+.gal-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 18px;
+}
+
+.gal-card {
   display: flex;
   flex-direction: column;
-  background: #fff;
+  text-align: left;
+  padding: 0;
+  background: var(--retro-white);
+  border: 3px solid var(--retro-black);
+  box-shadow: 4px 4px 0 var(--retro-black);
+  cursor: pointer;
+  overflow: hidden;
+  transition: transform 0.12s, box-shadow 0.12s;
 }
 
-.explorer-toolbar {
-  display: flex;
-  padding: 6px 12px;
-  border-bottom: 2px solid var(--retro-black);
+.gal-card:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 var(--retro-black);
+}
+
+.gal-card:active {
+  transform: translate(2px, 2px);
+  box-shadow: 0 0 0 var(--retro-black);
+}
+
+.gal-card.is-featured { box-shadow: 4px 4px 0 #d40000; }
+.gal-card.is-featured:hover { box-shadow: 6px 6px 0 #d40000; }
+
+.gal-card-shot {
+  position: relative;
+  display: block;
+  aspect-ratio: 4 / 3;
   background: var(--retro-grey);
-  align-items: center;
+  border-bottom: 3px solid var(--retro-black);
+  overflow: hidden;
 }
 
-.path-label {
+.gal-card-shot img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.gal-badge {
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  background: #d40000;
+  color: #fff;
   font-family: var(--font-retro);
   font-size: 14px;
-  font-weight: bold;
-  margin-right: 8px;
-  color: var(--retro-black);
+  line-height: 1;
+  letter-spacing: 0.5px;
+  padding: 4px 7px;
+  border: 2px solid var(--retro-black);
+  pointer-events: none;
 }
 
-.path-input {
-  flex: 1;
-  border: 2px inset var(--retro-black);
-  padding: 4px 8px;
-  font-family: Courier, monospace;
-  font-size: 13px;
-  background: #fff;
-  color: #000;
-  outline: none;
+.gal-card-body {
+  display: block;
+  padding: 11px 12px 12px;
 }
 
-.explorer-grid {
-  flex: 1;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-  grid-auto-rows: max-content;
-  gap: 16px;
-  padding: 16px;
-  overflow-y: auto;
+.gal-card-title {
+  display: block;
+  font-family: var(--font-retro);
+  font-size: 24px;
+  line-height: 1;
+  color: var(--retro-blue);
+  margin-bottom: 6px;
 }
 
-.explorer-group-header {
-  grid-column: 1 / -1;
-  font-family: var(--font-system);
-  font-weight: bold;
-  font-size: 16px;
-  color: #333;
-  margin-top: 12px;
-  margin-bottom: 4px;
-  padding-bottom: 4px;
-  border-bottom: 2px solid var(--retro-grey);
-  text-transform: capitalize;
-}
-
-.explorer-file-item {
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  padding: 6px;
-  border: 2px solid transparent;
-}
-
-.explorer-file-item:hover {
-  background: rgba(0, 0, 0, 0.03);
-}
-
-.explorer-file-item.selected {
-  background: rgba(0, 102, 204, 0.1);
-  border: 2px dotted var(--retro-blue);
-}
-
-.file-icon-wrapper {
-  font-size: 32px;
-  color: #f39c12;
-  margin-bottom: 4px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.file-preview-img {
-  width: 100px;
-  height: 75px;
-  object-fit: cover;
-  border: 1px solid #808080;
-  border-right-color: #dfdfdf;
-  border-bottom-color: #dfdfdf;
-  box-shadow: inset 1px 1px 0 #000, 1px 1px 0 #fff;
-  background: #fff;
-  padding: 2px;
-}
-
-.file-label-text {
-  font-family: var(--font-system);
-  font-size: 11px;
-  color: #000;
-  word-break: break-all;
+.gal-card-tag {
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  max-height: 28px;
+  font-size: 12.5px;
+  line-height: 1.42;
+  color: #333;
+  margin-bottom: 9px;
+  min-height: 2.84em;
 }
 
-/* Lightbox Modal Previews */
-.project-preview-modal {
+.gal-card-meta {
   display: flex;
-  height: 100%;
-  background: #fff;
+  justify-content: space-between;
+  gap: 8px;
+  font-family: var(--font-retro);
+  font-size: 15px;
+  color: var(--retro-dark-grey);
+  border-top: 2px solid var(--retro-black);
+  padding-top: 7px;
 }
 
-.preview-left {
-  flex: 1.2;
-  border-right: 2px solid var(--retro-black);
+/* ---- one project ---- */
+.gal-head {
+  border: 3px solid var(--retro-black);
+  box-shadow: 4px 4px 0 var(--retro-black);
+  background: #fffdf0;
+  padding: 14px 16px 15px;
+  margin-bottom: 22px;
+}
+
+.gal-head h2 {
+  font-size: 32px;
+  line-height: 1;
+  color: var(--retro-blue);
+  margin-bottom: 7px;
+}
+
+.gal-head-tag {
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: #333;
+  max-width: 62ch;
+  margin-bottom: 11px;
+}
+
+.gal-head-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 8px;
+  font-family: var(--font-retro);
+  font-size: 15px;
+  color: var(--retro-black);
+}
+
+.gal-head-meta span {
+  background: var(--retro-grey);
+  border: 2px solid var(--retro-black);
+  padding: 3px 8px;
+  line-height: 1.15;
+}
+
+.gal-head-link { margin-top: 12px; }
+
+.gal-album { margin-bottom: 26px; }
+
+.gal-album-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-bottom: 3px solid var(--retro-black);
+  padding-bottom: 6px;
+  margin-bottom: 12px;
+}
+
+.gal-album-head h3 {
+  font-size: 23px;
+  line-height: 1;
+  color: var(--retro-black);
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.gal-album-count {
+  font-family: var(--font-retro);
+  font-size: 15px;
+  line-height: 1;
+  color: var(--retro-white);
+  background: var(--retro-black);
+  padding: 4px 8px;
+  flex: 0 0 auto;
+}
+
+.gal-shelf {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 12px;
+}
+
+.gal-tile {
+  position: relative;
+  aspect-ratio: 1;
+  padding: 5px;
+  background: #f4f2ee;
+  border: 3px solid var(--retro-black);
+  box-shadow: 3px 3px 0 var(--retro-black);
+  overflow: hidden;
+  cursor: pointer;
+  display: block;
+  transition: transform 0.12s, box-shadow 0.12s;
+}
+
+/* The archive mixes 6:1 wordmarks with 4:3 brochure pages and square posts.
+   Cropping to a square turned "Haatak" into "Haat", so tiles show the whole
+   piece on a neutral ground and read as a contact sheet. */
+.gal-tile img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.gal-tile:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 5px 5px 0 var(--retro-black);
+}
+
+.gal-tile:active {
+  transform: translate(3px, 3px);
+  box-shadow: 0 0 0 var(--retro-black);
+}
+
+.gal-tile.is-featured { box-shadow: 3px 3px 0 #d40000; }
+.gal-tile.is-featured:hover { box-shadow: 5px 5px 0 #d40000; }
+
+.gal-play {
+  position: absolute;
+  inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #333;
-  padding: 12px;
-  overflow: hidden;
+  pointer-events: none;
 }
 
-.preview-img {
-  max-width: 100%;
+.gal-play i {
+  width: 34px;
+  height: 34px;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.72);
+  border: 2px solid #fff;
+  padding: 5px;
+}
+
+.gal-more {
+  margin-top: 12px;
+  font-family: var(--font-retro);
+  font-size: 18px;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 14px;
+  background: var(--retro-grey);
+  color: var(--retro-black);
+  border: 3px solid var(--retro-black);
+  box-shadow: 3px 3px 0 var(--retro-black);
+  cursor: pointer;
+}
+
+.gal-more i { width: 15px; height: 15px; }
+.gal-more:hover { background: var(--retro-pink); }
+.gal-more:active { transform: translate(3px, 3px); box-shadow: none; }
+
+/* ---- social album tiles ---- */
+.sc-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 12px;
+}
+
+.sc-tile {
+  position: relative;
+  aspect-ratio: 1;
+  border: 3px solid var(--retro-black);
+  box-shadow: 3px 3px 0 var(--retro-black);
+  overflow: hidden;
+  cursor: pointer;
+  background: var(--retro-grey);
+  padding: 0;
+  display: block;
+  transition: transform 0.12s, box-shadow 0.12s;
+}
+
+.sc-tile img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.sc-tile:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 5px 5px 0 var(--retro-black);
+}
+
+.sc-tile:active { transform: translate(3px, 3px); box-shadow: 0 0 0 var(--retro-black); }
+.sc-tile.is-featured { box-shadow: 3px 3px 0 #d40000; }
+.sc-tile.is-featured:hover { box-shadow: 5px 5px 0 #d40000; }
+
+/* which product line a set belongs to, without opening it */
+.sc-tile-label {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  font-family: var(--font-retro);
+  font-size: 15px;
+  line-height: 1;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.72);
+  padding: 5px 7px;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  pointer-events: none;
+}
+
+/* ========================
+   SHARED LIGHTBOX
+   ======================== */
+/* Above the dock (z-index 10000): a fullscreen viewer that the dock cuts in
+   half is not fullscreen. The pet and dock step aside entirely while it is up. */
+#lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.95);
+  z-index: 12000;
+  display: none;
+  flex-direction: column;
+}
+
+#lightbox.active { display: flex; }
+body.lb-open { overflow: hidden; }
+
+body.lb-open #dock-container,
+body.lb-open #desktop-pet { display: none; }
+
+.lb-shell {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 46px 20px 16px;
+  gap: 12px;
+}
+
+.lb-stage {
+  flex: 1 1 auto;
+  min-height: 0;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.lb-media-wrap {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.lb-media {
+  max-width: min(100%, 1400px);
   max-height: 100%;
   object-fit: contain;
-  border: 2px solid var(--retro-black);
-  box-shadow: 4px 4px 0px #000;
-  cursor: zoom-in;
-}
-
-.preview-right {
-  flex: 1;
-  padding: 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  background: var(--retro-grey);
-  overflow-y: auto;
-}
-
-.preview-title {
-  font-family: var(--font-retro);
-  font-size: 20px;
-  margin: 0;
-  font-weight: bold;
-  border-bottom: 2px solid var(--retro-black);
-  padding-bottom: 6px;
-}
-
-.preview-meta {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  font-size: 13px;
-  font-family: var(--font-system);
+  border: 3px solid var(--retro-black);
+  box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.85);
   background: #fff;
-  border: 2px inset var(--retro-black);
-  padding: 8px;
+  display: block;
 }
 
-.preview-desc {
-  font-family: var(--font-system);
-  font-size: 13px;
-  line-height: 1.4;
-  color: #333;
-  margin: 0;
-  flex: 1;
-}
-
-.preview-actions {
-  margin-top: auto;
-  padding-top: 8px;
-}
-
-.preview-action-btn {
-  width: 100%;
+.lb-foot {
+  flex: 0 0 auto;
   display: flex;
-  justify-content: center;
   align-items: center;
-  gap: 8px;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  text-align: center;
 }
 
-@media (max-width: 600px) {
-  .explorer-container {
-    flex-direction: column;
+.lb-caption {
+  font-family: var(--font-retro);
+  font-size: 19px;
+  letter-spacing: 0.06em;
+  color: #fff;
+}
+
+.lb-open {
+  font-family: var(--font-retro);
+  font-size: 15px;
+  letter-spacing: 0.06em;
+  color: #000;
+  background: var(--retro-grey);
+  border: 2px solid #fff;
+  padding: 4px 10px;
+  text-decoration: none;
+}
+
+.lb-open:hover { background: var(--retro-pink); }
+
+.lb-btn {
+  background: var(--retro-grey);
+  border: 3px solid var(--retro-black);
+  box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.6);
+  color: var(--retro-black);
+  font-family: var(--font-retro);
+  font-size: 22px;
+  line-height: 1;
+  width: 44px;
+  height: 44px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lb-btn:hover { background: var(--retro-pink); }
+.lb-btn:active { transform: translate(3px, 3px); box-shadow: none; }
+
+.lb-btn.prev,
+.lb-btn.next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 6;
+}
+
+.lb-btn.prev { left: 0; }
+.lb-btn.next { right: 0; }
+.lb-btn.prev:active,
+.lb-btn.next:active { transform: translateY(-50%) translate(3px, 3px); box-shadow: none; }
+
+/* fixed so it stays reachable, and above the stage so it keeps its clicks */
+.lb-btn.close {
+  position: fixed;
+  top: 12px;
+  right: 12px;
+  z-index: 20;
+}
+
+.lb-strip {
+  flex: 0 0 auto;
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 2px 0 6px;
+  scrollbar-width: thin;
+}
+
+.lb-strip:empty { display: none; }
+
+.lb-film {
+  flex: 0 0 72px;
+  height: 72px;
+  padding: 0;
+  border: 2px solid #555;
+  background: #000;
+  cursor: pointer;
+  opacity: 0.55;
+  transition: opacity 0.12s, border-color 0.12s;
+}
+
+.lb-film img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.lb-film:hover { opacity: 0.85; }
+
+.lb-film.active {
+  opacity: 1;
+  border-color: var(--retro-pink);
+}
+
+
+/* ---- gallery & lightbox on small screens ---------------------------------
+   The window is already full-bleed here, so the job is to trade the desktop
+   card grid for something thumb-sized: project cards become list rows, tiles
+   go three-up, and the viewer gives the picture the whole screen. */
+@media (max-width: 900px) {
+  .gal-bar {
+    position: sticky;
+    top: 0;
+    z-index: 4;
+    padding: 9px 12px;
+    gap: 8px 10px;
   }
-  .explorer-sidebar {
+
+  .gal-crumb-here { font-size: 21px; }
+  .gal-crumb-count { font-size: 14px; }
+  .gal-chip { font-size: 16px; padding: 7px 11px; }
+  .gal-back { min-height: 36px; }
+
+  .gal-filters {
+    order: 3;
     width: 100%;
-    border-right: none;
-    border-bottom: 2px solid var(--retro-black);
-    display: flex;
-    flex-direction: row;
+    flex-wrap: nowrap;
     overflow-x: auto;
-    gap: 4px;
-    padding: 4px;
-    flex-shrink: 0;
-    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-bottom: 3px;
+    margin: -1px -12px -4px;
+    padding-left: 12px;
+    padding-right: 12px;
   }
-  .sidebar-folder {
-    white-space: nowrap;
-    padding: 4px 6px;
-    font-size: 14px;
+
+  .gal-filters::-webkit-scrollbar { display: none; }
+  .gal-filters:empty { display: none; }
+
+  /* the dock floats over full-screen sheets, so leave it room */
+  .gal-body { padding: 14px 12px 108px; }
+
+  /* One project per row, image beside the type — twice as many fit on
+     screen as a stacked card grid, and the copy stays readable. */
+  .gal-grid { grid-template-columns: 1fr; gap: 12px; }
+
+  .gal-card {
+    flex-direction: row;
+    align-items: stretch;
+    min-height: 116px;
+    box-shadow: 3px 3px 0 var(--retro-black);
   }
-  .project-preview-modal {
+
+  .gal-card.is-featured { box-shadow: 3px 3px 0 #d40000; }
+  .gal-card:hover { transform: none; box-shadow: 3px 3px 0 var(--retro-black); }
+  .gal-card.is-featured:hover { box-shadow: 3px 3px 0 #d40000; }
+
+  .gal-card-shot {
+    flex: 0 0 38%;
+    aspect-ratio: auto;
+    border-bottom: none;
+    border-right: 3px solid var(--retro-black);
+  }
+
+  .gal-card-body {
+    flex: 1 1 auto;
+    min-width: 0;
+    display: flex;
     flex-direction: column;
-    overflow-y: auto;
+    padding: 9px 11px 10px;
   }
-  .preview-left {
-    height: 180px;
-    flex: none;
-    border-right: none;
-    border-bottom: 2px solid var(--retro-black);
-    display: block;
-    text-align: center;
-    line-height: 156px;
+
+  .gal-card-title { font-size: 21px; margin-bottom: 4px; }
+  .gal-card-tag { font-size: 12px; min-height: 0; margin-bottom: 8px; }
+  .gal-card-meta { margin-top: auto; font-size: 14px; padding-top: 6px; }
+  .gal-badge { font-size: 12px; padding: 3px 5px; }
+
+  .gal-head { padding: 12px 13px 13px; margin-bottom: 18px; box-shadow: 3px 3px 0 var(--retro-black); }
+  .gal-head h2 { font-size: 27px; }
+  .gal-head-tag { font-size: 12.5px; margin-bottom: 9px; }
+  .gal-head-meta { font-size: 14px; }
+
+  .gal-album { margin-bottom: 22px; }
+  .gal-album-head h3 { font-size: 20px; }
+
+  .gal-shelf,
+  .sc-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
   }
-  .preview-img {
-    max-height: 150px;
-    max-width: 100%;
-    margin: 0;
-    display: inline-block;
-    vertical-align: middle;
-    object-fit: contain;
+
+  .gal-tile,
+  .sc-tile {
+    border-width: 2px;
+    box-shadow: 2px 2px 0 var(--retro-black);
   }
-  .preview-right {
-    padding: 12px;
-    flex: none;
-  }
+
+  .gal-tile:hover,
+  .sc-tile:hover { transform: none; box-shadow: 2px 2px 0 var(--retro-black); }
+  .gal-tile.is-featured,
+  .sc-tile.is-featured { box-shadow: 2px 2px 0 #d40000; }
+  .gal-play i { width: 26px; height: 26px; padding: 4px; }
+  /* on a ~116px tile the full "★ Latest" chip covers the artwork */
+  .sc-tile .gal-badge { font-size: 11px; padding: 2px 4px; }
+  .sc-tile-label { font-size: 13px; padding: 4px 5px; }
+  .gal-more { width: 100%; justify-content: center; min-height: 44px; }
+
+  /* Viewer: the picture gets the screen, the filmstrip a single scrollable row. */
+  .lb-shell { padding: 52px 8px 10px; gap: 8px; }
+  .lb-btn { width: 40px; height: 40px; font-size: 19px; }
+  .lb-btn.prev { left: -2px; }
+  .lb-btn.next { right: -2px; }
+  .lb-btn.close { top: 8px; right: 8px; }
+  .lb-media { box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.85); }
+  .lb-foot { gap: 8px 12px; }
+  .lb-caption { font-size: 16px; }
+  .lb-open { font-size: 14px; min-height: 32px; display: inline-flex; align-items: center; }
+  .lb-film { flex: 0 0 54px; height: 54px; }
+}
+
+@media (max-width: 400px) {
+  .gal-card-shot { flex: 0 0 34%; }
+  .gal-card-tag { -webkit-line-clamp: 2; }
+  .gal-crumb-here { font-size: 19px; }
 }
 
 /* ========================
