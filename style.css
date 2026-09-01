@@ -273,8 +273,12 @@ h2, h3, .quote-text, .window-title {
   box-shadow: 0px 0px 0px var(--retro-black);
 }
 
+/* Extra bottom padding: the last element in most cards is a button,
+   image or icon row carrying a 4px offset shadow that renders outside
+   its box. With symmetric padding the shadow eats most of the gap and
+   the card reads as having no bottom spacing at all. */
 .widget-content {
-  padding: 16px;
+  padding: 16px 16px 20px;
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -1379,7 +1383,7 @@ a.contact-item:hover {
     gap: 20px;
   }
   .widget-col { gap: 14px; }
-  .widget-content { padding: 12px; }
+  .widget-content { padding: 13px 13px 17px; }
   .quote-text { font-size: 21px; margin-bottom: 8px; }
   .widget.resume .resume-preview { max-height: 150px; margin-bottom: 12px; }
   .widget.socials .social-creative-grid { margin-bottom: 10px; }
@@ -1391,7 +1395,7 @@ a.contact-item:hover {
     bottom: 92px;
   }
   .widget-col { gap: 11px; }
-  .widget-content { padding: 10px; }
+  .widget-content { padding: 11px 11px 15px; }
   .widget-header { padding: 3px 8px; }
   .widget-header h3 { font-size: 19px; }
   .quote-text { font-size: 18px; line-height: 1.15; }
