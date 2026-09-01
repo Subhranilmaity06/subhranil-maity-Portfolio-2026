@@ -1216,7 +1216,7 @@ a.contact-item:hover {
 /* Retro Macintosh CSS Art */
 .mac-grid {
   grid-template-columns: repeat(5, 1fr);
-  gap: 32px 16px;
+  gap: 32px 26px;
   padding: 24px;
   justify-items: center;
 }
@@ -1230,10 +1230,11 @@ a.contact-item:hover {
     overflow-y: hidden;
     justify-content: flex-start;
     padding-bottom: 24px;
+    gap: 26px;
   }
   .app-window:not(.maximized) .app-grid.mac-grid .project-wrapper {
     flex: 0 0 auto;
-    width: 250px;
+    width: 212px;
   }
 }
 
@@ -1253,14 +1254,14 @@ a.contact-item:hover {
 
 .project-mac-chassis {
   width: 100%;
-  max-width: 250px;
+  max-width: 212px;
   background: #e5decc;
   border: 3px solid var(--retro-black);
   border-radius: 10px 10px 5px 5px;
   box-shadow: 5px 5px 0px rgba(0,0,0,1), inset -4px -4px 0px rgba(0,0,0,0.08);
   display: flex;
   flex-direction: column;
-  padding: 16px 16px 14px;
+  padding: 13px 13px 12px;
   position: relative;
 }
 
@@ -1288,27 +1289,30 @@ a.contact-item:hover {
 /* Name and domain sit inside the chassis, centred under the screen */
 .mac-body {
   text-align: center;
-  padding: 14px 2px 0;
+  padding: 11px 2px 0;
   flex: 1 1 auto;
 }
 
+/* Same retro face as every other heading on the site — the reference
+   was for layout, not for introducing a second typeface. */
 .mac-title {
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 17px;
-  font-weight: 800;
-  letter-spacing: -0.01em;
+  font-family: var(--font-retro);
+  font-size: 21px;
+  letter-spacing: 1px;
+  line-height: 1;
   color: var(--retro-black);
-  margin: 0 0 5px;
+  margin: 0 0 4px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .mac-domain {
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 13px;
-  font-weight: 700;
-  color: #2b2b2b;
+  font-family: var(--font-retro);
+  font-size: 16px;
+  letter-spacing: 0.5px;
+  line-height: 1;
+  color: var(--retro-dark-grey);
   margin: 0;
   white-space: nowrap;
   overflow: hidden;
@@ -1321,7 +1325,7 @@ a.contact-item:hover {
   align-items: flex-end;
   justify-content: space-between;
   gap: 10px;
-  margin-top: 16px;
+  margin-top: 12px;
   flex: 0 0 auto;
 }
 
@@ -2171,7 +2175,7 @@ a.contact-item:hover {
 
 .explorer-group-header {
   grid-column: 1 / -1;
-  font-family: Arial, sans-serif;
+  font-family: var(--font-system);
   font-weight: bold;
   font-size: 16px;
   color: #333;
@@ -2223,7 +2227,7 @@ a.contact-item:hover {
 }
 
 .file-label-text {
-  font-family: Arial, sans-serif;
+  font-family: var(--font-system);
   font-size: 11px;
   color: #000;
   word-break: break-all;
@@ -2285,14 +2289,14 @@ a.contact-item:hover {
   flex-direction: column;
   gap: 4px;
   font-size: 13px;
-  font-family: Arial, sans-serif;
+  font-family: var(--font-system);
   background: #fff;
   border: 2px inset var(--retro-black);
   padding: 8px;
 }
 
 .preview-desc {
-  font-family: Arial, sans-serif;
+  font-family: var(--font-system);
   font-size: 13px;
   line-height: 1.4;
   color: #333;

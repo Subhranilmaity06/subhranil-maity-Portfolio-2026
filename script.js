@@ -359,8 +359,10 @@ function openApp(appId) {
   if (appId === 'projects') {
     var pwin = document.getElementById('window-projects');
     if (pwin && window.innerWidth > 900) {
+      // Height hugs a single row of cards (~361px of content) — a taller
+      // window just left dead white space under the shelf.
       var pw = Math.min(1180, window.innerWidth - 100);
-      var ph = Math.min(620, window.innerHeight - 130);
+      var ph = Math.min(392, window.innerHeight - 130);
       pwin.style.width = pw + 'px';
       pwin.style.height = ph + 'px';
       pwin.style.left = Math.max(20, Math.round((window.innerWidth - pw) / 2)) + 'px';
