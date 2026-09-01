@@ -199,14 +199,20 @@ h2, h3, .quote-text, .window-title {
    below their content — that's why the column overflowed the fixed
    container and the resume card got clipped with no way to scroll.
    Letting them shrink is what makes the fit-to-viewport rules below
-   actually take effect. */
-.widget-col > .widget,
-.widget .widget-content {
-  min-height: 0;
-}
+   actually take effect.
 
-.widget.resume .resume-preview {
-  min-height: 0;
+   DESKTOP ONLY. On mobile the container is a scrolling column, so
+   allowing the cards to shrink collapses them all into each other
+   instead of letting the list scroll. */
+@media (min-width: 901px) {
+  .widget-col > .widget,
+  .widget .widget-content {
+    min-height: 0;
+  }
+
+  .widget.resume .resume-preview {
+    min-height: 0;
+  }
 }
 
 .right-col {
@@ -1495,6 +1501,19 @@ a.contact-item:hover {
      be reordered independently — otherwise only the two columns move. */
   .left-col, .right-col {
     display: contents;
+  }
+
+  /* Cards keep their natural height and the container scrolls. Without
+     this they are shrinkable flex items in a height-constrained column
+     and collapse on top of one another. */
+  #widgets-container > .widget,
+  .widget-col > .widget {
+    flex: 0 0 auto;
+    min-height: auto;
+  }
+
+  .widget .widget-content {
+    min-height: auto;
   }
 
   /* --- Mobile reading order -------------------------------------------
